@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="testng-7.6.2-20221203.161832-24">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../../SELENIUM/testng-7.6.2-20221203.161832-24.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
