@@ -75,4 +75,26 @@ class CalculatorTest {
         calc.setOperation(subtract);
         assertEquals(5, calc.apply(10, 5));
     }
+
+
+    @Test
+    void testLambdaMultiply() {
+        Calculator calc = new Calculator();
+        calc.setOperation((a, b) -> a * b);
+        assertEquals(50, calc.apply(10, 5));
+    }
+
+
+    /**
+     * for this test case we don't have ready class Add in our project, and we don't want to create an extra class
+     * just for testing so lambda is a more professional way and we can use lambda.
+     */
+    @Test
+    void testLambdaAddMinusOne() {
+        Calculator calc = new Calculator();
+        //Just complains that I don't need extra variable because It's extra text and used only in one place.
+        Operation add = (a, b) -> a + b - 1;
+        calc.setOperation(add);
+        assertEquals(14, calc.apply(10, 5), "Check monkey numbers");
+    }
 }
