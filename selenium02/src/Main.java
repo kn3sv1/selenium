@@ -14,14 +14,18 @@ public class Main {
         // System.out.printf("Hello and welcome!");
 
         // Initialize the WebDriver instance
+        // ChromeDriver is like mongo API class. It gives access to chrome functions.
         WebDriver driver = new ChromeDriver();
 
+        // driver = browser realy opens browser and pasts this here
         driver.get("http://localhost:3000/signup");
 
         String barcode ="NEW DELCHI 8A";
         WebElement element_enter = driver.findElement(By.xpath("/html/body/main/form/p[5]/input"));
         element_enter.sendKeys(barcode);
 
+        //Delay 10 seconds.
+        Thread.sleep(10 * 1000);
         WebElement element_enter2 = driver.findElement(By.xpath("/html/body/main/form/p[4]/input"));
         element_enter2.sendKeys("ANGIEE NEOPHYTOU");
 
