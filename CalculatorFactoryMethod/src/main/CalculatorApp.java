@@ -1,0 +1,34 @@
+package main;
+
+public class CalculatorApp {
+    public static void main(String[] args) {
+
+        Calculator c = new Calculator();
+        OperationFactory factory = new OperationFactory();
+        // now entry point doesn't know which class will be used for operation.
+        // we hided this information inside OperationFactory class
+        // entry point now is clean and only knows about operation interface that returns OperationFactory class
+
+        // looks like we still have a problem - it should know about words: subtract or add
+        // it's temporary that we show it here. This word we get from terminal/CLI from user like numbers as well
+        Operation operation = factory.getOperationByName("subtract");
+        // Operation operation = factory.getOperationByName("addMinusOne");
+
+
+        c.setOperation(operation);
+        System.out.println("Result: " + c.apply(1, 3));
+
+        // just for fun - practice without extra variable operation. In real code we'll not use unnecessary variables
+        c.setOperation(factory.getOperationByName("add"));
+        System.out.println("Result: " + c.apply(1, 3));
+
+//        c.setOperation(new Subtract());
+//        System.out.println("Subtract: "  + c.apply(10, 8));
+//
+//        c.setOperation(new Multiply());
+//        System.out.println("Multiply: "  + c.apply(2, 4));
+//
+//        c.setOperation(new Divide());
+//        System.out.println("Divide: "  + c.apply(20, 5));
+    }
+}
