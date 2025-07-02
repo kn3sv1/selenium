@@ -18,9 +18,9 @@ public class CalculatorApp {
         c.setOperation(operation);
         System.out.println("Result: " + c.apply(1, 3));
 
-        // just for fun - practice without extra variable operation. In real code we'll not use unnecessary variables
-        c.setOperation(factory.getOperationByName("add"));
-        System.out.println("Result: " + c.apply(1, 3));
+//        // just for fun - practice without extra variable operation. In real code we'll not use unnecessary variables
+//        c.setOperation(factory.getOperationByName("add"));
+//        System.out.println("Result: " + c.apply(1, 3));
 
 //        c.setOperation(new Subtract());
 //        System.out.println("Subtract: "  + c.apply(10, 8));
