@@ -5,6 +5,25 @@ import java.util.Scanner;
 public class CalculatorApp {
     public static void main(String[] args) {
 
+        try {
+            //  from name of class as string create me an object of that class
+            // main is name of package where classes exist
+            Class<?> clazz = Class.forName("main.Add");
+            // here we call constructor of dynamic class
+            Object obj = clazz.getDeclaredConstructor().newInstance();
+            Operation op = (Add)obj;
+
+            // from CLASS create object
+            // Operation op = new Add();
+
+
+            double r = op.operation(1, 3);
+            System.out.println("DEBUG r: " + r);
+        } catch (Exception e) {
+            System.err.println("ERROR!");
+        }
+
+
         Calculator c = new Calculator();
         OperationFactory factory = new OperationFactory();
 
