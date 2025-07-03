@@ -50,6 +50,33 @@ public class OperationFactoryTest {
     }
 
 
+    /**
+     * Using array of operation.
+     */
+    @Test
+    void testArrayAllOperationInstanceOf() {
+        OperationFactory factory = new OperationFactory();
+        // Dynamic Array, Combined array - need to KNOW GENERICS.
+        // To write professional and short code - need to know GENERICS
+        Operation[] arrKeys = {
+                new Add(),
+                new Subtract(),
+                new Multiply(),
+                new Divide(),
+        };
+        Operation[] arrValues = {
+                factory.getOperationByName("Add"),
+                factory.getOperationByName("Subtract"),
+                factory.getOperationByName("Multiply"),
+                factory.getOperationByName("Divide"),
+        };
+
+        for (int i = 0; i < arrKeys.length; i++) {
+            assertInstanceOf(arrKeys[i].getClass(), arrValues[i]);
+        }
+    }
+
+
     @Test
     void testNegativeArrayAllOperationInstanceOf() {
         OperationFactory factory = new OperationFactory();
