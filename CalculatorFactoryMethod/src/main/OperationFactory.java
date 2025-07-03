@@ -31,7 +31,7 @@ public class OperationFactory {
             // we don't want error message from Java
             //throw new OperationException(e.getMessage());
             // we want our own message so ANGIE can understand
-            throw new OperationException("Class for Oparation is not found!");
+            throw new OperationException("Class for Operation is not found!");
         }
     }
 
