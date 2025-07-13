@@ -1,0 +1,16 @@
+123
+Hello, this is a simple file write example in Java. Moved code to seperate class
+Hello from Angie
+Sat Jul 12 15:42:13 EEST 2025
+
+Hello, this is a simple file write example in Java. Moved code to seperate class
+Hello from Angie
+Sat Jul 12 17:06:24 EEST 2025
+
+Hello, this is a simple file write example in Java. Moved code to seperate class
+Hello from Angie
+Sun Jul 13 14:06:15 EEST 2025
+
+Hello, this is a simple file write example in Java. Moved code to seperate class
+Hello from Angie
+Sun Jul 13 14:11:34 EEST 2025

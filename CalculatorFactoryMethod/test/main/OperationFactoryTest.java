@@ -35,6 +35,9 @@ public class OperationFactoryTest {
     @Test
     void testPositiveArrayAllOperationInstanceOf() {
         OperationFactory factory = new OperationFactory();
+        // Bad code bellow - we duplicate too much code - better to use arrays. With array the problem is we need
+        // two separate arrays, and it's bad - maybe we make mistake with indexes we need combined array - it's already
+        // Generics - it's more advanced than array. Generic map.
 
         // Uppercase
         assertInstanceOf(Add.class, factory.getOperationByName("Add"));
