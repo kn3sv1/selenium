@@ -18,7 +18,8 @@ public class CatSerializer {
         String s = this.cat.getName()
                 + "|" + this.cat.getAge()
                 + "|" + this.cat.isDomestic()
-                + "|" + this.cat.getPrice();
+                + "|" + this.cat.getPrice()
+                + "|" + String.join(",", this.cat.getHobbies());
 
         System.out.println(s);
         this.dataBase.writeToFile("cat-serialized.txt", s);
@@ -35,9 +36,18 @@ public class CatSerializer {
         String[] data = s.split("\\|");
         System.out.println(Arrays.toString(data));
 
+        String[] hobbies = data[4].trim().split(",");
 
-        Cat ginger = new Cat(data[0].trim(), Integer.parseInt(data[1].trim()), Boolean.parseBoolean(data[2].trim()), Double.parseDouble(data[3].trim()));
+        Cat ginger = new Cat(
+                data[0].trim(),
+                Integer.parseInt(data[1].trim()),
+                Boolean.parseBoolean(data[2].trim()),
+                Double.parseDouble(data[3].trim()),
+                hobbies
+                // new String[]{}
+        );
 
+        //the toString() method of the Cat object is automatically called when passed as an argument to the println method.
         System.out.println(ginger);
     }
 }
