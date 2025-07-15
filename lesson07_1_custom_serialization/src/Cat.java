@@ -4,13 +4,15 @@ public class Cat {
     private boolean isDomestic;
     private double price;
     private String[] hobbies;
+    private int[] favoriteNumbers;
 
-    public Cat(String name, int age, boolean isDomestic, double price, String[] hobbies) {
+    public Cat(String name, int age, boolean isDomestic, double price, String[] hobbies, int[] favoriteNumbers) {
         this.name = name;
         this.age = age;
         this.isDomestic = isDomestic;
         this.price = price;
         this.hobbies = hobbies;
+        this.favoriteNumbers = favoriteNumbers;
     }
 
     @Override
@@ -38,5 +40,9 @@ public class Cat {
 
     public String[] getHobbies() {
         return hobbies;
+    }
+
+    public int[] getFavoriteNumbers() {
+        return favoriteNumbers;
     }
 }
