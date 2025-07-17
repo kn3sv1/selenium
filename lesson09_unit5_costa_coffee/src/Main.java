@@ -7,7 +7,10 @@ public class Main {
         Menu menu = new Menu();
         menu.showMenu();
 
-        Person alice = new Person("Alice");
+        //Person alice = new Person("Angie");
+        System.out.print("Your name: ");
+        String name = scanner.next();
+        Person p = new Person(name);
 
         System.out.print("Select coffee (1-4): ");
         int selection = scanner.nextInt();
@@ -15,6 +18,6 @@ public class Main {
         System.out.print("How many glasses? ");
         int qty = scanner.nextInt();
 
-        alice.placeOrder(menu, selection, qty);
+        p.placeOrder(menu, selection, qty);
     }
 }
