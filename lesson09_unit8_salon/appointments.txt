@@ -1,0 +1,14 @@
+Client: Angie
+Date/Time: 2025-08-24 11:00
+Services:
+- Manicure: $20.00
+- Pedicure: $25.00
+Total: $45.00
+------------------------------
+Client: Maria
+Date/Time: 2025-09-10 10:00
+Services:
+- Manicure: $20.00
+- Gel Polish: $30.00
+Total: $50.00
+------------------------------

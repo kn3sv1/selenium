@@ -41,6 +41,7 @@ public class SalonApp {
         }
 
         appointment.printDetails();
+        AppointmentLogger.log(appointment);  // Save to file
 
         scanner.close();
     }

@@ -1,3 +1,4 @@
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 class Appointment {
@@ -28,5 +29,20 @@ class Appointment {
             System.out.printf("- %s: $%.2f%n", s.getName(), s.getPrice());
         }
         System.out.printf("Total Price: $%.2f%n", calculateTotalPrice());
+    }
+
+
+    public String toLogString() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        StringBuilder sb = new StringBuilder();
+        sb.append("Client: ").append(client.getName()).append("\n");
+        sb.append("Date/Time: ").append(sdf.format(dateTime)).append("\n");
+        sb.append("Services:\n");
+        for (Service s : selectedServices) {
+            sb.append("- ").append(s.getName()).append(": $").append(String.format("%.2f", s.getPrice())).append("\n");
+        }
+        sb.append("Total: $").append(String.format("%.2f", calculateTotalPrice())).append("\n");
+        sb.append("------------------------------\n");
+        return sb.toString();
     }
 }
