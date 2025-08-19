@@ -18,13 +18,15 @@ public class WeatherController {
 
         String name = "Angie";
         int age = 30;
+        boolean isMarried = true;
 
         String json = String.format("""
             {
                 "name": "%s",
-                "age": %d
+                "age": %d,
+                "isMarried": %b
             }
-            """, name, age);
+            """, name, age, isMarried);
 
         this.response.sendJsonResponse(200, json);
     }
@@ -79,6 +81,21 @@ public class WeatherController {
      * http://localhost:8080/api/weather/delete/
      */
     public void delete() {
-        this.response.sendHtmlResponse(200, "Hello from DELETE METHOD!");
+        String html = """
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset="utf-8">
+                <title>Java HTTP Server - DELETE PAGE</title>
+                <link rel="stylesheet" href="/file/style.css">
+            </head>
+            <body>
+            <h1>Hello from Java HTTP Server 🎉</h1>
+            <img src="/file/cat.png" alt="Cat" width="200">
+            <script src="/file/script.js"></script>
+            </body>
+            </html>
+        """;
+        this.response.sendHtmlResponse(200, html);
     }
 }
