@@ -1,10 +1,14 @@
+import java.util.ArrayList;
+import java.util.List;
 
 public class MovieController {
     private final HttpResponse response;
+    private final MovieRepository movieRepository;
 
     // we use in constructor Http response so we don't need to pass it in each method.
     public MovieController(HttpResponse response) {
         this.response = response;
+        this.movieRepository = new MovieRepository();
     }
 
     /**
@@ -14,7 +18,9 @@ public class MovieController {
      * http://localhost:8080/api/movie/list/
      */
     public void list() {
-        this.response.sendHtmlResponse(200, "Hello from MOVIE LIST METHOD!");
+        //this.response.sendHtmlResponse(200, "Hello from MOVIE LIST METHOD!");
+
+        this.response.sendJsonResponse(200, this.movieRepository.toJsonArray());
     }
 
     /**
@@ -22,7 +28,13 @@ public class MovieController {
      * http://localhost:8080/api/movie/create/
      */
     public void create() {
-        this.response.sendHtmlResponse(200, "Hello from MOVIE CREATE METHOD!");
+        // lets test at least one movie. maybe we have problem in json.
+        // each small step test because maybe we hava a lot of errors
+        // so always test something small before we do something bigger
+        Movie movie = new Movie("/file/movies/movie01.png", "Elysium", 5, true, new ArrayList<>(List.of("horror", "adventure", "comedy")) );
+
+        this.response.sendJsonResponse(200, movie.toJson());
+        // this.response.sendHtmlResponse(200, "Hello from MOVIE CREATE METHOD!");
     }
 
     /**

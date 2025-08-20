@@ -1,10 +1,12 @@
 
 public class WeatherController {
     private final HttpResponse response;
+    private final WeatherRepository weatherRepository;
 
     // we use in constructor Http response so we don't need to pass it in each method.
     public WeatherController(HttpResponse response) {
         this.response = response;
+        this.weatherRepository = new WeatherRepository();
     }
 
     /**
@@ -16,19 +18,21 @@ public class WeatherController {
     public void list() {
         //this.response.sendHtmlResponse(200, "Hello from LIST METHOD!");
 
-        String name = "Angie";
-        int age = 30;
-        boolean isMarried = true;
+//        String name = "Angie";
+//        int age = 30;
+//        boolean isMarried = true;
+//
+//        String json = String.format("""
+//            {
+//                "name": "%s",
+//                "age": %d,
+//                "isMarried": %b
+//            }
+//            """, name, age, isMarried);
+//
+//        this.response.sendJsonResponse(200, json);
 
-        String json = String.format("""
-            {
-                "name": "%s",
-                "age": %d,
-                "isMarried": %b
-            }
-            """, name, age, isMarried);
-
-        this.response.sendJsonResponse(200, json);
+        this.response.sendJsonResponse(200, this.weatherRepository.toJsonArray());
     }
 
     /**
