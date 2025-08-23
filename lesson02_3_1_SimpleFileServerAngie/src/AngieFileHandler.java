@@ -48,6 +48,9 @@ public class AngieFileHandler  implements HttpHandler {
 
         if (cleanPath.startsWith("/favicon.ico")) {
             response.sendHtmlResponse(404, "Page not found!");
+        } else if(cleanPath.endsWith("/movie") || cleanPath.startsWith("/movie/list")) {
+            MovieHtmlController controller = new MovieHtmlController(response);
+            controller.list();
         } else if(cleanPath.endsWith("/api/weather") || cleanPath.startsWith("/api/weather/list")) {
             WeatherController controller = new WeatherController(response);
             controller.list();
