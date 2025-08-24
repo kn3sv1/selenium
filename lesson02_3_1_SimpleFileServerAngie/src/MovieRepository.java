@@ -14,9 +14,9 @@ public class MovieRepository {
     }
 
     private void populate() {
-        this.movie.add(new Movie("/file/movies/movie07.png", "Alien 3", 6, true, new ArrayList<>(List.of("horror", "adventure")) ));
-        this.movie.add(new Movie("/file/movies/movie08.png", "Batman", 10, true, new ArrayList<>(List.of("adventure", "mystery")) ));
-        this.movie.add(new Movie("/file/movies/movie09.png", "Mr Deeds", 8, true, new ArrayList<>(List.of("adventure", "comedy")) ));
+        this.movie.add(new Movie("/file/movies/movie07.png", "Billy Madison", 8, true, new ArrayList<>(List.of("adventure", "comedy")) ));
+        this.movie.add(new Movie("/file/movies/movie08.png", "Ticket Paradise", 10, true, new ArrayList<>(List.of("romance", "comedy")) ));
+        this.movie.add(new Movie("/file/movies/movie09.png", "Elysium", 8, true, new ArrayList<>(List.of("science fiction", "action")) ));
     }
 
     public String toJsonArray() {
@@ -25,7 +25,7 @@ public class MovieRepository {
             json.add(m.toJson());
         }
 
-        // now we just join all strings of Jsons for each city
+        // now we just join all strings of Jsons for each movie
         return "[" + String.join(", ", json) + "]";
     }
 }

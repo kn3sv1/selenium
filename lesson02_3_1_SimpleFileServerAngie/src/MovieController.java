@@ -31,7 +31,7 @@ public class MovieController {
         // lets test at least one movie. maybe we have problem in json.
         // each small step test because maybe we hava a lot of errors
         // so always test something small before we do something bigger
-        Movie movie = new Movie("/file/movies/movie01.png", "Elysium", 5, true, new ArrayList<>(List.of("horror", "adventure", "comedy")) );
+        Movie movie = new Movie("/file/movies/movie01.png", "Elysium", 8, true, new ArrayList<>(List.of("science fiction", "action")) );
 
         this.response.sendJsonResponse(200, movie.toJson());
         // this.response.sendHtmlResponse(200, "Hello from MOVIE CREATE METHOD!");
