@@ -6,7 +6,7 @@ body {
   padding: 20px;
 }
 
-h1 {
+h1, h2 {
   color: #0078d7;   /* Windows blue */
   text-align: center;
 }
@@ -25,4 +25,5 @@ p {
 
 .movie-card {
     float:left;
+    margin-right: 5rem;
 }

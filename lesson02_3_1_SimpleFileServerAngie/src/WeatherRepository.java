@@ -13,10 +13,10 @@ public class WeatherRepository {
     }
 
     private void populate() {
-        this.weather.add(new Weather("Limassol", 37, true));
-        this.weather.add(new Weather("Paphos", 39, false));
-        this.weather.add(new Weather("Larnaca", 38, true));
-        this.weather.add(new Weather("Nicosia", 40, false));
+        this.weather.add(new Weather("/file/cities/limassol.png","Limassol", "/file/weather/cloudy.png", 37, true));
+        this.weather.add(new Weather("/file/cities/paphos.png", "Paphos", "/file/weather/rain-sun.png", 39, false));
+        this.weather.add(new Weather("/file/cities/larnaka.png", "Larnaka", "/file/weather/sunny.png", 38, true));
+        this.weather.add(new Weather("/file/cities/nicosia.png", "Nicosia", "/file/weather/sunny.png", 40, false));
     }
 
     public String toJsonArray() {
