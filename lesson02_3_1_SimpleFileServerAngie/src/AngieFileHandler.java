@@ -75,6 +75,10 @@ public class AngieFileHandler  implements HttpHandler {
         } else if(cleanPath.startsWith("/api/weather/delete")) {
             WeatherController controller = new WeatherController(response);
             controller.delete();
+        }  else if(cleanPath.startsWith("/api/movie/item")) {
+            MovieController controller = new MovieController(response);
+            String id = this.removePrefix(cleanPath, "/api/movie/item/");
+            controller.item(id);
         }  else if(cleanPath.endsWith("/api/movie") || cleanPath.startsWith("/api/movie/list")) {
             MovieController controller = new MovieController(response);
             controller.list();
