@@ -27,8 +27,8 @@ public class MovieController {
      * router name should be the same like method name
      * http://localhost:8080/api/movie/item/1
      */
-    public void item(String id) {
-        Movie movie = this.movieRepository.findById(Integer.parseInt(id));
+    public void item(int id) {
+        Movie movie = this.movieRepository.findById(id);
         this.response.sendJsonResponse(200, movie.toJson());
     }
 
