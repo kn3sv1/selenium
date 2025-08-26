@@ -24,4 +24,24 @@ public class Weather {
             }
             """, this.cityPhoto, this.city, this.weatherPhoto, this.temperature, this.isWindy);
     }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getCityPhoto() {
+        return cityPhoto;
+    }
+
+    public String getWeatherPhoto() {
+        return weatherPhoto;
+    }
+
+    public int getTemperature() {
+        return temperature;
+    }
+
+    public boolean isWindy() {
+        return isWindy;
+    }
 }

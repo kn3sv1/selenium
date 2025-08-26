@@ -51,6 +51,15 @@ public class AngieFileHandler  implements HttpHandler {
         } else if(cleanPath.endsWith("/movie") || cleanPath.startsWith("/movie/list")) {
             MovieHtmlController controller = new MovieHtmlController(response);
             controller.list();
+        } else if(cleanPath.startsWith("/weather/city")) {
+            // if we check first this rule: "/weather" it is dangerous because it can catch another request as well
+            // if we remove this end checking. ALWAYS for router write more specific rules first!
+
+            // this URL rule: "/weather" also includes a more detailed rule: "/weather/city"
+            // "/weather/city" use first more detailed and in the end general "/weather"
+            WeatherHtmlController controller = new WeatherHtmlController(response);
+            String city = this.removePrefix(cleanPath, "/weather/city/");
+            controller.show(city);
         } else if(cleanPath.endsWith("/weather") || cleanPath.startsWith("/weather/list")) {
             WeatherHtmlController controller = new WeatherHtmlController(response);
             controller.list();

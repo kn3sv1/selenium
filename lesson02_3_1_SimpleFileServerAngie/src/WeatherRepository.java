@@ -19,6 +19,17 @@ public class WeatherRepository {
         this.weather.add(new Weather("/file/cities/nicosia.png", "Nicosia", "/file/weather/sunny.png", 40, false));
     }
 
+    public Weather getWeather(String city) {
+        Weather result = null;
+        for (Weather w : this.weather) {
+            if (w.getCity().equalsIgnoreCase(city)) {
+                result = w;
+                break; // stop after first match
+            }
+        }
+        return  result;
+    }
+
     public String toJsonArray() {
         List<String> json = new ArrayList<String>();
         for (Weather w : this.weather) {

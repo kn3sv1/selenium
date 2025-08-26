@@ -26,7 +26,7 @@ function showWeather(cities) {
         //let genres = movie.genres.join(', ');
         let row = `
             <div class="movie-card">
-                <p>City: ${city.city}</p>
+                <p>City: <a href="/weather/city/${city.city}">${city.city}</a></p>
                 <p>Temperature today: ${city.temperature}</p>
                 <p>Windy: ${city.isWindy}</p>
                 <img src= "${city.cityPhoto}" />
