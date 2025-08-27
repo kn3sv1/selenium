@@ -49,6 +49,31 @@ function loadMoviesFromServer() {
       .catch(error => console.error("Fetch error:", error));
 }
 
+function showDetails(id) {
+    fetch("/api/movie/item/" + id)
+      .then(response => {
+        if (!response.ok) throw new Error("Network response was not ok");
+        return response.json();
+      })
+      .then(movie => {
+        console.log("Movie: ", movie);
+
+        let genres = movie.genres.join(', ');
+        let html = `
+                    <h2>Details of Movie</h2>
+                    <div class="movie-card">
+                        <p>Title: ${movie.name}</p>
+                        <p>Amount of likes: ${movie.likes}</p>
+                        <p>Is popular: ${movie.popular}</p>
+                        <p>Genres: ${genres}</p>
+                        <img src="${movie.photo}" />
+                    </div>
+                `;
+        document.getElementById('movie_details').innerHTML = html;
+      })
+      .catch(error => console.error("Fetch error:", error));
+}
+
 function showMovies(movies) {
     const container = document.getElementById('movies');
 
@@ -61,6 +86,7 @@ function showMovies(movies) {
                 <p>Amount of likes: ${movie.likes}</p>
                 <p>Is popular: ${movie.popular}</p>
                 <p>Genres: ${genres}</p>
+                <p><a href="javascript:showDetails(${movie.id})">Details</a></p>
                 <img src="${movie.photo}" />
             </div>
         `;

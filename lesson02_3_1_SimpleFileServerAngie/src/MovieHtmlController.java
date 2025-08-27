@@ -23,6 +23,7 @@ public class MovieHtmlController {
             <body>
                 <h1>List of movies</h1>
                 <div id="movies"></div>
+                <div id="movie_details"></div>
             </body>
             </html>
         """;
