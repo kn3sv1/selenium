@@ -3,8 +3,16 @@ public class Main {
         Cat cat = new Cat("Ginger", 3, "orange");
         Dog dog = new Dog("Steven", 10, "brown");
 
-        Person angie = new Person("Angie", 1984, false, cat, null);
-        Person roma = new Person("Roma", 1985, true, cat, dog);
+        Animal[] animals = {
+                cat,
+                dog,
+                new Parrot("Barbie", 2, "pink", "Australia"),
+                new Cat("Fluffy", 4, "orange & white"),
+                new Cat("Stevie", 1, "orange & white")
+        };
+
+        Person angie = new Person("Angie", 1984, false, animals);
+        Person roma = new Person("Roma", 1985, true, animals);
 
         System.out.println(angie);
 
@@ -21,7 +29,9 @@ public class Main {
         angie.printFood();
         roma.printFood();
 
-        angie.printCat();
-        angie.printDog();
+        angie.printAnimals();
+
+
+        angie.speakAll();
     }
 }

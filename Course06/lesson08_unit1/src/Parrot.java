@@ -1,17 +1,19 @@
-public class Cat extends Animal {
+public class Parrot extends Animal {
     private String name;
     private int age;
     private String color;
+    private String country;
 
-    public Cat(String name, int age, String color) {
+    public Parrot(String name, int age, String color, String country) {
         this.name = name;
         this.age = age;
         this.color = color;
+        this.country = country;
     }
 
     @Override
     public String toString() {
-        return "Hi, I'm a cat. My name is " + this.name;
+        return "Hi, I'm a parrot from " + this.country;
     }
 
     @Override
@@ -20,6 +22,6 @@ public class Cat extends Animal {
     }
 
     public void speak() {
-        System.out.println("meow meow meow: " + this.name);
+        System.out.println("cra cra cra");
     }
 }

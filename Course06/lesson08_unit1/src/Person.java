@@ -3,16 +3,14 @@ public class Person {
     private int birth;
     private boolean isWorking = false;
     private String food;
-    private Cat cat = null;  //Here we set by default null
-    private Dog dog = null;
+    private Animal[] animals;
 
-    public Person(String name, int birth, boolean isWorking, Cat cat, Dog dog) {
+    public Person(String name, int birth, boolean isWorking, Animal[] animals) {
         this.name = name;
         this.birth = birth;
         this.isWorking = isWorking;
         this.food = "";
-        this.cat = cat;
-        this.dog = dog;
+        this.animals = animals;
     }
 
     @Override
@@ -34,11 +32,17 @@ public class Person {
         System.out.println(this.food);
     }
 
-    public void printCat() {
-        System.out.println(cat);
+    public void printAnimals() {
+        //System.out.println(cat);
+        for(Animal animal : this.animals) {
+            animal.printAnimal();
+        }
     }
 
-    public void printDog() {
-        System.out.println(dog);
+    public void speakAll() {
+        //System.out.println(cat);
+        for(Animal animal : this.animals) {
+            animal.speak();
+        }
     }
 }
