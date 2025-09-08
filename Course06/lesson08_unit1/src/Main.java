@@ -1,0 +1,27 @@
+public class Main {
+    public static void main(String[] args) {
+        Cat cat = new Cat("Ginger", 3, "orange");
+        Dog dog = new Dog("Steven", 10, "brown");
+
+        Person angie = new Person("Angie", 1984, false, cat, null);
+        Person roma = new Person("Roma", 1985, true, cat, dog);
+
+        System.out.println(angie);
+
+        System.out.println("current age in 2025 is: " + angie.getAge(2025));
+        System.out.println("age in 2000 was: " + angie.getAge(2000));
+
+        angie.eat("meat");
+        angie.eat("salad");
+        angie.eat("cake");
+
+        roma.eat("cake");
+
+
+        angie.printFood();
+        roma.printFood();
+
+        angie.printCat();
+        angie.printDog();
+    }
+}

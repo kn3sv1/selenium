@@ -1,5 +1,4 @@
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.*;
 
 public class Example {
     public static void main(String[] args) {
@@ -48,6 +47,22 @@ public class Example {
         }
 
         System.out.println("\n");
+        System.out.println("HashMap");
         System.out.println(queryKeyValue);
+
+        // Task: Go through elements of HashMap, join by key/value and put inside an ArrayList.
+
+        // Step 1: Create an ArrayList to store joined key=value strings
+        List<String> list = new ArrayList<>();
+
+        // Step 2: Loop through HashMap and join key + value
+        for (Map.Entry<String, String> entry : queryKeyValue.entrySet()) {
+            String keyValue = entry.getKey() + "=" + entry.getValue();
+            list.add(keyValue);
+        }
+
+        // Step 3: Print ArrayList
+        System.out.println("ArrayList");
+        System.out.println(list);
     }
 }
