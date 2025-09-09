@@ -9,6 +9,10 @@ public class Cat extends Animal {
         this.color = color;
     }
 
+    public String getName() {
+        return name;
+    }
+
     @Override
     public String toString() {
         return "Hi, I'm a cat. My name is " + this.name;

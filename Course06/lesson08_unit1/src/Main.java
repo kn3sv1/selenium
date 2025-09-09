@@ -2,13 +2,16 @@ public class Main {
     public static void main(String[] args) {
         Cat cat = new Cat("Ginger", 3, "orange");
         Dog dog = new Dog("Steven", 10, "brown");
+        Parrot parrot = new Parrot("Barbie", 2, "pink", "Australia");
+        Cat cat1 = new Cat("Fluffy", 4, "orange & white");
+        Cat cat2 = new Cat("Stevie", 1, "orange & white");
 
         Animal[] animals = {
                 cat,
                 dog,
-                new Parrot("Barbie", 2, "pink", "Australia"),
-                new Cat("Fluffy", 4, "orange & white"),
-                new Cat("Stevie", 1, "orange & white")
+                parrot,
+                cat1,
+                cat2
         };
 
         Person angie = new Person("Angie", 1984, false, animals);
@@ -33,5 +36,25 @@ public class Main {
 
 
         angie.speakAll();
+
+        System.out.println(cat.getName() + " eats: ");
+        cat.eat("salmon");
+        cat.eat("chicken");
+
+        cat1.eat("sausage");
+        cat1.eat("chicken");
+
+        cat2.eat("meat");
+        cat2.eat("chicken");
+
+        dog.eat("pork");
+        dog.eat("beef");
+
+        parrot.eat("seeds");
+        parrot.eat("bread");
+
+
+        parrot.printFood();
+        cat2.printFood();
     }
 }

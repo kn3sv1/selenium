@@ -11,6 +11,10 @@ public class Parrot extends Animal {
         this.country = country;
     }
 
+    public String getName() {
+        return name;
+    }
+
     @Override
     public String toString() {
         return "Hi, I'm a parrot from " + this.country;
