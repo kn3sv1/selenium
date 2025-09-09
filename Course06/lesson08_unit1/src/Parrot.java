@@ -20,11 +20,6 @@ public class Parrot extends Animal {
         return "Hi, I'm a parrot from " + this.country;
     }
 
-    @Override
-    public void printAnimal() {
-        System.out.println(this.toString());
-    }
-
     public void speak() {
         System.out.println("cra cra cra");
     }

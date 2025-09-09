@@ -18,12 +18,6 @@ public class Dog extends Animal {
         return "Hi, I'm a dog. My name is " + this.name;
     }
 
-
-    @Override
-    public void printAnimal() {
-        System.out.println(this.toString());
-    }
-
     public void speak() {
         System.out.println("woof woof woof");
     }
