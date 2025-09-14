@@ -17,6 +17,10 @@ public class Main {
         Person angie = new Person("Angie", 1984, false, animals);
         Person roma = new Person("Roma", 1985, true, animals);
 
+        Car toyota = new Toyota("Toyota", "Corolla", 2020, "red", 50);
+        Car honda = new Honda("Honda", "CR-V", 2021, "light-grey", 55);
+        Car tesla = new Tesla("Tesla", "Model 3", 2022, "white", 60);
+
         System.out.println(angie);
 
         System.out.println("current age in 2025 is: " + angie.getAge(2025));
@@ -56,5 +60,14 @@ public class Main {
 
         parrot.printFood();
         cat2.printFood();
+
+        angie.setCar(toyota);
+        angie.drive();
+        angie.setCar(honda);
+        angie.drive();
+        angie.setCar(tesla);
+        angie.drive();
+
+
     }
 }

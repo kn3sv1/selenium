@@ -3,6 +3,7 @@ public class Mother {
     private int birth;
     private Child child = null; // we pass default value null to have the option of not having
     // a value for this property and so we don't have to overload the constructor.
+    private int catFoodSupply;
 
     /*
     public Mother(String name, int birth, Child child) {
@@ -15,9 +16,10 @@ public class Mother {
         }
     }
     */
-    public Mother(String name, int birth) {
+    public Mother(String name, int birth, int catFoodSupply) {
         this.name = name;
         this.birth = birth;
+        this.catFoodSupply = catFoodSupply;
     }
 
     // setter dependency injection is better in this situation because child should be optional
@@ -48,5 +50,14 @@ public class Mother {
         this.child.eat("porridge");
         this.child.eat("frappe");
         this.child.eat(food);
+    }
+
+    public void supplyCatFood() {
+        this.catFoodSupply -= 5;
+        int catFood = this.child.getCatFood();
+        catFood += 5;
+        System.out.println(this.name + " is supplying " + this.child.getName() + " with cat food...");
+        System.out.println(this.name + " now has " + this.catFoodSupply + " units of cat food left.");
+        System.out.println(this.child.getName() + " now has " + catFood + " units of cat food.");
     }
 }

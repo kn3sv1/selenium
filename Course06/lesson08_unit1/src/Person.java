@@ -4,6 +4,7 @@ public class Person {
     private boolean isWorking = false;
     private String food;
     private Animal[] animals;
+    private Car car;
 
     public Person(String name, int birth, boolean isWorking, Animal[] animals) {
         this.name = name;
@@ -20,6 +21,14 @@ public class Person {
 
     public int getAge(int currentYear) {
         return currentYear - this.birth;
+    }
+
+    public void setCar(Car car) {
+        this.car = car;
+    }
+
+    public void drive() {
+        car.drivingCar();
     }
 
     public void eat(String food) {
