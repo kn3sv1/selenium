@@ -4,7 +4,6 @@ import com.sun.net.httpserver.HttpHandler;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.io.OutputStream;
 
 public class ServerHandler implements HttpHandler{
     private final Path rootDir;
@@ -23,7 +22,7 @@ public class ServerHandler implements HttpHandler{
 
         // why we created this object request?
         // answer: because it will map each request to different controller
-        Request request = new Request(exchange);
+        Router request = new Router(exchange);
         request.mapUrlToController();
 
 

@@ -2,11 +2,13 @@ import com.sun.net.httpserver.HttpExchange;
 
 import java.io.IOException;
 
-public class Request {
+public class Router {
     private HttpExchange exchange;
+    private HttpResponse response;
 
-    public Request(HttpExchange exchange) {
+    public Router(HttpExchange exchange) {
         this.exchange = exchange;
+        this.response = new HttpResponse(exchange);
     }
 
     public void mapUrlToController() throws IOException {
@@ -18,7 +20,7 @@ public class Request {
         // http://localhost:8080/api/weather
         // http://localhost:8080/api/movie/update/
 
-        ChildrenController controller = new ChildrenController(exchange);
+        ChildrenController controller = new ChildrenController(response);
         controller.list();
     }
 }
