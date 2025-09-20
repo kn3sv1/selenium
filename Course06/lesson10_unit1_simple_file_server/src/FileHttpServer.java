@@ -31,11 +31,15 @@ public class FileHttpServer {
 
         @Override
         public void handle(HttpExchange exchange) throws IOException {
+            // gets the path only and no query params
+            // http://localhost:8080/roma/boma/?45435345 -> /roma/boma/
             String path = exchange.getRequestURI().getPath();
 
             System.out.println(path);
 
             // Default to index.html if root is requested
+            // http://localhost:8080/ -> /
+            // NOT TO WRITE FULL PATH: http://localhost:8080/index.html
             if (path.equals("/")) {
                 path = "/index.html";
             }
@@ -57,6 +61,7 @@ public class FileHttpServer {
             // Guess content type
             String contentType = Files.probeContentType(Path.of(file.getPath()));
             if (contentType == null) {
+                // treat it as text
                 contentType = "application/octet-stream";
             }
 
