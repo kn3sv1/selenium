@@ -11,6 +11,10 @@ public class Cat {
         this.photo = photo;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public String toJson() {
         return String.format("""
                 {
@@ -30,5 +34,4 @@ public class Cat {
 
         return part1 + part2;
     }
-
 }

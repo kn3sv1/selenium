@@ -1,0 +1,18 @@
+body {
+    background-color: #B0E0E6;
+}
+
+img {
+    height: 250px;
+    width: 250px;
+    display: block;
+    margin: auto;
+    object-fit:cover;
+    border-radius: 50%;
+    box-shadow:0 12px 30px rgba(9,20,40,0.08);
+    border:6px solid rgba(255,255,255,0.7);
+}
+
+h1 {
+    text-align: center;
+}
