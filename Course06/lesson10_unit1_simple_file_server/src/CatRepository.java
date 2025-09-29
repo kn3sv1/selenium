@@ -16,6 +16,10 @@ public class CatRepository {
         this.cats.add(new Cat("Fluffy", "orange and white", 3, "fluffy.png"));
     }
 
+    public void add(Cat cat) {
+        this.cats.add(cat);
+    }
+
     public String toJsonArray() {
         List<String> json = new ArrayList<String>();
         for (Cat cat : this.cats) {
@@ -29,7 +33,8 @@ public class CatRepository {
         // we don't need these useless variables - It's extra work for processor and memory
 //        Cat cat = null;
         for (Cat c : this.cats) {
-            if (c.getName().equals(name)) {
+//            if (c.getName().equals(name)) {
+            if (c.getName().equalsIgnoreCase(name)) {
                 return c;
 //                cat = c;
 //                break;

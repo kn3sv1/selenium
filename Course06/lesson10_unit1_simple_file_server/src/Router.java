@@ -21,6 +21,16 @@ public class Router implements HttpHandler {
         this.staticFileController = staticFileController;
     }
 
+    /**
+     * will be called on each request but
+     * catRepository will work still corecty because we
+     * create catController outside request
+     *
+     * we don't create inside handle any controller so repository will exist
+     * once. In previous project we created controller inside handler, so on each
+     * request we created new repository and new controller. To fix that problem we made it
+     * static.
+     */
     @Override
     public void handle(HttpExchange exchange) throws IOException {
         Browser browser = new Browser(exchange);
@@ -64,6 +74,33 @@ public class Router implements HttpHandler {
             return;
         }
 
+        if (path.equals("/add-cat")) {
+            this.catController.addCat(browser);
+            return;
+        }
+
+        /*
+        // http://localhost:8080/get-cat-by-name/Ginger
+        if (path.equals("/get-cat-by-name/Ginger")) {
+            this.catController.getCatByName(browser, "Ginger");
+            return;
+        }
+
+        // http://localhost:8080/get-cat-by-name/Fluffy
+        if (path.equals("/get-cat-by-name/Fluffy")) {
+            this.catController.getCatByName(browser, "Fluffy");
+            return;
+        }
+        */
+        // http://localhost:8080/get-cat-by-name/Ginger
+        // http://localhost:8080/get-cat-by-name/Fluffy
+        // http://localhost:8080/get-cat-by-name/Teddy
+        if (path.matches("^/get-cat-by-name/[A-Za-z]+$")) {
+            String name = path.substring(path.lastIndexOf("/") + 1);
+            this.catController.getCatByName(browser, name);
+            return;
+        }
+
         if (path.equals("/chino.html")) {
             this.dogController.chinoHTML(browser);
             return;
@@ -78,6 +115,8 @@ public class Router implements HttpHandler {
             this.dogController.dogListHTML(browser);
             return;
         }
+
+
 
         // if not virtual file we think its real or 404 if no file
         this.staticFileController.sendFile(browser, path);

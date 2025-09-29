@@ -15,6 +15,18 @@ public class Cat {
         return name;
     }
 
+    public String getColor() {
+        return color;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
     public String toJson() {
         return String.format("""
                 {

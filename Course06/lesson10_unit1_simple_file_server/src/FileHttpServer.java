@@ -9,7 +9,10 @@ public class FileHttpServer {
         HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
 
         Router router = new Router(
-                new CatController(),
+                new CatController(
+                        new CatRepository(),
+                        new TemplateRepository("templates")
+                ),
                 new DogController(),
                 new CommonController(),
                 new StaticFileController("public")

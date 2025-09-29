@@ -1,29 +1,47 @@
 import java.io.IOException;
+import java.util.Date;
 
 public class CatController {
-    private final static CatRepository catrepository = new CatRepository();
+    private final CatRepository catrepository;
+    private final TemplateRepository templateRepository;
 
-    public CatController() {}
+    /**
+     * catController not responsible for creating: CatRepository
+     * if it creates it is very bad code. DI = outside should be created and passed in constructor
+     */
+    public CatController(CatRepository catrepository, TemplateRepository templateRepository) {
+        this.catrepository = catrepository;
+        this.templateRepository = templateRepository;
+    }
 
     /**
      * thread safe if you pass as argument for each method - OPPOSITE CONSTRUCTOR WILL BE THREAD UNSAFE
-     * @param browser
      */
     public void gingerJson(Browser browser) throws IOException {
-        browser.sendJSON(catrepository.findByName("Ginger").toJson());
+        browser.sendJSON(this.catrepository.findByName("Ginger").toJson());
     }
 
     public void fluffyJson(Browser browser) throws IOException {
-        browser.sendJSON(catrepository.findByName("Fluffy").toJson());
+        browser.sendJSON(this.catrepository.findByName("Fluffy").toJson());
     }
 
     public void fluffyHTML(Browser browser) throws IOException {
-        browser.sendHTML(catrepository.findByName("Fluffy").toHTML());
+        browser.sendHTML(this.catrepository.findByName("Fluffy").toHTML());
     }
 
     public void gingerHTML(Browser browser) throws IOException {
-        browser.sendHTML(catrepository.findByName("Ginger").toHTML());
+        browser.sendHTML(this.catrepository.findByName("Ginger").toHTML());
     }
 
+    public void addCat(Browser browser) throws IOException {
+        Cat cat = new Cat("Cat" + (new Date()).toString(), "black and white", 10, "teddy.png");
+        this.catrepository.add(cat);
+        browser.sendJSON(this.catrepository.toJsonArray());
+    }
+    public void getCatByName(Browser browser, String name) throws IOException {
+        Cat cat = this.catrepository.findByName(name);
+        String html = this.templateRepository.renderCatPageTemplate(cat);
 
+        browser.sendHTML(html);
+    }
 }
