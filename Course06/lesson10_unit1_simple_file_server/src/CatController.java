@@ -35,7 +35,7 @@ public class CatController {
     }
 
     public void addCat(Browser browser) throws IOException {
-        Cat cat = new Cat("Cat" + (new Date()).toString(), "black and white", 10, "teddy.png");
+        Cat cat = new Cat("Cat" + (new Date()).toString(), "black and white", 10, "teddy.png", new ArrayList<>());
         this.catrepository.add(cat);
         browser.sendJSON(this.catrepository.toJsonArray());
     }

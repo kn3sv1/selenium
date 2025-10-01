@@ -12,6 +12,11 @@ img {
     box-shadow:0 12px 30px rgba(9,20,40,0.08);
     border:6px solid rgba(255,255,255,0.7);
 }
+.gallery img {
+    float:left;
+    border-radius: 0;
+    width:200px;
+}
 
 h1 {
     text-align: center;

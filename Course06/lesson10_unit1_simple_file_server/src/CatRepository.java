@@ -10,10 +10,49 @@ public class CatRepository {
     }
 
     private void populate() {
-        this.cats.add(new Cat("Gucci", "grey", 15, "gucci.png"));
-        this.cats.add(new Cat("Teddy", "black and white", 10, "teddy.png"));
-        this.cats.add(new Cat("Ginger", "orange and white", 5, "ginger.png"));
-        this.cats.add(new Cat("Fluffy", "orange and white", 3, "fluffy.png"));
+        this.cats.add(
+                new Cat(
+                        "Gucci",
+                        "grey",
+                        15,
+                        "gucci.png",
+                        new ArrayList<>(List.of(
+                                "/images/gucci/gucci123.png",
+                                "/images/gucci/movie01.png"
+                        ))
+                )
+        );
+        this.cats.add(
+                new Cat(
+                        "Teddy",
+                        "black and white",
+                        10,
+                        "teddy.png",
+                        new ArrayList<>(List.of())
+                )
+        );
+        this.cats.add(
+                new Cat(
+                        "Ginger",
+                        "orange and white",
+                        5,
+                        "ginger.png",
+                        new ArrayList<>(List.of())
+                )
+        );
+        this.cats.add(
+                new Cat(
+                        "Fluffy",
+                        "orange and white",
+                        3,
+                        "fluffy.png",
+                        new ArrayList<>(List.of(
+                                "/images/fluffy/fluffy_angry.png",
+                                "/images/fluffy/fluffy_playing.png",
+                                "/images/fluffy/fluffy123.png"
+                        ))
+                )
+        );
     }
 
     public void add(Cat cat) {

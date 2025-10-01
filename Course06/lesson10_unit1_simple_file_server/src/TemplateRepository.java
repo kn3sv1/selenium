@@ -36,6 +36,15 @@ public class TemplateRepository {
         map.put("%PHOTO%", cat.getPhoto());
         map.put("%NAME%", cat.getName());
         map.put("%COLOR%", cat.getColor());
+
+        String gallery = "";
+        for (String photo: cat.getGallery()) {
+            gallery = gallery + String.format("<img src=\"%s\" />", photo);
+        }
+        gallery = !gallery.isEmpty() ?  "<div class=\"gallery\">"  + gallery + "</div>" : "";
+
+        map.put("%GALLERY%", gallery);
+
         return this.renderTemplate("cat-page.html", map);
     }
 
