@@ -37,7 +37,12 @@ public class CatRepository {
                         "orange and white",
                         5,
                         "ginger.png",
-                        new ArrayList<>(List.of())
+                        new ArrayList<>(List.of(
+                                "/images/ginger/ginger1.png",
+                                "/images/ginger/ginger2.png",
+                                "/images/ginger/ginger3.png"
+
+                        ))
                 )
         );
         this.cats.add(

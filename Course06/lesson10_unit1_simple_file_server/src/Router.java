@@ -54,15 +54,22 @@ public class Router implements HttpHandler {
             return;
         }
 
-        if (path.equals("/api/ginger.json")) {
-            this.catController.gingerJson(browser);
+        if (path.matches("^/api/([A-Za-z]+)\\.json$")) {
+            String name = path.replace(".json","");
+            name = name.replaceFirst("/api/","");
+            this.catController.getCatByNameJson(browser, name);
             return;
         }
 
-        if (path.equals("/api/fluffy.json")) {
-            this.catController.fluffyJson(browser);
-            return;
-        }
+//        if (path.equals("/api/ginger.json")) {
+//            this.catController.gingerJson(browser);
+//            return;
+//        }
+//
+//        if (path.equals("/api/fluffy.json")) {
+//            this.catController.fluffyJson(browser);
+//            return;
+//        }
 
         if (path.equals("/fluffy.html")) {
             this.catController.fluffyHTML(browser);

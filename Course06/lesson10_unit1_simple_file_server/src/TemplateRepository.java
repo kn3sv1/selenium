@@ -17,7 +17,7 @@ public class TemplateRepository {
      */
     public String renderTemplate(String filename, HashMap<String, String> map) throws IOException {
         String content = Files.readString(Path.of(this.baseDir + "/" + filename));
-        // System.out.println(content);
+        //System.out.println(content);
 
         String result = content;
         for (Map.Entry<String, String> entry : map.entrySet()) {

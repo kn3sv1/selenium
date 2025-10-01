@@ -52,4 +52,8 @@ public class CatController {
         String html = this.templateRepository.renderAllCatsPageTemplate(cats);
         browser.sendHTML(html);
     }
+
+    public void getCatByNameJson(Browser browser, String name) throws IOException {
+        browser.sendJSON(this.catrepository.findByName(name).toJson());
+    }
 }
