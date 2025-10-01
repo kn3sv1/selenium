@@ -79,6 +79,12 @@ public class Router implements HttpHandler {
             return;
         }
 
+        // http://localhost:8080/cat-list
+        if (path.equals("/cat-list")) {
+            this.catController.getCatList(browser);
+            return;
+        }
+
         /*
         // http://localhost:8080/get-cat-by-name/Ginger
         if (path.equals("/get-cat-by-name/Ginger")) {

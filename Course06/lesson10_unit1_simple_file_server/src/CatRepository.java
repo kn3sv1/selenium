@@ -29,6 +29,10 @@ public class CatRepository {
         return "[" + String.join(", ", json) + "]";
     }
 
+    public ArrayList<Cat> findAll() {
+        return this.cats;
+    }
+
     public Cat findByName(String name) {
         // we don't need these useless variables - It's extra work for processor and memory
 //        Cat cat = null;

@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class CatController {
@@ -42,6 +43,13 @@ public class CatController {
         Cat cat = this.catrepository.findByName(name);
         String html = this.templateRepository.renderCatPageTemplate(cat);
 
+        browser.sendHTML(html);
+    }
+
+    public void getCatList(Browser browser) throws IOException {
+        //browser.sendHTML("Hello from cat list");
+        ArrayList<Cat> cats = this.catrepository.findAll();
+        String html = this.templateRepository.renderAllCatsPageTemplate(cats);
         browser.sendHTML(html);
     }
 }
