@@ -4,6 +4,7 @@ public class Main {
         //(new ReplaceAllExample()).run();
         //(new HashMapExample()).run();
         //(new CharAtExample()).run();
-        (new CharAtAngieExample()).run();
+        //(new ReplaceAllExample()).run();
+        (new Unit01MenuGenerator()).run();
     }
 }
