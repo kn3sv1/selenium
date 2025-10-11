@@ -1,6 +1,7 @@
-import com.sun.net.httpserver.HttpServer;
-import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+import com.sun.net.httpserver.HttpServer;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
@@ -9,7 +10,7 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-public class SimpleHttpServer {
+public class SimpleHttpServerV5 {
     public static void main(String[] args) throws IOException {
         HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
         server.createContext("/", new MyHandler());
@@ -21,7 +22,7 @@ public class SimpleHttpServer {
     static class MyHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange exchange) throws IOException {
-            String response = "1 Hello, 1 from Angie 1 and 1 from Fluffy 3 and 3 from Ginger 9 & 9 and from Teddy 7 why 7 and Roma 123 34 gg 99999 dd 8";
+            String response = "1 Hello 100 10 10 100, 1 from Angie 1 and 1 from Fluffy 3 and 3 from Ginger 9 & 9 and from Teddy 7 why 7 and Roma 123 34 gg 99999 dd 8";
             String response2 = "";
             ArrayList<String> colors = new ArrayList<>(List.of("red", "orange", "green"));
 //            System.out.println(colors.get(500));
@@ -71,6 +72,13 @@ public class SimpleHttpServer {
                         colorIndex = previousColor;
                     }
                     System.out.println("isEqual: " + isEqual + " colorIndex:" + colorIndex);
+                    // neve convert null to int because it's exception. Always check if it's not null
+                    if (
+                            previousNumber != null
+                            && Integer.parseInt(digit) > Integer.parseInt(previousNumber)
+                    ) {
+                        System.out.println("Current digit: " + digit + " is bigger than: " + previousNumber);
+                    }
 
                     response2 = response2 + openTag.apply(colorIndex) + digit + closeTag.get();
 
