@@ -46,12 +46,15 @@ public class SimpleHttpServer {
                     String digit = "";
                     // we look how many digits are together without any characters between
                     for (int j = i; j < response.length(); j++) {
+                        //if the character is not a digit we exit the for loop
                         if (!Character.isDigit(response.charAt(j))) {
                             break;
                         }
                         lastIndex = j;
                         digit = digit + response.charAt(j);
                     }
+                    // main loop please skip digits=family because we already proceeded them
+                    // in airport 4 people come together
                     i = lastIndex;
 
 
