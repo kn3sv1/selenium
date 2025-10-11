@@ -21,7 +21,7 @@ public class SimpleHttpServer {
     static class MyHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange exchange) throws IOException {
-            String response = "Hello, from Angie 1 and from Fluffy 3 and from Ginger 9 and from Teddy 7 and Roma 6 8";
+            String response = "Hello, from Angie 1 and from Fluffy 3 and from Ginger 9 and from Teddy 7 and Roma 123 34 gg 99999 dd 8";
             String response2 = "";
             ArrayList<String> colors = new ArrayList<>(List.of("red", "orange", "green"));
 //            System.out.println(colors.get(500));
@@ -31,6 +31,7 @@ public class SimpleHttpServer {
             Function<Integer, String> openTag = (Integer index) -> {
                 return "<span style=\"font-size:30px;font-weight:bold;color:" + colors.get(index) + "\">";
             };
+            // we learn different ways of retuning a string to read code easily. People work differently with code.
             Supplier<String> closeTag = () -> {
                 return "</span>";
             };
@@ -38,7 +39,23 @@ public class SimpleHttpServer {
 
             for (int i = 0; i < response.length(); i++) {
                 if (Character.isDigit(response.charAt(i))) {
-                    response2 = response2 + openTag.apply(colorIndex) + response.charAt(i) + closeTag.get();
+                    // here should be some code
+                    // length of digit can be unlimited but not bigger than length of all text
+                    int lastIndex = i;
+                    // digit can be one character or many and now we set i to the last digit of group of digits
+                    String digit = "";
+                    // we look how many digits are together without any characters between
+                    for (int j = i; j < response.length(); j++) {
+                        if (!Character.isDigit(response.charAt(j))) {
+                            break;
+                        }
+                        lastIndex = j;
+                        digit = digit + response.charAt(j);
+                    }
+                    i = lastIndex;
+
+
+                    response2 = response2 + openTag.apply(colorIndex) + digit + closeTag.get();
 
                     // if (9 < 10) we do 9+1 = 10 but no such INDEX, because index starts from 0
                     if (colorIndex < colors.size() - 1) {
