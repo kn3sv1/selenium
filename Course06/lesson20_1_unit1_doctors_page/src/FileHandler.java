@@ -29,6 +29,18 @@ public class FileHandler implements HttpHandler {
             send200(exchange, response);
             return;
         }
+        // http://localhost:8080/api/weather
+        if (requestedPath.startsWith("/api/weather")) {
+            String json =  String.format("""
+                {
+                    "temp": %d,
+                    "condition": "%s"
+                }
+                """, 22, "Sunny"
+            );
+            sendJSON(exchange, json);
+            return;
+        }
 
         // Default to index.html if path is "/"
         if (requestedPath.equals("/")) {
@@ -67,6 +79,15 @@ public class FileHandler implements HttpHandler {
                 os.write(buffer, 0, count);
             }
         }
+    }
+
+    private void sendJSON(HttpExchange exchange, String response) throws IOException {
+        exchange.getResponseHeaders().add("Content-Type", "application/json; charset=UTF-8");
+        exchange.sendResponseHeaders(200, response.getBytes().length);
+        // Write response body
+        OutputStream os = exchange.getResponseBody();
+        os.write(response.getBytes());
+        os.close();
     }
 
     private void send200(HttpExchange exchange, String response) throws IOException {
