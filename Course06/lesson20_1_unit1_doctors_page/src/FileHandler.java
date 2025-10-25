@@ -18,6 +18,18 @@ public class FileHandler implements HttpHandler {
     public void handle(HttpExchange exchange) throws IOException {
         String requestedPath = exchange.getRequestURI().getPath();
 
+        // http://localhost:8080/andreas
+        if (requestedPath.startsWith("/andreas")) {
+            String response = """
+            <html>
+                <head><title>Doctor Andreas page</title></head>
+                <body><h1>Welcome to Pantazis clinic</h1></body>
+            </html>
+            """;
+            send200(exchange, response);
+            return;
+        }
+
         // Default to index.html if path is "/"
         if (requestedPath.equals("/")) {
             requestedPath = "/index.html";
@@ -55,6 +67,20 @@ public class FileHandler implements HttpHandler {
                 os.write(buffer, 0, count);
             }
         }
+    }
+
+    private void send200(HttpExchange exchange, String response) throws IOException {
+        exchange.getResponseHeaders().add("Content-Type", "text/html; charset=UTF-8");
+        exchange.sendResponseHeaders(200, response.getBytes().length);
+        // code bellow the same but more old style without try which closes: os.close();
+//        try (OutputStream os = exchange.getResponseBody()) {
+//            os.write(response.getBytes());
+//        }
+
+        // Write response body
+        OutputStream os = exchange.getResponseBody();
+        os.write(response.getBytes());
+        os.close();
     }
 
     private void send404(HttpExchange exchange) throws IOException {
