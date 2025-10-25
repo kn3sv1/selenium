@@ -7,10 +7,17 @@ import java.io.OutputStream;
 public class HtmlHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-        String response = "<html>" +
-                "<head><title>My Simple Server</title></head>" +
-                "<body><h1>Welcome to my HTML server!</h1></body>" +
-                "</html>";
+//        String response = "<html>" +
+//                "<head><title>My Simple Server</title></head>" +
+//                "<body><h1>Welcome to my HTML server!</h1></body>" +
+//                "</html>";
+
+        String response = """
+        <html>
+            <head><title>My Simple Server</title></head>
+            <body><h1>Welcome to my HTML server!</h1></body>
+        </html>
+        """;
 
         // Set HTTP response headers
         exchange.getResponseHeaders().add("Content-Type", "text/html; charset=UTF-8");
