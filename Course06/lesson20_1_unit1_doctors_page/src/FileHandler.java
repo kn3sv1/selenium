@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;
+import java.util.Date;
 
 public class FileHandler implements HttpHandler {
     private final String rootDir;
@@ -34,9 +35,10 @@ public class FileHandler implements HttpHandler {
             String json =  String.format("""
                 {
                     "temp": %d,
-                    "condition": "%s"
+                    "condition": "%s",
+                    "date": "%s"
                 }
-                """, 22, "Sunny"
+                """, 22, "Sunny", new Date().toString()
             );
             sendJSON(exchange, json);
             return;
@@ -47,6 +49,7 @@ public class FileHandler implements HttpHandler {
             requestedPath = "/index.html";
         }
 
+        // by default we'll try to find file in public folder. Code bellow will do this automatically: CSS, JavaScript, photos, JSON files ect...
         File file = new File(rootDir + requestedPath).getCanonicalFile();
 
         // Security check: don't allow paths outside rootDir
