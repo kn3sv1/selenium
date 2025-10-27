@@ -1,14 +1,25 @@
 document.getElementById("fetchWeather").addEventListener("click", () => {
-    fetch("/api/weather")
-    //fetch("/data/weather.json")
+    fetch("/api/weather/list")
         .then(response => response.json())
         .then(data => {
-            document.getElementById("result").innerHTML =
-                `<p>Temperature: ${data.temp}°C</p>
-                 <p>Condition: ${data.condition}</p>
-                 <p>Date: ${data.date}</p>`;
-        })
-        .catch(err => {
-            console.error("Error fetching weather:", err);
-        });
-});
+
+
+            let weatherRows = [];
+            data.forEach(function (weather) {
+                let row = `
+                    <div class="weather-card">
+                        <p>City: <a href="/weather/city/${weather.city}">${weather.city}</a></p>
+                        <p>Temperature today: ${weather.temperature}</p>
+                        <p>Windy: ${weather.isWindy}</p>
+                        <img src= "${weather.cityPhoto}" />
+                        <img src= "${weather.weatherPhoto}" />
+                    </div>
+                `;
+                weatherRows.push(row);
+            });
+            //array convert to string
+            document.getElementById("result").innerHTML = weatherRows.join('') + '<div style="clear:both"></div>';
+
+
+    }); // end of fetch
+}); // click event

@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.util.Date;
+import java.util.List;
 
 public class FileHandler implements HttpHandler {
     private final String rootDir;
@@ -30,6 +31,12 @@ public class FileHandler implements HttpHandler {
             send200(exchange, response);
             return;
         }
+
+        if(requestedPath.startsWith("/api/weather/list")) {
+            WeatherRepository repository = new WeatherRepository();
+            sendJSON(exchange, repository.toJsonArray());
+        }
+
         // http://localhost:8080/api/weather
         if (requestedPath.startsWith("/api/weather")) {
             String json =  String.format("""
