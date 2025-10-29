@@ -28,6 +28,33 @@ public class NewsItem {
         return id;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public LocalDateTime getPublishedAt() {
+        return publishedAt;
+    }
+
+    public int getLikes() {
+        return likes;
+    }
+
+    public String getCategory() {
+        return category;
+    }
 
     public String toJSON() {
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");

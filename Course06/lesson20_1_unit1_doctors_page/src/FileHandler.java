@@ -62,7 +62,9 @@ public class FileHandler implements HttpHandler {
             NewsRepository repository = new NewsRepository();
 
             //response.sendJSON(exchange, repository.findById(id));
-            response.send200(exchange, "html page string dynamic .....");
+            //response.send200(exchange, "html page string dynamic .....");
+            NewsItem item = repository.findObjectById(id);
+            response.send200(exchange, new NewsItemHtml(item).toString());
         }
 
 
