@@ -23,3 +23,30 @@ document.getElementById("fetchWeather").addEventListener("click", () => {
 
     }); // end of fetch
 }); // click event
+
+document.getElementById("fetchNews").addEventListener("click", () => {
+    fetch("/api/news/list")
+        .then(response => response.json())
+        .then(data => {
+
+
+            let newsRows = [];
+            data.forEach(function (news) {
+                let row = `
+                    <div class="weather-card">
+                        <p>News ID: ${news.id}</p>
+                        <h2>Title: ${news.title}</h2>
+                        <p>Description: ${news.description}</p>
+                        <p>Text: ${news.text}</p>
+                        <img src= "${news.image}" />
+                        <p style="color: red;">Published at: ${news.publishedAt}</p>
+                        <p>Likes: ${news.likes}</p>
+                        <p>Category: ${news.category}</p>
+                    </div>
+                `;
+                newsRows.push(row);
+            });
+
+            document.getElementById("news").innerHTML = newsRows.join('<br /><br />') + '<div style="clear:both"></div>';
+    });
+});

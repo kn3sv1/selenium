@@ -8,6 +8,8 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class FileHandler implements HttpHandler {
     private final String rootDir;
@@ -18,27 +20,68 @@ public class FileHandler implements HttpHandler {
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
+        HttpResponse response = new HttpResponse(exchange);
+
         String requestedPath = exchange.getRequestURI().getPath();
+        String cleanPath = this.removeLastSlash(requestedPath);
 
         // http://localhost:8080/andreas
-        if (requestedPath.startsWith("/andreas")) {
-            String response = """
+        if (cleanPath.startsWith("/andreas")) {
+            String html = """
             <html>
                 <head><title>Doctor Andreas page</title></head>
                 <body><h1>Welcome to Pantazis clinic</h1></body>
             </html>
             """;
-            send200(exchange, response);
+            response.send200(exchange, html);
             return;
         }
 
-        if(requestedPath.startsWith("/api/weather/list")) {
+        if(cleanPath.startsWith("/api/weather/list")) {
             WeatherRepository repository = new WeatherRepository();
-            sendJSON(exchange, repository.toJsonArray());
+            response.sendJSON(exchange, repository.toJsonArray());
         }
 
+        if(cleanPath.startsWith("/api/news/list")) {
+            NewsRepository repository = new NewsRepository();
+            response.sendJSON(exchange, repository.findAlltoJsonArray());
+        }
+
+
+
+        // http://localhost:8080/api/news/item/2
+
+        // regular expression is a professional way for dynamic routes
+        Pattern pattern = Pattern.compile("^/api/news/item/(\\d+)$");
+        Matcher matcher = pattern.matcher(cleanPath);
+        if (matcher.find()) {
+            String id = matcher.group(1); // ()- 1st group, () - 2nd group
+            System.out.println("ID: " + Integer.parseInt(id));
+            System.out.println(cleanPath);
+
+            NewsRepository repository = new NewsRepository();
+
+            //response.sendJSON(exchange, repository.findById(id));
+            response.send200(exchange, "html page string dynamic .....");
+        }
+
+
+        /*
+        // request bellow will go inside and crash - because we don't check if it's digit after /item/
+        // http://localhost:8080/api/news/item
+        if(cleanPath.startsWith("/api/news/item")) {
+            NewsRepository repository = new NewsRepository();
+            String id = this.removePrefix(cleanPath, "/api/news/item/");
+            System.out.println(id);
+            System.out.println(cleanPath);
+            response.sendJSON(exchange, repository.findById(id));
+        }
+        */
+
+
+
         // http://localhost:8080/api/weather
-        if (requestedPath.startsWith("/api/weather")) {
+        if (cleanPath.startsWith("/api/weather")) {
             String json =  String.format("""
                 {
                     "temp": %d,
@@ -47,7 +90,7 @@ public class FileHandler implements HttpHandler {
                 }
                 """, 22, "Sunny", new Date().toString()
             );
-            sendJSON(exchange, json);
+            response.sendJSON(exchange, json);
             return;
         }
 
@@ -61,12 +104,12 @@ public class FileHandler implements HttpHandler {
 
         // Security check: don't allow paths outside rootDir
         if (!file.getPath().startsWith(new File(rootDir).getCanonicalPath())) {
-            send404(exchange);
+            response.send404(exchange);
             return;
         }
 
         if (!file.exists() || file.isDirectory()) {
-            send404(exchange);
+            response.send404(exchange);
             return;
         }
 
@@ -91,35 +134,23 @@ public class FileHandler implements HttpHandler {
         }
     }
 
-    private void sendJSON(HttpExchange exchange, String response) throws IOException {
-        exchange.getResponseHeaders().add("Content-Type", "application/json; charset=UTF-8");
-        exchange.sendResponseHeaders(200, response.getBytes().length);
-        // Write response body
-        OutputStream os = exchange.getResponseBody();
-        os.write(response.getBytes());
-        os.close();
+
+
+    public String removeLastSlash(String url) {
+        if(url.endsWith("/")) {
+            return url.substring(0, url.lastIndexOf("/"));
+        } else {
+            return url;
+        }
     }
 
-    private void send200(HttpExchange exchange, String response) throws IOException {
-        exchange.getResponseHeaders().add("Content-Type", "text/html; charset=UTF-8");
-        exchange.sendResponseHeaders(200, response.getBytes().length);
-        // code bellow the same but more old style without try which closes: os.close();
-//        try (OutputStream os = exchange.getResponseBody()) {
-//            os.write(response.getBytes());
-//        }
-
-        // Write response body
-        OutputStream os = exchange.getResponseBody();
-        os.write(response.getBytes());
-        os.close();
-    }
-
-    private void send404(HttpExchange exchange) throws IOException {
-        String response = "<h1>404 Not Found</h1>";
-        exchange.getResponseHeaders().add("Content-Type", "text/html; charset=UTF-8");
-        exchange.sendResponseHeaders(404, response.getBytes().length);
-        try (OutputStream os = exchange.getResponseBody()) {
-            os.write(response.getBytes());
+    public String removePrefix(String url, String prefix) {
+        if(url.startsWith(prefix)) {
+            // prefix.length() = "/file" = 5
+            // take from url from fifth position to the end. This way we cut prefix: /file
+            return url.substring(prefix.length());
+        } else {
+            return url;
         }
     }
 }
