@@ -24,7 +24,8 @@ document.getElementById("fetchWeather").addEventListener("click", () => {
     }); // end of fetch
 }); // click event
 
-document.getElementById("fetchNews").addEventListener("click", () => {
+
+let fetchNews = () => {
     fetch("/api/news/list")
         .then(response => response.json())
         .then(data => {
@@ -41,6 +42,7 @@ document.getElementById("fetchNews").addEventListener("click", () => {
                         <img src= "${news.image}" />
                         <p style="color: red;">Published at: ${news.publishedAt}</p>
                         <p>Likes: ${news.likes}</p>
+                        <p><a href="/api/news/item/${news.id}">Detail page</a></p>
                         <p>Category: ${news.category}</p>
                     </div>
                 `;
@@ -49,4 +51,10 @@ document.getElementById("fetchNews").addEventListener("click", () => {
 
             document.getElementById("news").innerHTML = newsRows.join('<br /><br />') + '<div style="clear:both"></div>';
     });
-});
+};
+document.getElementById("fetchNews").addEventListener("click", fetchNews);
+
+// without pressing any button - as soon as page is loaded we call function
+window.onload = () => {
+  fetchNews();
+};
