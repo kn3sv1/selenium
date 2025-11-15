@@ -28,5 +28,7 @@ public class Main {
         MyObject myObject = objectMapper.readValue(response.body(), MyObject.class);
 
         System.out.println("\n\nResponse: " + myObject.toString());
+
+        System.out.println("Price: " + myObject.getData().get("price"));
     }
 }
