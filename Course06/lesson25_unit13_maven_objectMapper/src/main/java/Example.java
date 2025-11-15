@@ -27,6 +27,7 @@ public class Example {
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(module); // support Java 8+ date/time
+        //DIABLE - because we registered our module before
         mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS); // ISO-8601 format
 
 
