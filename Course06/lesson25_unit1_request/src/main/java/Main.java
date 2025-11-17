@@ -70,12 +70,15 @@ public class Main {
         String formatted = sdf.format(now);
 
         Path file = Paths.get("./public/images/" + formatted + ".jpg");
+        // path type has this method
+        // file.toAbsolutePath()
         HttpResponse<Path> response = HttpClient.newHttpClient()
                 .send(request, HttpResponse.BodyHandlers.ofFile(file));
 
 
         System.out.println("\n\n");
         System.out.println("Status code: " + response.statusCode());
+        // look at generic of Path type: HttpResponse<Path> response
         System.out.println("File saved at: " + response.body().toAbsolutePath());
 
     }
