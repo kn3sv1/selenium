@@ -9,12 +9,14 @@ public class Router implements HttpHandler {
     private final Path root;
     private final PageController pageController;
     private final StaticFileController staticFileController;
+    private final ReceptionController receptionController;
 
     public Router(String rootDir) {
         // if we used here normalized() we would not have problem in our StaticFileController.
         this.root = Paths.get(rootDir).toAbsolutePath();
         this.pageController = new PageController();
         this.staticFileController = new StaticFileController();
+        this.receptionController = new ReceptionController();
     }
 
     @Override
@@ -30,6 +32,12 @@ public class Router implements HttpHandler {
         // we need somehow not to have conflict
         if (cleanPath.endsWith("/page")) {
             this.pageController.getPage(exchange);
+            return;
+        }
+
+        // http://localhost:8080/reception.html
+        if (cleanPath.endsWith("/reception.html")) {
+            this.receptionController.list(exchange);
             return;
         }
 
