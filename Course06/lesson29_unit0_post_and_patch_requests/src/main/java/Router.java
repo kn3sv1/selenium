@@ -11,6 +11,7 @@ public class Router implements HttpHandler {
     private final StaticFileController staticFileController;
 
     public Router(String rootDir) {
+        // if we used here normalized() we would not have problem in our StaticFileController.
         this.root = Paths.get(rootDir).toAbsolutePath();
         this.pageController = new PageController();
         this.staticFileController = new StaticFileController();
@@ -24,10 +25,10 @@ public class Router implements HttpHandler {
             cleanPath = "/";
         }
 
-        // http://localhost:8080/
+        // http://localhost:8080/page
         // why not startsWith() ? - because for files URLs also start with slash and now our StaticFileController doesn't work
         // we need somehow not to have conflict
-        if (cleanPath.endsWith("/")) {
+        if (cleanPath.endsWith("/page")) {
             this.pageController.getPage(exchange);
             return;
         }
