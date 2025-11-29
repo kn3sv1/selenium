@@ -5,7 +5,7 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-public class StaticFileController {
+public class StaticFileController extends AbstractController  {
     public void getFile(HttpExchange exchange, Path root) throws IOException {
         String uriPath = exchange.getRequestURI().getPath();
         Path filePath = root.resolve(uriPath.substring(1)).normalize();
