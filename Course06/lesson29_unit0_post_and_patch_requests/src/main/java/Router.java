@@ -10,6 +10,7 @@ public class Router implements HttpHandler {
     private final PageController pageController;
     private final StaticFileController staticFileController;
     private final ReceptionController receptionController;
+    private final NewsController newsController;
 
     public Router(String rootDir) {
         // if we used here normalized() we would not have problem in our StaticFileController.
@@ -17,6 +18,7 @@ public class Router implements HttpHandler {
         this.pageController = new PageController();
         this.staticFileController = new StaticFileController();
         this.receptionController = new ReceptionController();
+        this.newsController = new NewsController();
     }
 
     @Override
@@ -38,6 +40,11 @@ public class Router implements HttpHandler {
         // http://localhost:8080/reception.html
         if (cleanPath.endsWith("/reception.html")) {
             this.receptionController.list(exchange);
+            return;
+        }
+
+        if (cleanPath.endsWith("/news.html")) {
+            this.newsController.list(exchange);
             return;
         }
 
