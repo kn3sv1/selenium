@@ -73,7 +73,7 @@ public class Router implements HttpHandler {
 
         String result = "<style>.active-item { background-color:yellow; }</style>";
         for (MenuItem item : menu) {
-            result = result + "<br />" +  item.toString() + "<br />";
+            result = result + "<br />" +  item.toHtml() + "<br />";
         }
 
         return result;
