@@ -17,15 +17,39 @@ public class Router implements HttpHandler {
     @Override
     public void handle (HttpExchange exchange) throws IOException {
         String requestedPath = exchange.getRequestURI().getPath();
-        String response = "<h1>No page found - route</h1>" + this.getMenu(requestedPath);
+        MenuItemRepository menuItemRepository = new MenuItemRepository();
+        String response = "";
+        //String response = "<h1>No page found - route</h1>" + this.getMenu(requestedPath);
 
         // http://localhost:8080/products
-        if (requestedPath.equals("/")) {
+/*        if (requestedPath.equals("/")) {
             response = "<h1>Home page</h1>" + this.getMenu(requestedPath);
         } else if (requestedPath.startsWith("/products")) {
             response = "<h1>Hello from Products page</h1>" + this.getMenu(requestedPath);
         } else if (requestedPath.equals("/angie")) {
             response = "<h1>Hello to Angie</h1>" + this.getMenu(requestedPath);
+        }*/
+
+        for (MenuItem item : menuItemRepository.getMenu()) {
+            if (requestedPath.equals(item.getUrl()) ||
+                    requestedPath.startsWith(item.getUrl()) && !item.getUrl().equals("/")) {
+                item.setCssClass("active-item");
+            }
+        }
+
+        StringBuilder result = new StringBuilder();
+        for (MenuItem item : menuItemRepository.getMenu()) {
+            result.append("<style>.active-item { background-color:yellow; }</style>").append("<br />").append(item.toString()).append("<br />");
+        }
+
+        if (requestedPath.equals("/")) {
+            response = "<h1>Home page</h1>" + result;
+        } else if (requestedPath.startsWith("/products")) {
+            response = "<h1>Hello from Products page</h1>" + result;
+        } else if (requestedPath.equals("/angie")) {
+            response = "<h1>Hello to Angie</h1>" + result;
+        } else {
+            response = "<h1>No page found - route</h1>" + result;
         }
 
 
@@ -48,16 +72,18 @@ public class Router implements HttpHandler {
         }
     }
 
-    private String getMenu(String requestedPath) {
+
+
+/*    private String getMenu(String requestedPath) {
         //
-        /*
+        *//*
         String menu = """
                 <br /><a href="/">Home page</a><br />
                 <br /><a href="/angie">Angie Page</a><br />
                 <br /><a href="/products">Products</a><br />
                 <br /><a href="/404">Not found page 404</a><br />
             """;
-        */
+        *//*
         ArrayList<MenuItem> menu = new ArrayList<>();
         menu.add(new MenuItem("/", "Home page",requestedPath));
         menu.add(new MenuItem("/angie", "Angie Page", requestedPath));
@@ -77,5 +103,5 @@ public class Router implements HttpHandler {
         }
 
         return result;
-    }
+    }*/
 }

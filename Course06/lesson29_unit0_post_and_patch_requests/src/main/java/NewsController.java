@@ -30,6 +30,21 @@ public class NewsController extends AbstractController {
      * What data Structure should be?
      */
     private ArrayList<TemplateItem> getNewsItems() {
+        // We should always use Repository class and newsItem as model class for this
+        // task because on news page we show all news, on main page we show 3 most popular news
+        // and on doctor's page we show most popular and related to doctors so this means we can reuse
+        // these classes in different files/controllers
+
+        // separate classes should exist for example "NewsTemplate" that accepts array of models news
+        // and returns bellow this type:"ArrayList<TemplateItem>" because we can reuse this class in many
+        // places and provide different file templates: for mobile or different design
+        // the more classes we have means the more flexibility we can have
+
+        // code bellow we cannot take just part of news - not flexible. We cannot reuse tis code in another
+        // controller because It's hardcoded all here - we need to move to separate classes:
+        // news to repository and models, mapping of models and view to another class  "NewsTemplate".
+        // The more classes the better we can reuse different combination in different places to satisfy different
+        // business requirements
         ArrayList<TemplateItem> news = new ArrayList<>();
 
         Path file1 = Path.of("templates/news/news-item.html");
@@ -42,10 +57,10 @@ public class NewsController extends AbstractController {
 
         Path file2 = Path.of("templates/news/news-item-hot.html");
         HashMap<String, String> news2 = new HashMap<>();
-        news2.put("%TITLE%", "title2");
-        news2.put("%DESCRIPTION%", "description2");
-        news2.put("%DATE%", "date2");
-        news2.put("%IMAGE%", "/images/news/politics1.png");
+        news2.put("%TITLE%", "Barbie");
+        news2.put("%DESCRIPTION%", "Movie - Comedy");
+        news2.put("%DATE%", "Released 2023");
+        news2.put("%IMAGE%", "/images/news/show_biz3.png");
         news.add(new TemplateItem(file2, news2));
 
         Path file3 = Path.of("templates/news/news-item.html");

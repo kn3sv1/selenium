@@ -14,7 +14,8 @@ public class Router implements HttpHandler {
 
     public Router(String rootDir) {
         // if we used here normalized() we would not have problem in our StaticFileController.
-        this.root = Paths.get(rootDir).toAbsolutePath();
+        this.root = Path.of(rootDir).toAbsolutePath();
+        //this.root = Paths.get(rootDir).toAbsolutePath();
         this.pageController = new PageController();
         this.staticFileController = new StaticFileController();
         this.receptionController = new ReceptionController();

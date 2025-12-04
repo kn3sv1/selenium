@@ -17,8 +17,9 @@ public class StaticFileController extends AbstractController  {
 
 // this is how we debugged code and found problem that normalized "filePath" we compare with not normalized root path so now we
 // made root path so they bth have normalized absolute path
-//        System.out.println(filePath);
-//        System.out.println(root);
+        System.out.println(filePath);
+        System.out.println(rootPath);
+        System.out.println(root);
 //        System.out.println("Normalized: " + root.normalize());
 //        System.out.println("Absolute: " + root.toAbsolutePath());
 
