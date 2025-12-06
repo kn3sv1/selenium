@@ -30,6 +30,14 @@ public class Router implements HttpHandler {
             cleanPath = "/";
         }
 
+/*        for (MenuItem item : menuItemRepository.getMenu()) {
+            if (requestedPath.equals(item.getUrl()) ||
+                    requestedPath.startsWith(item.getUrl()) && !item.getUrl().equals("/")) {
+                item.setCssClass("active-item");
+            }
+        }*/
+
+
         // http://localhost:8080/page
         // why not startsWith() ? - because for files URLs also start with slash and now our StaticFileController doesn't work
         // we need somehow not to have conflict

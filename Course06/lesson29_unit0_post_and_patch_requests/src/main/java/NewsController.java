@@ -9,6 +9,8 @@ import java.util.Map;
 
 public class NewsController extends AbstractController {
     public void list(HttpExchange exchange) throws IOException {
+        String menu = this.getMenu(exchange);
+
         TemplateService templateService = new TemplateService();
         Path file = Path.of("templates/news/news.html");
         HashMap<String, String> map = new HashMap<>();
@@ -21,7 +23,7 @@ public class NewsController extends AbstractController {
         }
         map.put("%NEWS_LIST%", String.join("", htmlAll));
         // generate general page
-        String response = templateService.renderTemplate(file, map);
+        String response = menu + templateService.renderTemplate(file, map);
 
         this.sendHTMLResponse(exchange, response);
     }
