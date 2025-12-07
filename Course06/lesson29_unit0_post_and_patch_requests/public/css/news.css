@@ -12,3 +12,7 @@ img {
 div {
     padding: 0.5rem 1rem;
 }
+
+.active-item {
+    background-color:yellow;
+}

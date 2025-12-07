@@ -44,7 +44,7 @@ public class AbstractController {
 //        return string;
 
         StringBuilder result = new StringBuilder();
-        result.append("<style>.active-item { background-color:yellow; }</style>");
+        //result.append("<style>.active-item { background-color:yellow; }</style>");
         for (MenuItem item : menu) {
             result.append("<br />").append(item.toString()).append("<br />");
         }

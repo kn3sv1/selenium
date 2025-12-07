@@ -21,9 +21,10 @@ public class NewsController extends AbstractController {
             String html = templateService.renderTemplate(item.getPath(), item.getMap());
             htmlAll.add(html);
         }
+        map.put("%MENU-ITEMS%", menu);
         map.put("%NEWS_LIST%", String.join("", htmlAll));
         // generate general page
-        String response = menu + templateService.renderTemplate(file, map);
+        String response = templateService.renderTemplate(file, map);
 
         this.sendHTMLResponse(exchange, response);
     }

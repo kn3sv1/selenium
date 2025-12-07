@@ -10,7 +10,7 @@ public class PageController extends AbstractController {
         // and it will not match any of our routes in the router so this line will be executed:
         // this.staticFileController.getFile(exchange, this.root); This will look for this directory in the public folder
         String menu = this.getMenu(exchange);
-        String response = menu + "<br />Hello from Java HTTP Server! <h1>Hello</h1> <img src=\"/images/fluffy/fluffy123.png\"  />";
+        String response = "<style>.active-item { background-color:yellow; }</style>" + menu + "<br />Hello from Java HTTP Server! <h1>Hello</h1> <img src=\"/images/fluffy/fluffy123.png\"  />";
 
 
         this.sendHTMLResponse(exchange, response);
