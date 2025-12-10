@@ -8,15 +8,19 @@ import java.util.HashMap;
 public class ReceptionController extends AbstractController {
     // http://localhost:8080/reception.html
     public void list(HttpExchange exchange) throws IOException {
+        String banner = this.getBanner(exchange);
         String menuItems = this.getMenu(exchange);
+        String footer = this.getFooter(exchange);
 
         //String response = "Hello from Java HTTP Server! <h1>Hello</h1> <img src=\"/images/fluffy/fluffy123.png\"  />";
         TemplateService templateService = new TemplateService();
         Path file = Path.of("templates/reception/reception.html");
         HashMap<String,String> map = new HashMap<>();
+        map.put("%BANNER%", banner);
         map.put("%MENU-ITEMS%", menuItems);
         map.put("%NAME%", "Dr. Andreas Pantazis");
         map.put("%FOUNDED_YEAR%", "2008");
+        map.put("%FOOTER%", footer);
 
 
         String response = templateService.renderTemplate(file, map);

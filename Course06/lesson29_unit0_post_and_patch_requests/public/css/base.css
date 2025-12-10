@@ -1,0 +1,38 @@
+html {
+    font-family: "Montserrat", "sans-serif";
+}
+
+.menu-items {
+    list-style-type: none;
+    display: flex;
+}
+
+.menu-items li {
+    margin-right: 0.8rem;
+}
+
+a {
+    font-size: 1.2rem;
+    /*font-weight: bold;*/
+    text-decoration: none;
+}
+
+.active-item {
+    background-color:yellow;
+}
+
+footer {
+    background:#b0a5a5;
+    padding:10px;
+    margin-top:10px;
+    font-size:13px;
+    color:#2b2828;
+}
+
+footer p {
+    text-align:center;
+}
+
+section {
+    margin-left: 1.5rem;
+}
