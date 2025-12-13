@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class AbstractController {
 
     public void sendHTMLResponse(HttpExchange exchange, String response) throws IOException {
-        exchange.getResponseHeaders().set("Content-Type", "text/html; charset=UTF-8");
+        exchange.getResponseHeaders().add("Content-Type", "text/html; charset=UTF-8");
         exchange.sendResponseHeaders(200, response.getBytes().length);
 
         // we open pipe and write our string as bytes because over internet should send only binary data (10110)
@@ -16,6 +16,16 @@ public class AbstractController {
         try (OutputStream os = exchange.getResponseBody()) {
             os.write(response.getBytes());
         }
+    }
+
+    public void sendJSON(HttpExchange exchange, String response) throws IOException {
+        exchange.getResponseHeaders().add("Content-Type", "application/json; charset=UTF-8");
+        exchange.sendResponseHeaders(200, response.getBytes().length);
+
+        try (OutputStream os = exchange.getResponseBody()) {
+            os.write(response.getBytes());
+        }
+
     }
 
     public String getMenu(HttpExchange exchange) {
