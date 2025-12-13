@@ -19,7 +19,7 @@ public class DoctorAppointmentController extends AbstractController {
                 : "";
 
         // we need view template or hard code in String because we want to change text after we submit form.
-        String response = message + """
+        String response = """
         <!DOCTYPE html>
         <html lang="en">
         <head>
@@ -30,6 +30,7 @@ public class DoctorAppointmentController extends AbstractController {
             <title>Doctor House</title>
         </head>
         <body>
+            %MESSAGE%
             <form action="/doctor/create-appointment" method="post" style="max-width:500px; margin:30px auto; font-family:Arial;">
             <h2>%TITLE%</h2>
             <label>
@@ -61,7 +62,9 @@ public class DoctorAppointmentController extends AbstractController {
         </body>
         </html>
         """;
-        response = response.replaceAll("%TITLE%", "Doctor Appointment");
+        response = response
+                .replaceAll("%TITLE%", "Doctor Appointment")
+                .replaceAll("%MESSAGE%", message);
 
 
         this.sendHTMLResponse(exchange, response);
