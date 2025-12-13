@@ -7,8 +7,14 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class DoctorAppointmentController extends AbstractController {
+    private AppointmentRepository repository;
+
+    public DoctorAppointmentController() {
+        this.repository = new AppointmentRepository();
+    }
 
     public void showForm(HttpExchange exchange) throws IOException {
         Map<String, String> params = this.parseQuery(exchange.getRequestURI().getQuery());
@@ -33,7 +39,17 @@ public class DoctorAppointmentController extends AbstractController {
         InputStream is = exchange.getRequestBody();
         String body = new String(is.readAllBytes(), StandardCharsets.UTF_8);
         Map<String, String> data  = this.parseFormData(body);
-        System.out.println(data.toString());
+        Appointment appointment = new Appointment(
+                UUID.randomUUID().toString(),
+                data.get("name"),
+                data.get("phone"),
+                data.get("doctor"),
+                data.get("reason")
+        );
+        this.repository.add(appointment);
+        // we put this imformation inside add method
+        // this.repository.save();
+        //System.out.println(data.toString());
 
         // redirect back to form page with success message
         exchange.getResponseHeaders().add("Location", "/doctor/show-form?success=1");
