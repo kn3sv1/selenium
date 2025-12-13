@@ -2,6 +2,10 @@ import com.sun.net.httpserver.HttpExchange;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AbstractController {
 
@@ -25,5 +29,51 @@ public class AbstractController {
             os.write(response.getBytes());
         }
 
+    }
+
+    public Map<String, String> parseFormData(String body) {
+        Map<String, String> map = new HashMap<>();
+
+        if (body == null || body.isEmpty()) {
+            return map;
+        }
+
+        String[] pairs = body.split("&");
+
+        for (String pair : pairs) {
+            String[] kv = pair.split("=", 2); // limit=2 is IMPORTANT
+
+            String key = URLDecoder.decode(kv[0], StandardCharsets.UTF_8);
+            String value = kv.length > 1
+                    ? URLDecoder.decode(kv[1], StandardCharsets.UTF_8)
+                    : "";
+
+            map.put(key, value);
+        }
+
+        return map;
+    }
+
+    public Map<String, String> parseQuery(String query) {
+        Map<String, String> map = new HashMap<>();
+
+        if (query == null || query.isEmpty()) {
+            return map;
+        }
+
+        String[] pairs = query.split("&");
+
+        for (String pair : pairs) {
+            String[] kv = pair.split("=", 2);
+
+            String key = URLDecoder.decode(kv[0], StandardCharsets.UTF_8);
+            String value = kv.length > 1
+                    ? URLDecoder.decode(kv[1], StandardCharsets.UTF_8)
+                    : "";
+
+            map.put(key, value);
+        }
+
+        return map;
     }
 }

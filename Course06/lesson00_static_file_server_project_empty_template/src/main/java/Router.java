@@ -23,8 +23,6 @@ public class Router implements HttpHandler {
             cleanPath = "/";
         }
 
-        // http://localhost:8080/doctor/show-form?success=1
-        // will work/match REQUEST because we check request not query param
         if (cleanPath.startsWith("/doctor/show-form")) {
             this.doctorAppointmentController.showForm(exchange);
             return;
