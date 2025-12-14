@@ -67,7 +67,7 @@ public class AppointmentRepository {
         Path file = Path.of("./database/appointments.json");
         Files.writeString(file, json, StandardCharsets.UTF_8);
     }
-    private String loadFromDatabase() throws IOException {
+    public String loadFromDatabase() throws IOException {
         // todo add logic if no file exists. return empty string!
         Path file = Path.of("./database/appointments.json");
         if (!Files.exists(file)) {

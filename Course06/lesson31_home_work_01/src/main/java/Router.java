@@ -3,6 +3,8 @@ import com.sun.net.httpserver.HttpHandler;
 import java.nio.file.Path;
 
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Router implements HttpHandler {
     private final Path root;
@@ -33,13 +35,52 @@ public class Router implements HttpHandler {
             return;
         }
 
-        if (cleanPath.startsWith("/doctor/update-appointment")) {
-            this.doctorAppointmentController.update(exchange);
+//        if (cleanPath.matches("^/doctor/show-appointments/edit/[0-9a-fA-F-]{36}$")) {
+//            // lets extract UUID
+//            Pattern pattern = Pattern.compile("^/doctor/show-appointments/edit/([0-9a-fA-F-]{36})$");
+//            Matcher matcher = pattern.matcher(cleanPath);
+//
+//            if (matcher.find()) {
+//                String uuid = matcher.group(1);
+//                System.out.println(uuid);
+//            }
+//
+//            this.doctorAppointmentController.update(exchange);
+//            return;
+//        }
+//        if (cleanPath.matches("^/doctor/show-appointments/delete/[0-9a-fA-F-]{36}$")) {
+//            this.doctorAppointmentController.delete(exchange);
+//            return;
+//        }
+
+        // this version less code and less duplication
+        // lets extract UUID.
+        Pattern pattern = Pattern.compile("^/doctor/show-appointments/edit/([0-9a-fA-F-]{36})$");
+        Matcher matcher = pattern.matcher(cleanPath);
+        if (matcher.find()) {
+            String uuid = matcher.group(1);
+            System.out.println(uuid);
+            this.doctorAppointmentController.update(exchange, uuid);
             return;
         }
 
-        if (cleanPath.startsWith("/doctor/delete-appointment")) {
-            this.doctorAppointmentController.delete(exchange);
+        pattern = Pattern.compile("^/doctor/show-appointments/delete/([0-9a-fA-F-]{36})$");
+        matcher = pattern.matcher(cleanPath);
+        if (matcher.find()) {
+            String uuid = matcher.group(1);
+            System.out.println(uuid);
+            this.doctorAppointmentController.delete(exchange, uuid);
+            return;
+        }
+
+        if (cleanPath.startsWith("/doctor/show-appointments")) {
+            this.doctorAppointmentController.showAppointments(exchange);
+            return;
+        }
+
+        // /api - prefix for JSON
+        if (cleanPath.startsWith("/api/doctor/show-appointments")) {
+            this.doctorAppointmentController.showAppointmentsJSON(exchange);
             return;
         }
 

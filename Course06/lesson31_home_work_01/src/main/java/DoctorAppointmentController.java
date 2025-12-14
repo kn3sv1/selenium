@@ -2,9 +2,9 @@ import com.sun.net.httpserver.HttpExchange;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -57,14 +57,45 @@ public class DoctorAppointmentController extends AbstractController {
         exchange.close();
     }
 
-    public void update(HttpExchange exchange) throws IOException {
-        String response = "Data updated";
+    public void update(HttpExchange exchange, String uuid) throws IOException {
+        String response = "Data updated UUID: " + uuid;
         this.sendHTMLResponse(exchange, response);
     }
 
-    public void delete(HttpExchange exchange) throws IOException {
-        String response = "Appointment deleted";
+    public void delete(HttpExchange exchange, String uuid) throws IOException {
+        String response = "Appointment deleted UUID: " + uuid;
         this.sendHTMLResponse(exchange, response);
 
+    }
+
+    public void showAppointments(HttpExchange exchange) throws IOException {
+        ArrayList<Appointment> appointments = this.repository.getAppointments();
+        StringBuilder rows = new StringBuilder();
+
+        for (Appointment a : appointments) {
+            String action = "<a href=\"/doctor/show-appointments/edit/" + a.getId() + "\">Edit</a>" +
+                    "&nbsp;<a href=\"/doctor/show-appointments/delete/" + a.getId()  + "\">Delete</a>";
+            rows.append("<tr>")
+                .append("<td>").append(a.getId()).append("</td>")
+                .append("<td>").append(a.getName()).append("</td>")
+                .append("<td>").append(a.getPhone()).append("</td>")
+                .append("<td>").append(a.getDoctor()).append("</td>")
+                .append("<td>").append(a.getReason()).append("</td>")
+                .append("<td>").append(action).append("</td>")
+                .append("</tr>");
+        }
+
+        TemplateService templateService = new TemplateService();
+        Path file = Path.of("templates/appointments.html");
+        HashMap<String,String> map = new HashMap<>();
+        map.put("%TABLE_ROWS%", rows.toString());
+        String html = templateService.renderTemplate(file, map);
+
+        this.sendHTMLResponse(exchange, html);
+    }
+
+    public void showAppointmentsJSON(HttpExchange exchange) throws IOException {
+        String json = this.repository.loadFromDatabase();
+        this.sendHTMLResponse(exchange, json);
     }
 }
