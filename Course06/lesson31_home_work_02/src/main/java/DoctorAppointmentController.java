@@ -64,6 +64,7 @@ public class DoctorAppointmentController extends AbstractController {
         // if GET we show form. If PUT/PATCH we proceed sent data.
         // Our controller has too much code - let's create private method in controller to simplify amount
         // of code in this method.
+        //TODO::: MOVE to AbstractController method
         InputStream is = exchange.getRequestBody();
         //TODO:: ONCE YOU READ - next time if you read it will be EMPTY!!!!
         // SO READ ONLY ONCE and pass around: Map<String, String> data
