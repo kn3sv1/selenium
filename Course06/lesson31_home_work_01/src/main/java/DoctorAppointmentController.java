@@ -95,7 +95,8 @@ public class DoctorAppointmentController extends AbstractController {
     }
 
     public void showAppointmentsJSON(HttpExchange exchange) throws IOException {
-        String json = this.repository.loadFromDatabase();
+        //String json = this.repository.getAppointments();
+        String json = "Not IMPLEMENTED";
         this.sendHTMLResponse(exchange, json);
     }
 }
