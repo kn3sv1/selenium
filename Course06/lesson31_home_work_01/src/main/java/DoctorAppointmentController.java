@@ -66,7 +66,7 @@ public class DoctorAppointmentController extends AbstractController {
         map.put("%FORM_UUID%", appointment.getId());
         map.put("%FORM_NAME%", appointment.getName());
         map.put("%FORM_PHONE%", appointment.getPhone());
-        map.put("%FORM_DOCTOR%", appointment.getDoctor());
+        map.put("%FORM_DOCTOR_LIST%", this.getDoctorsHtml(appointment));
         map.put("%FORM_REASON%", appointment.getReason());
         map.put("%MESSAGE%", "");
 
@@ -136,5 +136,46 @@ public class DoctorAppointmentController extends AbstractController {
         //String json = this.repository.getAppointments();
         String json = "Not IMPLEMENTED";
         this.sendHTMLResponse(exchange, json);
+    }
+
+    /**
+     * Generate dynamic HTML from datastructures.
+     * HashMap of doctors should be refactored in future to DoctorRepository
+     */
+    private String getDoctorsHtml(Appointment appointment) {
+        HashMap<String, String> doctors = new HashMap<>();
+        doctors.put("", "-- Select Doctor --");
+        doctors.put("smith", "Dr. Smith");
+        doctors.put("johnson", "Dr. Johnson");
+        doctors.put("lee", "Dr. Lee");
+
+        ArrayList<String> result = new ArrayList<>();
+        for(Map.Entry<String, String> entry : doctors.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            String selected = "";
+            if (key.equals(appointment.getDoctor())) {
+                selected = " selected=\"selected\"";
+            }
+            result.add("<option value=\"%s\" %s>%s</option>".formatted(key, selected, value));
+        }
+        String dropDown = """
+            <select name="doctor" required>%s</select>
+                """.formatted(String.join("", result));
+
+        return dropDown;
+
+
+
+//        String dropDown = """
+//            <select name="doctor" required>
+//                <option value="">-- Select Doctor --</option>
+//                <option value="smith" selected="selected">Dr. Smith</option>
+//                <option value="johnson">Dr. Johnson</option>
+//                <option value="lee">Dr. Lee</option>
+//            </select>
+//                """;
+//
+//       return dropDown;
     }
 }
