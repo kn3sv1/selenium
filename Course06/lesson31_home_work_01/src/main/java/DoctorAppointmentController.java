@@ -21,7 +21,7 @@ public class DoctorAppointmentController extends AbstractController {
         boolean success = "1".equals(params.get("success"));
 
         String message = success
-                ? "<p class='appointment-success'>Appointment created successfully!</p>"
+                ? "<p class='appointment-success'>Appointment created successfully!</p> <a href=\"/doctor/show-appointments\">Return to list of appointments</a>"
                 : "";
 
         TemplateService templateService = new TemplateService();
@@ -57,15 +57,53 @@ public class DoctorAppointmentController extends AbstractController {
         exchange.close();
     }
 
-    public void update(HttpExchange exchange, String uuid) throws IOException {
-        String response = "Data updated UUID: " + uuid;
+    public void updateShow(HttpExchange exchange, String uuid) throws IOException {
+        Appointment appointment = this.repository.findById(uuid);
+        TemplateService templateService = new TemplateService();
+        Path file = Path.of("templates/forms/form-update.html");
+        HashMap<String,String> map = new HashMap<>();
+        map.put("%TITLE%", "Doctor Appointment");
+        map.put("%FORM_UUID%", appointment.getId());
+        map.put("%FORM_NAME%", appointment.getName());
+        map.put("%FORM_PHONE%", appointment.getPhone());
+        map.put("%FORM_DOCTOR%", appointment.getDoctor());
+        map.put("%FORM_REASON%", appointment.getReason());
+        map.put("%MESSAGE%", "");
+
+        String response = templateService.renderTemplate(file, map);
+
         this.sendHTMLResponse(exchange, response);
     }
 
-    public void delete(HttpExchange exchange, String uuid) throws IOException {
-        String response = "Appointment deleted UUID: " + uuid;
-        this.sendHTMLResponse(exchange, response);
+    public void update(HttpExchange exchange, String uuid) throws IOException {
+        //String response = "Data updated UUID: " + uuid;
 
+        Appointment appointment = this.repository.findById(uuid);
+        InputStream is = exchange.getRequestBody();
+        String body = new String(is.readAllBytes(), StandardCharsets.UTF_8);
+        Map<String, String> data  = this.parseFormData(body);
+        System.out.println(data);
+        appointment.setName(data.get("name"));
+        appointment.setPhone(data.get("phone"));
+        appointment.setDoctor(data.get("doctor"));
+        appointment.setReason(data.get("reason"));
+
+        this.repository.update(appointment);
+
+        // redirect back to form page with success message
+        exchange.getResponseHeaders().add("Location", "/doctor/show-appointments");
+        exchange.sendResponseHeaders(303, -1); // 303 = See Other
+        exchange.close();
+        //this.sendHTMLResponse(exchange, response);
+    }
+
+    public void delete(HttpExchange exchange, String uuid) throws IOException {
+        //String response = "Appointment deleted UUID: " + uuid;
+        this.repository.deleteApt(uuid);
+
+        exchange.getResponseHeaders().add("Location", "/doctor/show-appointments");
+        exchange.sendResponseHeaders(303, -1);
+        exchange.close();
     }
 
     public void showAppointments(HttpExchange exchange) throws IOException {
@@ -73,7 +111,7 @@ public class DoctorAppointmentController extends AbstractController {
         StringBuilder rows = new StringBuilder();
 
         for (Appointment a : appointments) {
-            String action = "<a href=\"/doctor/show-appointments/edit/" + a.getId() + "\">Edit</a>" +
+            String action = "<a href=\"/doctor/show-appointments/edit-show/" + a.getId() + "\">Edit</a>" +
                     "&nbsp;<a href=\"/doctor/show-appointments/delete/" + a.getId()  + "\">Delete</a>";
             rows.append("<tr>")
                 .append("<td>").append(a.getId()).append("</td>")

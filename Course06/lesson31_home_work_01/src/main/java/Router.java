@@ -55,8 +55,20 @@ public class Router implements HttpHandler {
 
         // this version less code and less duplication
         // lets extract UUID.
-        Pattern pattern = Pattern.compile("^/doctor/show-appointments/edit/([0-9a-fA-F-]{36})$");
-        Matcher matcher = pattern.matcher(cleanPath);
+        Pattern pattern;
+        Matcher matcher;
+
+        pattern = Pattern.compile("^/doctor/show-appointments/edit-show/([0-9a-fA-F-]{36})$");
+        matcher = pattern.matcher(cleanPath);
+        if (matcher.find()) {
+            String uuid = matcher.group(1);
+            System.out.println(uuid);
+            this.doctorAppointmentController.updateShow(exchange, uuid);
+            return;
+        }
+
+        pattern = Pattern.compile("^/doctor/show-appointments/edit/([0-9a-fA-F-]{36})$");
+        matcher = pattern.matcher(cleanPath);
         if (matcher.find()) {
             String uuid = matcher.group(1);
             System.out.println(uuid);

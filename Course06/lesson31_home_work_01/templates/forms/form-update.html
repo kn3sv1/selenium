@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Doctor House</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <script src="/js/scripts.js" defer></script>
+</head>
+<body>
+    %MESSAGE%
+    <form action="/doctor/show-appointments/edit/%FORM_UUID%" method="post">
+        <h2>%TITLE%</h2>
+        <label>
+            Full Name:<br>
+            <input type="text" name="name" value="%FORM_NAME%" required>
+        </label><br><br>
+        <label>
+            Phone Number:<br>
+            <input type="tel" name="phone" value="%FORM_PHONE%" required style>
+        </label><br><br>
+        <label>
+            Doctor:<br>
+            <select name="doctor" required>
+                <option value="">-- Select Doctor --</option>
+                <option value="smith">Dr. Smith</option>
+                <option value="johnson">Dr. Johnson</option>
+                <option value="lee">Dr. Lee</option>
+            </select>
+        </label><br><br>
+        <label>
+            Reason for Visit:<br>
+            <textarea name="reason" rows="4">%FORM_REASON%</textarea>
+        </label><br><br>
+
+        <button type="submit">
+            Update appointment
+        </button>
+        <br><br>
+        <a href="/doctor/show-appointments">Cancel and return to list of appointments</a>
+    </form>
+</body>
+</html>

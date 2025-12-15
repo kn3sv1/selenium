@@ -33,4 +33,33 @@ public class AppointmentRepository extends AbstractDatabaseRepository {
         this.appointments.add(appointment);
         this.save(this.appointments);
     }
+
+    public void deleteApt(String id) {
+        for(Appointment apt : this.appointments) {
+            if(apt.getId().equals(id)) {
+                this.appointments.remove(apt);
+            }
+        }
+        this.save(this.appointments);
+    }
+
+    public Appointment findById(String id) {
+        //TODO: refactor after to lambda to have shorter code
+        Appointment appointment = null;
+        for(Appointment apt : this.appointments) {
+            if(apt.getId().equals(id)) {
+                appointment = apt;
+            }
+        }
+        return appointment;
+    }
+
+    public void update(Appointment appointment) {
+        for (int i = 0; i < this.appointments.size(); i++) {
+            if (this.appointments.get(i).getId().equals(appointment.getId())) {
+                this.appointments.set(i, appointment);
+            }
+        }
+        this.save(this.appointments);
+    }
 }
