@@ -4,10 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public class DoctorAppointmentController extends AbstractController {
     private AppointmentRepository repository;
@@ -52,7 +49,7 @@ public class DoctorAppointmentController extends AbstractController {
         //System.out.println(data.toString());
 
         // redirect back to form page with success message
-        exchange.getResponseHeaders().add("Location", "/doctor/show-form?success=1");
+        exchange.getResponseHeaders().add("Location", "/doctor/appointment/show-form?success=1");
         exchange.sendResponseHeaders(303, -1); // 303 = See Other
         exchange.close();
     }
@@ -145,7 +142,7 @@ public class DoctorAppointmentController extends AbstractController {
     }
 
     public void showAppointments(HttpExchange exchange) throws IOException {
-        ArrayList<Appointment> appointments = this.repository.getAppointments();
+        List<Appointment> appointments = this.repository.getAppointments();
         StringBuilder rows = new StringBuilder();
 
         for (Appointment a : appointments) {

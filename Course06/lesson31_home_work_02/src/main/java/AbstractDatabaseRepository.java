@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class AbstractDatabaseRepository {
     private final ObjectMapper mapper;
@@ -34,11 +36,15 @@ public abstract class AbstractDatabaseRepository {
      * @return
      * @param <T>
      */
-    public <T> T load(TypeReference<T> typeRef) {
+    public <T> List<T> load(TypeReference<List<T>> typeRef) {
         // not to throw all time exception here we just hided
         try {
             String json = Files.exists(this.getFile()) ?
                     Files.readString(this.getFile(), StandardCharsets.UTF_8) : "";
+
+            if (json == null || json.isBlank()) {
+                return new ArrayList<>();
+            }
 
             // we need Generic method because we don't return an object or mapper.
             // this class shouldn't know anything about mapper

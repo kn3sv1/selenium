@@ -9,12 +9,14 @@ import java.util.regex.Pattern;
 public class Router implements HttpHandler {
     private final Path root;
     private final DoctorAppointmentController doctorAppointmentController;
+    private final DoctorController doctorController;
     private final StaticFileController staticFileController;
 
     public Router(String rootDir) {
         this.root = Path.of(rootDir).toAbsolutePath();
         this.staticFileController = new StaticFileController();
         this.doctorAppointmentController = new DoctorAppointmentController();
+        this.doctorController = new DoctorController();
     }
 
     @Override
@@ -25,12 +27,28 @@ public class Router implements HttpHandler {
             cleanPath = "/";
         }
 
-        if (cleanPath.startsWith("/doctor/show-form")) {
+        if (cleanPath.startsWith("/doctor/appointment/show-form")) {
             this.doctorAppointmentController.showForm(exchange);
             return;
         }
 
-        if (cleanPath.startsWith("/doctor/create-appointment")) {
+        if (cleanPath.startsWith("/doctor/show-form")) {
+            this.doctorController.showForm(exchange);
+            return;
+        }
+
+        if (cleanPath.startsWith("/doctor/create-doctor")) {
+            this.doctorController.create(exchange);
+            return;
+        }
+
+
+        if (cleanPath.startsWith("/doctor/show-doctors")) {
+            this.doctorController.showDoctors(exchange);
+            return;
+        }
+
+        if (cleanPath.startsWith("/doctor/appointment/create-appointment")) {
             this.doctorAppointmentController.create(exchange);
             return;
         }
@@ -57,6 +75,22 @@ public class Router implements HttpHandler {
         // lets extract UUID.
         Pattern pattern;
         Matcher matcher;
+
+        pattern = Pattern.compile("/doctor/edit/([0-9a-fA-F-]{36})$");
+        matcher = pattern.matcher(cleanPath);
+        if (matcher.find()) {
+            String uuid = matcher.group(1);
+            this.doctorController.update(exchange, uuid);
+            return;
+        }
+
+        pattern = Pattern.compile("/doctor/delete/([0-9a-fA-F-]{36})$");
+        matcher = pattern.matcher(cleanPath);
+        if (matcher.find()) {
+            String uuid = matcher.group(1);
+            this.doctorController.delete(exchange, uuid);
+            return;
+        }
 
         pattern = Pattern.compile("^/doctor/show-appointments/edit/([0-9a-fA-F-]{36})$");
         matcher = pattern.matcher(cleanPath);

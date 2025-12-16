@@ -2,9 +2,10 @@ import com.fasterxml.jackson.core.type.TypeReference;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.List;
 
 public class AppointmentRepository extends AbstractDatabaseRepository {
-    private ArrayList<Appointment> appointments;
+    private List<Appointment> appointments;
     private final Path file;
 
     public AppointmentRepository() {
@@ -17,7 +18,7 @@ public class AppointmentRepository extends AbstractDatabaseRepository {
         //load from file JSON and convert to ArrayList
         //this.appointments = this.load(new TypeReference<ArrayList<Appointment>>() {});
         // anonymous instance - that do not erase TYPE in abstractRepository
-        this.appointments = this.load(new TypeReference<>() {});
+        this.appointments = this.load(new TypeReference<List<Appointment>>() {});
     }
 
     @Override
@@ -25,7 +26,7 @@ public class AppointmentRepository extends AbstractDatabaseRepository {
         return this.file;
     }
 
-    public ArrayList<Appointment> getAppointments() {
+    public List<Appointment> getAppointments() {
         return this.appointments;
     }
 

@@ -16,7 +16,8 @@ public class TemplateService {
         String content = Files.readString(file);
         for (Map.Entry<String, String> entry : map.entrySet()) {
             String key = entry.getKey();
-            String value = entry.getValue();
+            // to prevent crashing error we check for null value if it's null we put empty sthing because regex
+            String value = entry.getValue() != null ? entry.getValue() : "";
             content = content.replaceAll(key, value);
         }
 
