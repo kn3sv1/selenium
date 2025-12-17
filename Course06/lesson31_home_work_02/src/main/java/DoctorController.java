@@ -23,27 +23,7 @@ public class DoctorController extends AbstractController{
     }
 
     public void listAction(HttpExchange exchange) throws IOException {
-        List<Doctor> doctors = this.service.findAll();
-        StringBuilder rows = new StringBuilder();
-
-        for (Doctor doc : doctors) {
-            String action = "<a href=\"/doctor/edit/" + doc.getId() + "\">Edit</a>" +
-                    "&nbsp;<a href=\"/doctor/delete/" + doc.getId()  + "\">Delete</a>";
-            rows.append("<tr>\n")
-                    .append(" <td>").append(doc.getId()).append("</td>\n")
-                    .append(" <td>").append(this.sanitizer.sanitize(doc.getName())).append("</td>\n")
-                    .append(" <td>").append(this.sanitizer.sanitize(doc.getTitle())).append("</td>\n")
-                    .append(" <td>").append(action).append("</td>\n")
-                    .append("</tr>\n");
-        }
-
-        TemplateService templateService = new TemplateService();
-        Path file = Path.of("templates/doctors.html");
-        HashMap<String,String> map = new HashMap<>();
-        map.put("%TABLE_ROWS%", rows.toString());
-        String html = templateService.renderTemplate(file, map);
-
-        this.sendHTMLResponse(exchange, html);
+        this.sendHTMLResponse(exchange, this.view.listTable(this.service.findAll()));
     }
 
     public void deleteAction(HttpExchange exchange, String uuid) throws IOException {
@@ -82,19 +62,7 @@ public class DoctorController extends AbstractController{
     }
 
     private void showCreateForm(HttpExchange exchange, Map<String, String> formData, Map<String, String> errors) throws IOException {
-        TemplateService templateService = new TemplateService();
-        Path file = Path.of("templates/forms/doctor-form.html");
-        HashMap<String,String> map = new HashMap<>();
-        map.put("%HEADER%", "Create doctor");
-        map.put("%NAME%", this.sanitizer.sanitize(formData.get("name") != null ? formData.get("name") :  ""));
-        map.put("%TITLE%", this.sanitizer.sanitize(formData.get("title") != null ? formData.get("title") :  ""));
-
-        map.put("%FORM_NAME_ERROR%", errors.get("name") != null ? "<span class=\"form-error\">" + errors.get("name") + "</span>" : "");
-        map.put("%FORM_TITLE_ERROR%", errors.get("title") != null ? "<span class=\"form-error\">" + errors.get("title") + "</span>" : "");
-
-        String response = templateService.renderTemplate(file, map);
-
-        this.sendHTMLResponse(exchange, response);
+        this.sendHTMLResponse(exchange, this.view.createForm(formData, errors));
     }
 
     public void updateAction(HttpExchange exchange, String uuid) throws IOException {
@@ -115,21 +83,7 @@ public class DoctorController extends AbstractController{
     }
 
     private void showUpdateForm(HttpExchange exchange, String uuid, Map<String, String> formData, Map<String, String> errors) throws IOException {
-        Doctor doctor = this.service.findById(uuid);
-        TemplateService templateService = new TemplateService();
-        Path file = Path.of("templates/forms/doctor-update.html");
-        HashMap<String,String> map = new HashMap<>();
-        map.put("%FORM_UUID%", doctor.getId());
-        map.put("%HEADER%", "Update doctor");
-        map.put("%NAME%", this.sanitizer.sanitize(formData.get("name") != null ? formData.get("name") :  doctor.getName()));
-        map.put("%TITLE%", this.sanitizer.sanitize(formData.get("title") != null ? formData.get("title") :  doctor.getTitle()));
-
-        map.put("%FORM_NAME_ERROR%", errors.get("name") != null ? "<span class=\"form-error\">" + errors.get("name") + "</span>" : "");
-        map.put("%FORM_TITLE_ERROR%", errors.get("title") != null ? "<span class=\"form-error\">" + errors.get("title") + "</span>" : "");
-
-        String response = templateService.renderTemplate(file, map);
-
-        this.sendHTMLResponse(exchange, response);
+        this.sendHTMLResponse(exchange, this.view.updateForm(this.service.findById(uuid), formData, errors));
     }
 
     private void updatePutIfSuccess(HttpExchange exchange, String uuid, Map<String, String> data) throws IOException {
