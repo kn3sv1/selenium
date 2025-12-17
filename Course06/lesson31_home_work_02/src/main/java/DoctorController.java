@@ -25,10 +25,7 @@ public class DoctorController extends AbstractController{
     public void deleteAction(HttpExchange exchange, String uuid) throws IOException {
         //String response = "Appointment deleted UUID: " + uuid;
         this.service.removeById(uuid);
-
-        exchange.getResponseHeaders().add("Location", "/doctor/show-doctors");
-        exchange.sendResponseHeaders(303, -1);
-        exchange.close();
+        this.redirect(exchange, "/doctor/show-doctors");
     }
 
     public void createAction(HttpExchange exchange) throws IOException {
@@ -39,10 +36,7 @@ public class DoctorController extends AbstractController{
             Map<String, String> errors = this.validator.validate(formData);
             if (errors.isEmpty()) {
                 this.service.create(formData);
-                // redirect back to form page with success message
-                exchange.getResponseHeaders().add("Location", "/doctor/show-doctors");
-                exchange.sendResponseHeaders(303, -1); // 303 = See Other
-                exchange.close();
+                this.redirect(exchange, "/doctor/show-doctors");
             } else  {
                 this.sendHTMLResponse(exchange, this.view.createForm(formData, errors));
             }
@@ -60,10 +54,7 @@ public class DoctorController extends AbstractController{
             Map<String, String> errors = this.validator.validate(formData);
             if (errors.isEmpty()) {
                 this.service.update(uuid, formData);
-                // redirect back to form page with success message
-                exchange.getResponseHeaders().add("Location", "/doctor/show-doctors");
-                exchange.sendResponseHeaders(303, -1); // 303 = See Other
-                exchange.close();
+                this.redirect(exchange, "/doctor/show-doctors");
             } else  {
                 this.sendHTMLResponse(exchange, this.view.updateForm(this.service.findById(uuid), formData, errors));
             }

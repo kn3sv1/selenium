@@ -87,4 +87,11 @@ public class AbstractController {
             throw new RuntimeException(e);
         }
     }
+
+    public void redirect(HttpExchange exchange, String location) throws IOException {
+        // redirect back to form page with success message
+        exchange.getResponseHeaders().add("Location", location);
+        exchange.sendResponseHeaders(303, -1); // 303 = See Other
+        exchange.close();
+    }
 }
