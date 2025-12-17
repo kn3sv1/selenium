@@ -10,17 +10,16 @@
     <script src="/js/scripts.js" defer></script>
 </head>
 <body>
-    %MESSAGE%
     <form action="/doctor/create-doctor" method="post">
-        <h2>%TITLE%</h2>
+        <h2>%HEADER%</h2>
         <label>
             Name:<br>
-            <input type="text" name="name" required>
-        </label><br><br>
+            <input type="text" name="name" value="%NAME%" required>
+        </label>%FORM_NAME_ERROR%<br><br>
         <label>
             Title:
-            <input type="text" name="title" required>
-        </label><br><br>
+            <input type="text" name="title" value="%TITLE%" required>
+        </label>%FORM_TITLE_ERROR%<br><br><br><br>
         <button type="submit">
             Create doctor
         </button>

@@ -1,6 +1,7 @@
 import com.sun.net.httpserver.HttpExchange;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
@@ -75,5 +76,15 @@ public class AbstractController {
         }
 
         return map;
+    }
+
+    public Map<String, String> getParsedRequestFormData(HttpExchange exchange) {
+        InputStream is = exchange.getRequestBody();
+        try {
+            String body = new String(is.readAllBytes(), StandardCharsets.UTF_8);
+            return this.parseFormData(body);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

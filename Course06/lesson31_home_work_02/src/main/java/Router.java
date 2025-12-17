@@ -32,19 +32,19 @@ public class Router implements HttpHandler {
             return;
         }
 
-        if (cleanPath.startsWith("/doctor/show-form")) {
-            this.doctorController.showForm(exchange);
+        if (cleanPath.startsWith("/doctor/create-doctor")) {
+            this.doctorController.createAction(exchange);
             return;
         }
 
-        if (cleanPath.startsWith("/doctor/create-doctor")) {
-            this.doctorController.create(exchange);
-            return;
-        }
+//        if (cleanPath.startsWith("/doctor/create-doctor")) {
+//            this.doctorController.create(exchange);
+//            return;
+//        }
 
 
         if (cleanPath.startsWith("/doctor/show-doctors")) {
-            this.doctorController.showDoctors(exchange);
+            this.doctorController.listAction(exchange);
             return;
         }
 
@@ -80,7 +80,7 @@ public class Router implements HttpHandler {
         matcher = pattern.matcher(cleanPath);
         if (matcher.find()) {
             String uuid = matcher.group(1);
-            this.doctorController.update(exchange, uuid);
+            this.doctorController.updateAction(exchange, uuid);
             return;
         }
 
@@ -88,7 +88,7 @@ public class Router implements HttpHandler {
         matcher = pattern.matcher(cleanPath);
         if (matcher.find()) {
             String uuid = matcher.group(1);
-            this.doctorController.delete(exchange, uuid);
+            this.doctorController.deleteAction(exchange, uuid);
             return;
         }
 

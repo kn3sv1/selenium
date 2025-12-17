@@ -36,6 +36,8 @@ public class DoctorAppointmentController extends AbstractController {
         InputStream is = exchange.getRequestBody();
         String body = new String(is.readAllBytes(), StandardCharsets.UTF_8);
         Map<String, String> data  = this.parseFormData(body);
+        // parsed body key will exist but value will be empty key: "name" value: "" if form is submitted
+        // with empty fields and no front-end browser validation.
         Appointment appointment = new Appointment(
                 UUID.randomUUID().toString(),
                 data.get("name"),
