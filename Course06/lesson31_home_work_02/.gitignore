@@ -4,6 +4,10 @@ target/
 !**/src/test/**/target/
 .kotlin
 
+# Node modules
+node_modules/
+java.pid
+
 ### IntelliJ IDEA ###
 .idea/modules.xml
 .idea/jarRepositories.xml

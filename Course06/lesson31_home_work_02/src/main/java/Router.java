@@ -11,12 +11,14 @@ public class Router implements HttpHandler {
     private final DoctorAppointmentController doctorAppointmentController;
     private final DoctorController doctorController;
     private final StaticFileController staticFileController;
+    private final CustomerController customerController;
 
     public Router(String rootDir) {
         this.root = Path.of(rootDir).toAbsolutePath();
         this.staticFileController = new StaticFileController();
         this.doctorAppointmentController = new DoctorAppointmentController();
         this.doctorController = new DoctorController();
+        this.customerController = new CustomerController(new CustomerView(new CustomerRepository()));
     }
 
     @Override
@@ -119,6 +121,10 @@ public class Router implements HttpHandler {
         if (cleanPath.startsWith("/api/doctor/show-appointments")) {
             this.doctorAppointmentController.showAppointmentsJSON(exchange);
             return;
+        }
+
+        if(cleanPath.startsWith("/customer/show-customers")) {
+            this.customerController.showCustomers(exchange);
         }
 
         this.staticFileController.getFile(exchange, this.root);

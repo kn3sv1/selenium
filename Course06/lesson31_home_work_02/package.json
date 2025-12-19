@@ -1,0 +1,14 @@
+{
+  "name": "hot-reload",
+  "version": "1.0.0",
+  "scripts": {
+    "install": "npm install",
+    "all": "npm install && node watch-run.js",
+    "start": "node watch-run.js"
+  },
+  "dependencies": {
+    "chokidar": "^5.0.0",
+    "ps-list": "^9.0.0",
+    "tree-kill": "^1.2.2"
+  }
+}
