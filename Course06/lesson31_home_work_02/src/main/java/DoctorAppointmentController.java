@@ -182,9 +182,10 @@ public class DoctorAppointmentController extends AbstractController {
     private String getDoctorsHtml(Appointment appointment) {
         HashMap<String, String> doctors = new HashMap<>();
         doctors.put("", "-- Select Doctor --");
-        doctors.put("smith", "Dr. Smith");
-        doctors.put("johnson", "Dr. Johnson");
-        doctors.put("lee", "Dr. Lee");
+        doctors.put("Dr. Andreas Pantazis", "Dr. Andreas Pantazis");
+        doctors.put("Dr. George Pashias", "Dr. George Pashias");
+        doctors.put("Dr. Andros Charalambous", "Dr. Andros Charalambous");
+        doctors.put("Dr. Forbes Ioannides", "Dr. Forbes Ioannides");
 
         ArrayList<String> result = new ArrayList<>();
         for(Map.Entry<String, String> entry : doctors.entrySet()) {

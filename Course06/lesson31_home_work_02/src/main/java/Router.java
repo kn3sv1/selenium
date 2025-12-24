@@ -11,14 +11,14 @@ public class Router implements HttpHandler {
     private final DoctorAppointmentController doctorAppointmentController;
     private final DoctorController doctorController;
     private final StaticFileController staticFileController;
-    private final CustomerController customerController;
+    private final PatientController patientController;
 
     public Router(String rootDir) {
         this.root = Path.of(rootDir).toAbsolutePath();
         this.staticFileController = new StaticFileController();
         this.doctorAppointmentController = new DoctorAppointmentController();
         this.doctorController = new DoctorController();
-        this.customerController = new CustomerController(new CustomerView(new CustomerRepository()));
+        this.patientController = new PatientController();
     }
 
     @Override
@@ -94,6 +94,22 @@ public class Router implements HttpHandler {
             return;
         }
 
+        pattern = Pattern.compile("/customer/edit/([0-9a-fA-F-]{36})$");
+        matcher = pattern.matcher(cleanPath);
+        if (matcher.find()) {
+            String uuid = matcher.group(1);
+            this.patientController.updateAction(exchange, uuid);
+            return;
+        }
+
+        pattern = Pattern.compile("/customer/delete/([0-9a-fA-F-]{36})$");
+        matcher = pattern.matcher(cleanPath);
+        if (matcher.find()) {
+            String uuid = matcher.group(1);
+            this.patientController.deleteAction(exchange, uuid);
+            return;
+        }
+
         pattern = Pattern.compile("^/doctor/show-appointments/edit/([0-9a-fA-F-]{36})$");
         matcher = pattern.matcher(cleanPath);
         if (matcher.find()) {
@@ -112,6 +128,15 @@ public class Router implements HttpHandler {
             return;
         }
 
+//        pattern = Pattern.compile("/doctor/edit/([0-9a-fA-F-]{36})$");
+//        matcher = pattern.matcher(cleanPath);
+//        if (matcher.find()) {
+//            String uuid = matcher.group(1);
+//            this.patientController.updateAction(exchange, uuid);
+//            return;
+//        }
+
+
         if (cleanPath.startsWith("/doctor/show-appointments")) {
             this.doctorAppointmentController.showAppointments(exchange);
             return;
@@ -123,8 +148,12 @@ public class Router implements HttpHandler {
             return;
         }
 
-        if(cleanPath.startsWith("/customer/show-customers")) {
-            this.customerController.showCustomers(exchange);
+        if(cleanPath.startsWith("/customer/show-patients")) {
+            this.patientController.showCustomers(exchange);
+        }
+
+        if(cleanPath.startsWith("/customer/create-patient")) {
+            this.patientController.createAction(exchange);
         }
 
         this.staticFileController.getFile(exchange, this.root);

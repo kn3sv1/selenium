@@ -1,19 +1,19 @@
-public class Customer {
-    private int id;
+public class Patient {
+    private String id;
     private String name;
     private Doctor doctor;
 
-    public Customer(int id, String name, Doctor doctor) {
+    public Patient(String id, String name, Doctor doctor) {
         this.id = id;
         this.name = name;
         this.doctor = doctor;
     }
 
-    public int getId() {
+    public String  getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

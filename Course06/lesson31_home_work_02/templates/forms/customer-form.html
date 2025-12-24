@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Doctor House</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <script src="/js/scripts.js" defer></script>
+</head>
+<body>
+    <form action="/customer/create-patient" method="post">
+        <h2>%HEADER%</h2>
+        <label>Name:
+            <input type="text" name="name" value="%NAME%" required><br><br>
+        </label>%FORM_NAME_ERROR%<br><br>
+        <label>Doctor:</label><br>
+            <input type="text" name="doctor" value="%DOCTOR%" required><br><br>
+        %FORM_DOCTOR_ERROR%<br><br>
+        <label>Title:</label><br>
+            <input type="text" name="title" value="%DOCTOR_TITLE%" required><br><br>
+        %FORM_TITLE_ERROR%<br><br>
+
+        <button type="submit">
+            Create patient
+        </button>
+    </form>
+</body>
+</html>
