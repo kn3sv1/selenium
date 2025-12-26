@@ -13,6 +13,7 @@ public class Doctor {
         this.id = id;
         this.name = name;
         this.title = title;
+        this.photo = photo;
     }
 
     public String getId() {

@@ -93,7 +93,7 @@ public class AbstractController {
     /**
      * this method is used for multipart form data
      */
-    public Map<String, String> getParsedRequestMultiPartFormData(HttpExchange exchange) {
+    public Map<String, String> getParsedRequestMultiPartFormData(HttpExchange exchange, String folder) {
         try {
             // 1. Read Content-Type header to get boundary
             String contentType = exchange.getRequestHeaders().getFirst("Content-Type");
@@ -201,7 +201,7 @@ public class AbstractController {
                     System.out.println("File size: " + fileBytes.length + " bytes");
 
                     // Example: save file to disk
-                    try (FileOutputStream fos = new FileOutputStream("public/upload/" + fileName)) {
+                    try (FileOutputStream fos = new FileOutputStream("public/upload/" + folder + "/" + fileName)) {
                         fos.write(fileBytes);
                     }
                     // we add to our HashMap key and value for file
