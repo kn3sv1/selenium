@@ -38,11 +38,12 @@ public class DoctorController_old_version extends AbstractController{
     public void create(HttpExchange exchange) throws IOException {
         InputStream is = exchange.getRequestBody();
         String body = new String(is.readAllBytes(), StandardCharsets.UTF_8);
-        Map<String, String> data  = this.parseFormData(body);
+        Map<String, String> data = this.parseFormData(body);
         Doctor doctor = new Doctor(
                 UUID.randomUUID().toString(),
                 data.get("name"),
-                data.get("title")
+                data.get("title"),
+                data.get("photo")
         );
         this.repository.add(doctor);
         // we put this imformation inside add method

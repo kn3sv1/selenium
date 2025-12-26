@@ -11,10 +11,10 @@ public class PatientRepository {
     }
 
     private void populate() {
-        this.patients.add(new Patient(UUID.randomUUID().toString(), "Angie Neophytou", new Doctor("1", "Andreas", "Dr Andreas Pantazis")));
-        this.patients.add(new Patient(UUID.randomUUID().toString(), "Roman Satanovski ", new Doctor("2", "George", "Dr George Pashas")));
-        this.patients.add(new Patient(UUID.randomUUID().toString(), "George Neophytou", new Doctor("3", "Andros", "Dr Andros Charalambous")));
-        this.patients.add(new Patient(UUID.randomUUID().toString(), "Katerina Diomidous", new Doctor("4", "Andreas", "Dr Andreas Pantazis")));
+        this.patients.add(new Patient(UUID.randomUUID().toString(), "Angie Neophytou", new Doctor("1", "Andreas", "Dr Andreas Pantazis", null)));
+        this.patients.add(new Patient(UUID.randomUUID().toString(), "Roman Satanovski ", new Doctor("2", "George", "Dr George Pashas", null)));
+        this.patients.add(new Patient(UUID.randomUUID().toString(), "George Neophytou", new Doctor("3", "Andros", "Dr Andros Charalambous", null)));
+        this.patients.add(new Patient(UUID.randomUUID().toString(), "Katerina Diomidous", new Doctor("4", "Andreas", "Dr Andreas Pantazis", null)));
     }
 
     public List<Patient> getCustomers() {

@@ -18,7 +18,7 @@ public class PatientService {
         Patient patient = new Patient(
                 UUID.randomUUID().toString(),
                 data.get("name"),
-                new Doctor(UUID.randomUUID().toString(), data.get("doctor"), data.get("title") )
+                new Doctor(UUID.randomUUID().toString(), data.get("doctor"), data.get("title"), data.get("photo"))
         );
         this.repository.getCustomers().add(patient);
     }
@@ -30,7 +30,7 @@ public class PatientService {
     public void update(String uuid, Map<String, String> data) {
         Patient patient = this.repository.findById(uuid);
         patient.setName(data.get("name"));
-        patient.setDoctor(new Doctor(UUID.randomUUID().toString(), data.get("doctor"), data.get("title")));
+        patient.setDoctor(new Doctor(UUID.randomUUID().toString(), data.get("doctor"), data.get("title"), data.get("photo")));
     }
 
     public void removeById(String uuid) {

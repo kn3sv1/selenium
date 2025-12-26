@@ -10,7 +10,7 @@
     <script src="/js/scripts.js" defer></script>
 </head>
 <body>
-    <form action="/doctor/edit/%FORM_UUID%" method="POST">
+    <form action="/doctor/edit/%FORM_UUID%" method="POST" enctype="multipart/form-data">
         <h2>%HEADER%</h2>
         <label>
             Name:<br>
@@ -20,6 +20,10 @@
             Title:
             <input type="text" name="title" value="%TITLE%" required>
         </label>%FORM_TITLE_ERROR%<br><br>
+        <label>
+            Photo:
+            <input type="file" name="photo">
+        </label>%FORM_PHOTO_ERROR%<br><br><br><br>
         <button type="submit">
             Create doctor
         </button>

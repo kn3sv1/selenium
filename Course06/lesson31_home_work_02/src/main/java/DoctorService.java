@@ -21,7 +21,8 @@ public class DoctorService {
         Doctor doctor = new Doctor(
                 UUID.randomUUID().toString(),
                 data.get("name"),
-                data.get("title")
+                data.get("title"),
+                data.get("photo")
         );
         this.repository.add(doctor);
     }
@@ -30,6 +31,7 @@ public class DoctorService {
         Doctor doctor = this.repository.findById(uuid);
         doctor.setName(data.get("name"));
         doctor.setTitle(data.get("title"));
+        doctor.setPhoto(data.get("photo"));
 
         this.repository.update(doctor);
     }

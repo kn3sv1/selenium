@@ -18,8 +18,11 @@ public class DoctorView {
         for (Doctor doc : doctors) {
             String action = "<a href=\"/doctor/edit/" + doc.getId() + "\">Edit</a>" +
                     "&nbsp;<a href=\"/doctor/delete/" + doc.getId()  + "\">Delete</a>";
+            String photo  = doc.getPhoto() != null ? """
+                    <img src="%s" height="100" />""".formatted(doc.getPhoto()) : "no photo";
             rows.append("<tr>\n")
                     .append(" <td>").append(doc.getId()).append("</td>\n")
+                    .append(" <td>").append(photo).append("</td>\n")
                     .append(" <td>").append(this.sanitizer.sanitize(doc.getName())).append("</td>\n")
                     .append(" <td>").append(this.sanitizer.sanitize(doc.getTitle())).append("</td>\n")
                     .append(" <td>").append(action).append("</td>\n")

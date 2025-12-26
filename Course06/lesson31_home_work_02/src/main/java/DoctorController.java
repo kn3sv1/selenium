@@ -48,7 +48,8 @@ public class DoctorController extends AbstractController{
 
     public void updateAction(HttpExchange exchange, String uuid) throws IOException {
         if (exchange.getRequestMethod().equalsIgnoreCase("POST")) {
-            Map<String, String> formData = this.getParsedRequestFormData(exchange);
+            //Map<String, String> formData = this.getParsedRequestFormData(exchange);
+            Map<String, String> formData = this.getParsedRequestMultiPartFormData(exchange);
             //  validate - ParsedRequestFormData
             // before we make decision to save we should validate and be sure that we don't have errors.
             Map<String, String> errors = this.validator.validate(formData);
