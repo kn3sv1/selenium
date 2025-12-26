@@ -92,6 +92,8 @@ public class AbstractController {
 
     /**
      * this method is used for multipart form data
+     * TODO: refactor to separate class and use it inside this method. So it will look like UploadFile class from library
+     * Library - is a collection of classes.
      */
     public Map<String, String> getParsedRequestMultiPartFormData(HttpExchange exchange, String folder) {
         try {
