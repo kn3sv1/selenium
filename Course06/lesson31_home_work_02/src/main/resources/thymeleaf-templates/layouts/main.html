@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head layout:fragment="head">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/styles.css">
+    <script src="/js/scripts.js" defer></script>
+    <title layout:title-pattern="$CONTENT_TITLE – MySite">MySite</title>
+</head>
+
+<body>
+    <!-- Header section -->
+    <header>
+        <h2>My Website</h2>
+        <nav>
+            <a th:href="@{~/}">Home</a> |
+            <a th:href="@{~/customer/list}">Customers</a>
+        </nav>
+        <hr>
+    </header>
+
+    <!-- Main dynamic content will be inserted here -->
+    <main layout:fragment="content">
+        <!-- Default content (shown if page does not override) -->
+        <p>Default layout content</p>
+    </main>
+
+    <!-- Footer section -->
+    <footer>
+        <hr>
+        <p>© 2025 MySite</p>
+    </footer>
+</body>
+</html>

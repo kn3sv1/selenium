@@ -1,3 +1,4 @@
+import nz.net.ultraq.thymeleaf.layoutdialect.LayoutDialect;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
@@ -7,7 +8,6 @@ import java.util.Map;
 
 public class ThymeleafTemplateService {
     TemplateEngine engine;
-    Context ctx;
 
     public ThymeleafTemplateService() {
         // 1. Template resolver (loads HTML from classpath folder)
@@ -17,16 +17,17 @@ public class ThymeleafTemplateService {
         resolver.setSuffix(".html");
         resolver.setTemplateMode("HTML");
         resolver.setCharacterEncoding("UTF-8");
+        resolver.setCacheable(false);
 
         // 2. Template engine using that resolver
         this.engine = new TemplateEngine();
         engine.setTemplateResolver(resolver);
-
-        // 3. Inject variables into template
-        this.ctx = new Context();
+        // 🔴 REQUIRED: register layout dialect
+        engine.addDialect(new LayoutDialect());
     }
 
     public String renderTemplate(String template, HashMap<String,Object> map) {
+        Context ctx = new Context();
         try {
             for(Map.Entry<String, Object> entry : map.entrySet()) {
                 ctx.setVariable(entry.getKey(), entry.getValue());
