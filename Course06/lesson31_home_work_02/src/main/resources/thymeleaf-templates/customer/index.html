@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+ <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/css/styles.css">
+  <script src="/js/scripts.js" defer></script>
+  <title>Patients</title>
+ </head>
+ <body>
+  <table style="width:100%; border-collapse:collapse; font-family:Arial; margin-top:20px;">
+   <thead>
+    <tr style="background:#f2f2f2;">
+     <th style="border:1px solid #ccc; padding:8px;">ID</th>
+     <th style="border:1px solid #ccc; padding:8px;">Name</th>
+     <th style="border:1px solid #ccc; padding:8px;">Doctor</th>
+     <th style="border:1px solid #ccc; padding:8px;">Action</th>
+    </tr>
+   </thead>
+   <tbody>
+       <tr th:each="p : ${patients}">
+           <td th:text="${p.getId()}"></td>
+           <td th:text="${p.getName()}"></td>
+           <td th:text="${p.getDoctor().getTitle()}"></td>
+
+           <td>
+               <a th:href="@{~/customer/edit/{id}(id=${p.getId()})}">Edit</a>
+               &nbsp;
+               <a th:href="@{~/customer/delete/{id}(id=${p.getId()})}">Delete</a>
+           </td>
+       </tr>
+   </tbody>
+  </table>
+  <br>
+  <br>
+  <h2>Hello, <span th:text="${name}">Guest</span>!</h2>
+  <p>Your animals:</p>
+  <ul>
+   <li th:each="a : ${animals}" th:text="${a}">Animal</li>
+  </ul>
+  <br>
+  <br><a href="/customer/create-patient">Create new patient</a>
+  <br>
+ </body>
+</html>

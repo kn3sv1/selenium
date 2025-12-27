@@ -6,14 +6,26 @@ import java.util.Map;
 public class PatientView {
     //private CustomerRepository repository;
     private TemplateService templateService;
+    private ThymeleafTemplateService thymeleafTemplateService;
     private SanitizerService sanitizer;
 
-    public PatientView(TemplateService templateService, SanitizerService sanitizer) {
+    public PatientView(TemplateService templateService, ThymeleafTemplateService thymeleafTemplateService, SanitizerService sanitizer) {
         this.templateService = templateService;
+        this.thymeleafTemplateService = thymeleafTemplateService;
         this.sanitizer = sanitizer;
     }
 
     public String listTable(List<Patient> patients) {
+        // We don't use here Context - because it is related only to VIEW engine
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("name", "Alex");
+        map.put("animals",  List.of("Cat", "Dog", "Snake", "Bird"));
+        map.put("patients",  patients);
+
+        return this.thymeleafTemplateService.renderTemplate("customer/index", map);
+    }
+
+    public String listTableOld(List<Patient> patients) {
         StringBuilder rows = new StringBuilder();
 
         for(Patient p : patients) {

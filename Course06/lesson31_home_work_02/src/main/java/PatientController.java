@@ -11,7 +11,7 @@ public class PatientController extends AbstractController {
 
 
     public PatientController() {
-        this.view = new PatientView(new TemplateService(), new SanitizerService());
+        this.view = new PatientView(new TemplateService(), new ThymeleafTemplateService(), new SanitizerService());
         this.service = new PatientService(new PatientRepository());
         this.validator = new PatientValidator();
     }
