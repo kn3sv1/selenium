@@ -8,8 +8,10 @@ import java.util.Map;
 
 public class ThymeleafTemplateService {
     TemplateEngine engine;
+    MenuService menu;
 
     public ThymeleafTemplateService() {
+        this.menu = new MenuService();
         // 1. Template resolver (loads HTML from classpath folder)
         ClassLoaderTemplateResolver resolver = new ClassLoaderTemplateResolver();
         //Path cannot use because we will have conflict with Prefix folder path
@@ -27,7 +29,8 @@ public class ThymeleafTemplateService {
     }
 
     public String renderTemplate(String template, HashMap<String,Object> map) {
-        Context ctx = new Context();
+        //Context ctx = new Context();
+        Context ctx = this.getContextWithGlobalVariables();
         try {
             for(Map.Entry<String, Object> entry : map.entrySet()) {
                 ctx.setVariable(entry.getKey(), entry.getValue());
@@ -39,4 +42,10 @@ public class ThymeleafTemplateService {
         }
     }
 
+    private Context getContextWithGlobalVariables() {
+        Context ctx = new Context();
+        ctx.setVariable("menu", this.menu);
+
+        return ctx;
+    }
 }

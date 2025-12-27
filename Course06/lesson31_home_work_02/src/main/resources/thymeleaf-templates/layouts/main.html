@@ -13,8 +13,12 @@
     <header>
         <h2>My Website</h2>
         <nav>
-            <a th:href="@{~/}">Home</a> |
-            <a th:href="@{~/customer/list}">Customers</a>
+            <th:block th:each="menuItem : ${menu.getBottomMenu()}">
+                <a th:href="${menuItem.getUrl()}" th:text="${menuItem.getTitle()}"></a>
+                <span th:if="${!menuItemStat.last}"> | </span>
+            </th:block>
+<!--            <a th:href="@{~/}">Home</a> |-->
+<!--            <a th:href="@{~/customer/list}">Customers</a>-->
         </nav>
         <hr>
     </header>
