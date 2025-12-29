@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Doctor House</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <script src="/js/scripts.js" defer></script>
+</head>
+<body>
+    <form action="/banner/edit/%FORM_UUID%" method="post" enctype="multipart/form-data">
+        <h2>%HEADER%</h2>
+        <label>
+            Name:<br>
+            <input type="text" name="name" value="%NAME%" required>
+        </label>%FORM_NAME_ERROR%<br><br>
+        <label>
+            Photo:
+            <input type="file" name="photo">
+        </label>%FORM_PHOTO_ERROR%<br><br>
+        <label>
+            Pages to show banner (regex):<br>
+            <textarea name="pages" rows="10">%PAGES%</textarea>
+        </label>%FORM_PAGES_ERROR%<br><br>
+        <label>
+            Date from:
+            <input type="text" name="date_from" value="%DATE_FROM%" required>
+        </label>%FORM_DATE_FROM_ERROR%<br><br>
+        <label>
+            Date to:
+            <input type="text" name="date_to" value="%DATE_TO%" required>
+        </label>%FORM_DATE_TO_ERROR%<br><br>
+        <label>
+            Place:
+            <input type="text" name="place" value="%PLACE%" required>
+        </label>%FORM_PLACE_ERROR%<br><br>
+        <label>
+            Position:
+            <input type="text" name="position" value="%POSITION%" required>
+        </label>%FORM_POSITION_ERROR%<br><br>
+
+        <button type="submit">
+            Update banner
+        </button>
+    </form>
+</body>
+</html>

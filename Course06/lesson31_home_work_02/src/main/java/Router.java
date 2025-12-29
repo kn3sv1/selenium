@@ -12,6 +12,7 @@ public class Router implements HttpHandler {
     private final DoctorController doctorController;
     private final StaticFileController staticFileController;
     private final PatientController patientController;
+    private final BannerController bannerController;
 
     public Router(String rootDir) {
         this.root = Path.of(rootDir).toAbsolutePath();
@@ -19,6 +20,7 @@ public class Router implements HttpHandler {
         this.doctorAppointmentController = new DoctorAppointmentController();
         this.doctorController = new DoctorController();
         this.patientController = new PatientController();
+        this.bannerController = new BannerController();
     }
 
     @Override
@@ -156,8 +158,36 @@ public class Router implements HttpHandler {
             this.patientController.createAction(exchange);
         }
 
-        this.staticFileController.getFile(exchange, this.root);
 
+        //------------------BEGIN BANNER-------------------
+        if (cleanPath.startsWith("/banner/list")) {
+            this.bannerController.listAction(exchange);
+            return;
+        }
+
+        if (cleanPath.startsWith("/banner/create")) {
+            this.bannerController.createAction(exchange);
+            return;
+        }
+
+        pattern = Pattern.compile("/banner/edit/([0-9a-fA-F-]{36})$");
+        matcher = pattern.matcher(cleanPath);
+        if (matcher.find()) {
+            String uuid = matcher.group(1);
+            this.bannerController.updateAction(exchange, uuid);
+            return;
+        }
+
+        pattern = Pattern.compile("/banner/delete/([0-9a-fA-F-]{36})$");
+        matcher = pattern.matcher(cleanPath);
+        if (matcher.find()) {
+            String uuid = matcher.group(1);
+            this.bannerController.deleteAction(exchange, uuid);
+            return;
+        }
+        //------------------END BANNER-------------------
+
+        this.staticFileController.getFile(exchange, this.root);
     }
 
     private String removeLastSlash(String url) {

@@ -197,7 +197,8 @@ public class AbstractController {
 
                 // 6. Now we have all extracted data
                 System.out.println("Input fields: " + fields);
-                if (fileBytes != null) {
+                // if no file fileBytes can be null or 0 size so let's add condition:  && fileBytes.length > 0
+                if (fileBytes != null && fileBytes.length > 0) {
                     System.out.println("Uploaded file: " + fileName);
                     System.out.println("File content type: " + filePartContentType);
                     System.out.println("File size: " + fileBytes.length + " bytes");
@@ -207,7 +208,7 @@ public class AbstractController {
                         fos.write(fileBytes);
                     }
                     // we add to our HashMap key and value for file
-                    fields.put(fileNameFormKey, "/upload/" + fileName);
+                    fields.put(fileNameFormKey, "/upload/" + folder + "/" + fileName);
                 }
             }
             // return fields from form and for file
