@@ -17,6 +17,10 @@ public class BannerService {
         return this.repository.findById(uuid);
     }
 
+    public List<Banner> findByPage(String page, String place) {
+        return this.repository.findByPage(page, place);
+    }
+
     public void create(Map<String, String> data) {
         String[] lines = data.get("pages").trim().split("\n");
         List<String> pages = new ArrayList<>(List.of(lines));

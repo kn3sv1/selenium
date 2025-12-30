@@ -34,3 +34,10 @@ form button {
 .form-error {
     color:red;
 }
+
+.bottom-menu-item {
+
+}
+.bottom-menu-item:hover {
+    background-color: yellow;
+}

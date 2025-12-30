@@ -10,6 +10,10 @@ public class DoctorController extends AbstractController{
     private final DoctorView view;
 
     public DoctorController() {
+        // we need this because in this controller we use layout and if we call abstract method that has layout null it will fail
+        // because it will call method on null property.
+        super(new BannerService(new BannerRepository()), new BannerView(new TemplateService(), new SanitizerService()));
+
         // in memory should be the same object that we use in controller because there should be one reference
         // of object in memory otherwise if we add to ArrayList from that instance another will not be updated.
         this.service = new DoctorService(new DoctorRepository());
@@ -19,7 +23,8 @@ public class DoctorController extends AbstractController{
     }
 
     public void listAction(HttpExchange exchange) throws IOException {
-        this.sendHTMLResponse(exchange, this.view.listTable(this.service.findAll()));
+        //this.sendHTMLResponse(exchange, this.view.listTable(this.service.findAll()));
+        this.renderLayout(exchange, this.view.listTable(this.service.findAll()),  "Doctor list");
     }
 
     public void deleteAction(HttpExchange exchange, String uuid) throws IOException {
@@ -39,11 +44,13 @@ public class DoctorController extends AbstractController{
                 this.service.create(formData);
                 this.redirect(exchange, "/doctor/show-doctors");
             } else  {
-                this.sendHTMLResponse(exchange, this.view.createForm(formData, errors));
+                //this.sendHTMLResponse(exchange, this.view.createForm(formData, errors));
+                this.renderLayout(exchange, this.view.createForm(formData, errors), "Create doctor");
             }
         } else {
             // first time we send request it will show an empty form without any errors or resubmitted data
-            this.sendHTMLResponse(exchange, this.view.createForm(new HashMap<>(), new HashMap<>()));
+            //this.sendHTMLResponse(exchange, this.view.createForm(new HashMap<>(), new HashMap<>()));
+            this.renderLayout(exchange, this.view.createForm(new HashMap<>(), new HashMap<>()), "Create doctor");
         }
     }
 
@@ -58,11 +65,13 @@ public class DoctorController extends AbstractController{
                 this.service.update(uuid, formData);
                 this.redirect(exchange, "/doctor/show-doctors");
             } else  {
-                this.sendHTMLResponse(exchange, this.view.updateForm(this.service.findById(uuid), formData, errors));
+                //this.sendHTMLResponse(exchange, this.view.updateForm(this.service.findById(uuid), formData, errors));
+                this.renderLayout(exchange, this.view.updateForm(this.service.findById(uuid), formData, errors), "Update doctor");
             }
         } else {
             // first time we send request it will show an empty form without any errors or resubmitted data
-            this.sendHTMLResponse(exchange, this.view.updateForm(this.service.findById(uuid), new HashMap<>(), new HashMap<>()));
+            //this.sendHTMLResponse(exchange, this.view.updateForm(this.service.findById(uuid), new HashMap<>(), new HashMap<>()));
+            this.renderLayout(exchange, this.view.updateForm(this.service.findById(uuid), new HashMap<>(), new HashMap<>()), "Update doctor");
         }
     }
 }

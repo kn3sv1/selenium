@@ -35,6 +35,13 @@ public class BannerRepository extends AbstractDatabaseRepository {
         }
         return entity;
     }
+
+    public List<Banner> findByPage(String page, String place) {
+        //TODO:::  angie will refactor to find by page
+        return this.banners;
+    }
+
+
     public void add(Banner entity) {
         this.banners.add(entity);
         this.save(this.banners);

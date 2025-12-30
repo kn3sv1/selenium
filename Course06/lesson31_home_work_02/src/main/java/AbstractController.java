@@ -3,12 +3,91 @@ import com.sun.net.httpserver.HttpExchange;
 import java.io.*;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.regex.Pattern;
 
 public class AbstractController {
+    private final TemplateService templateService;
+    private final MenuService menuService;
+    private BannerService bannerService = null;
+    private BannerView bannerView = null;
 
+    // for BannerController and for rest controllers that don't use layout.
+    public AbstractController() {
+        this.templateService = new TemplateService();
+        this.menuService = new MenuService();
+    }
+
+    // this we use for rest controllers - not Banner that want to use layout.
+    public AbstractController(BannerService service, BannerView view) {
+        this(); // call first constructor to initialize code from it.
+        //this.templateService = new TemplateService();
+        this.bannerService = service;
+        this.bannerView = view;
+    }
+
+    // this we use for BannerController.
+    // Share: BannerService, BannerView - to have one link in memory.
+    // 2 controllers but in memory only one link for that object.
+    public void setBannerService(BannerService service) {
+        this.bannerService = service;
+    }
+    public void setBannerView(BannerView view) {
+        this.bannerView = view;
+    }
+
+    public void renderLayout(HttpExchange exchange, String contentBody, String contentTitle) throws IOException {
+        this.renderLayout(exchange, contentBody, contentTitle, "templates/layouts/main.html");
+    }
+
+    public void renderLayout(HttpExchange exchange, String contentBody, String contentTitle, String layout) throws IOException {
+        if (this.bannerService == null || this.bannerView == null) {
+            System.err.println("ERROR: Banner dependencies are NULL!");
+            this.sendErrorResponse(exchange, "ERROR: Banner dependencies are NULL!");
+            // not to execute code bellow we send exception
+            throw new RuntimeException("bannerService or bannerView is not initialized in your constructor!");
+        }
+        Path file = Path.of(layout);
+        HashMap<String,String> map = new HashMap<>();
+        map.put("%CONTENT_BODY%", contentBody);
+        map.put("%CONTENT_TITLE%", contentTitle);
+
+        List<Banner> bannersTop = this.bannerService.findByPage(this.getCleanPath(exchange), Banner.PLACE_TOP);
+        List<Banner> bannersBottom = this.bannerService.findByPage(this.getCleanPath(exchange), Banner.PLACE_BOTTOM);
+        map.put("%BANNERS_TOP%", this.bannerView.layout(bannersTop));
+        map.put("%BANNERS_BOTTOM%", "");
+        map.put("%MENU_BOTTOM%", this.menuService.layoutBottomMenu());
+        this.sendHTMLResponse(exchange, this.templateService.renderTemplate(file, map));
+    }
+
+    private String getCleanPath(HttpExchange exchange) {
+        String requestedPath = exchange.getRequestURI().getPath();
+        String cleanPath = this.removeLastSlash(requestedPath);
+        if (cleanPath.isEmpty()) {
+            cleanPath = "/";
+        }
+
+        return  cleanPath;
+    }
+
+    private String removeLastSlash(String url) {
+        if(url.endsWith("/")) {
+            return url.substring(0, url.lastIndexOf("/"));
+        } else {
+            return url;
+        }
+    }
+
+    public void sendErrorResponse(HttpExchange exchange, String response) throws IOException {
+        exchange.getResponseHeaders().add("Content-Type", "text/html; charset=UTF-8");
+        exchange.sendResponseHeaders(500, response.getBytes().length);
+
+        try (OutputStream os = exchange.getResponseBody()) {
+            os.write(response.getBytes());
+        }
+    }
     public void sendHTMLResponse(HttpExchange exchange, String response) throws IOException {
         exchange.getResponseHeaders().add("Content-Type", "text/html; charset=UTF-8");
         exchange.sendResponseHeaders(200, response.getBytes().length);

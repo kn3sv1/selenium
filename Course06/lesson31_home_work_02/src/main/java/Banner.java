@@ -2,6 +2,9 @@ import java.util.Date;
 import java.util.List;
 
 public class Banner {
+    public static final String PLACE_TOP = "top";
+    public static final String PLACE_BOTTOM = "bottom";
+
     private String id;
     private String name;
     private String photo;

@@ -10,16 +10,23 @@ public class BannerController extends AbstractController{
     private final BannerView view;
 
     public BannerController() {
+        // we need this to initialize parent controller
+        super();
         // in memory should be the same object that we use in controller because there should be one reference
         // of object in memory otherwise if we add to ArrayList from that instance another will not be updated.
         this.service = new BannerService(new BannerRepository());
         this.validator = new BannerValidator();
         // they don't have any state inside like repository so we can copy in memory and nothing will be broken.
         this.view = new BannerView(new TemplateService(), new SanitizerService());
+        // synchronize object in memory
+        // we learn now to synchronize between controllers shared state
+        this.setBannerService(this.service);
+        this.setBannerView(this.view);
     }
 
     public void listAction(HttpExchange exchange) throws IOException {
-        this.sendHTMLResponse(exchange, this.view.listTable(this.service.findAll()));
+        this.renderLayout(exchange, this.view.listTable(this.service.findAll()),  "Banner list");
+        //this.sendHTMLResponse(exchange, this.view.listTable(this.service.findAll()));
     }
 
     public void deleteAction(HttpExchange exchange, String uuid) throws IOException {

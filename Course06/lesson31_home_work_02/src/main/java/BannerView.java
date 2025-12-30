@@ -15,6 +15,18 @@ public class BannerView {
         this.sanitizer = sanitizer;
     }
 
+    public String layout(List<Banner> banners) {
+        StringBuilder rows = new StringBuilder();
+        for (Banner entity : banners) {
+            if (entity.getPhoto() == null || entity.getPhoto().isEmpty()) {
+                continue;
+            }
+            rows.append("<img height=\"100\" src=\"" + entity.getPhoto() + "\" /><br />\n");
+        }
+
+        return rows.toString();
+    }
+
     public String listTable(List<Banner> banners) {
         StringBuilder rows = new StringBuilder();
 
