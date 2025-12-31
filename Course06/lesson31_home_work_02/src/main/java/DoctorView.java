@@ -25,6 +25,7 @@ public class DoctorView {
                     .append(" <td>").append(photo).append("</td>\n")
                     .append(" <td>").append(this.sanitizer.sanitize(doc.getName())).append("</td>\n")
                     .append(" <td>").append(this.sanitizer.sanitize(doc.getTitle())).append("</td>\n")
+                    .append(" <td>").append("<a href=\"/doctor/page/" + doc.getId() + "\">View details</a>").append("</td>\n")
                     .append(" <td>").append(action).append("</td>\n")
                     .append("</tr>\n");
         }
@@ -62,4 +63,16 @@ public class DoctorView {
 
         return this.templateService.renderTemplate(file, map);
     }
+
+    public String pageView(Doctor doctor) {
+        Path file = Path.of("templates/doctor-page.html");
+        HashMap<String,String> map = new HashMap<>();
+        map.put("%NAME%", this.sanitizer.sanitize(doctor.getName()));
+        map.put("%TITLE%", this.sanitizer.sanitize(doctor.getTitle()));
+        String photo  = doctor.getPhoto() != null ? """
+                    <img src="%s" height="200" /></br></br>""".formatted(doctor.getPhoto()) : "no photo";
+        map.put("%PHOTO%", photo);
+
+        return this.templateService.renderTemplate(file, map);
     }
+}

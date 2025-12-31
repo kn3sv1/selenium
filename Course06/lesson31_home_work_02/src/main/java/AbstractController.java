@@ -58,6 +58,7 @@ public class AbstractController {
         List<Banner> bannersBottom = this.bannerService.findByPage(this.getCleanPath(exchange), Banner.PLACE_BOTTOM);
         map.put("%BANNERS_TOP%", this.bannerView.layout(bannersTop));
         map.put("%BANNERS_BOTTOM%", "");
+        map.put("%MENU_TOP%", this.menuService.layoutBottomMenu());
         map.put("%MENU_BOTTOM%", this.menuService.layoutBottomMenu());
         this.sendHTMLResponse(exchange, this.templateService.renderTemplate(file, map));
     }

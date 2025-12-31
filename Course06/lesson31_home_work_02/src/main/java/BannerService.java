@@ -21,6 +21,11 @@ public class BannerService {
         return this.repository.findByPage(page, place);
     }
 
+    /**
+     * service responsibility is to not only hide repository from controller and work as proxy.
+     * but also to transform data from controller to entity that repository understands.
+     * the repository only saves entity but doesn't apply business rules before saving.
+     */
     public void create(Map<String, String> data) {
         String[] lines = data.get("pages").trim().split("\n");
         List<String> pages = new ArrayList<>(List.of(lines));

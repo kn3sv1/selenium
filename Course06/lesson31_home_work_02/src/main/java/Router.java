@@ -192,6 +192,14 @@ public class Router implements HttpHandler {
             }
             //------------------END BANNER-------------------
 
+            pattern = Pattern.compile("/doctor/page/([0-9a-fA-F-]{36})$");
+            matcher = pattern.matcher(cleanPath);
+            if (matcher.find()) {
+                String uuid = matcher.group(1);
+                this.doctorController.PageAction(exchange, uuid);
+                return;
+            }
+
             this.staticFileController.getFile(exchange, this.root);
         } catch (Exception e) {
             // Log error in console

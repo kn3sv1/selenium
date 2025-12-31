@@ -74,4 +74,10 @@ public class DoctorController extends AbstractController{
             this.renderLayout(exchange, this.view.updateForm(this.service.findById(uuid), new HashMap<>(), new HashMap<>()), "Update doctor");
         }
     }
+
+    public void PageAction(HttpExchange exchange, String uuid) throws IOException {
+        Doctor doctor = this.service.findById(uuid);
+        this.renderLayout(exchange, this.view.pageView(doctor), "Doctor page");
+
+    }
 }
