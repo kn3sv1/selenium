@@ -19,7 +19,9 @@ public class TemplateService {
                 String key = entry.getKey();
                 // to prevent crashing error we check for null value if it's null we put empty sthing because regex
                 String value = entry.getValue() != null ? entry.getValue() : "";
-                content = content.replaceAll(key, value);
+                // dont use "replaceAll" - because he works with regex. But we need only text.
+                //content = content.replaceAll(key, value);
+                content = content.replace(key, value);
             }
 
             return content;

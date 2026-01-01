@@ -36,9 +36,24 @@ public class BannerRepository extends AbstractDatabaseRepository {
         return entity;
     }
 
-    public List<Banner> findByPage(String page, String place) {
+    public List<Banner> findByPage888(String page, String place) {
         //TODO:::  angie will refactor to find by page
         return this.banners;
+    }
+
+    //generate findByPage
+    public List<Banner> findByPage(String page, String place) {
+        List<Banner> result = new ArrayList<>();
+        for(Banner e : this.banners) {
+            for(String p : e.getPages()) {
+                // matches() because we use regular expression.
+                // page - is URL and "p.trim()" = /doctor/page/([0-9a-fA-F-]{36})$
+                if (page.matches(p.trim()) && e.getPlace().equals(place)) {
+                    result.add(e);
+                }
+            }
+        }
+        return result;
     }
 
 
