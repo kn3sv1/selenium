@@ -14,6 +14,8 @@ public class MenuService {
         menu.add(new MenuItem("/customer/create-patient", "Create new patient"));
         menu.add(new MenuItem("/doctor/create-doctor", "Create new doctor"));
         menu.add(new MenuItem("/doctor/appointment/show-form", "Book appointment here"));
+        menu.add(new MenuItem("/banner/list", "Show banners"));
+        menu.add(new MenuItem("/banner/create", "Create new banner"));
 
         return menu;
     }
