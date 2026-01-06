@@ -11,9 +11,31 @@ public class Main {
         //angieBirthDayModern();
         //homework1();
         //homework2();
-        homework3();
+        //homework3();
         //homework4();
         //homework5();
+        //homework8();
+        homework9();
+    }
+
+    private static void homework9() {
+        User user = new User("Angie", "Neophytou", LocalDate.of(1984, 1, 28));
+        LocalDate currentDate = LocalDate.of(2026, 1, 6);
+        int age = user.getAge(currentDate);
+        int daysUntilBirthday = user.getDaysUntilNextBirthday(currentDate);
+        System.out.println(user.getFirstName() + " " + user.getLastName() + " is " + age + " years old.");
+        System.out.println("Days until next birthday: " + daysUntilBirthday);
+    }
+
+    private static void homework8() {
+        BannerRepository bannerRepository = new BannerRepository();
+        //Instant now = Instant.now();
+        Instant now = Instant.parse("2024-11-29T00:00:00Z");
+        System.out.println("Current time (UTC): " + now);
+        System.out.println("Active banners at current time:");
+        for (Banner banner : bannerRepository.findBy(now)) {
+            System.out.println("- " + banner.getName() + ": " + banner.getContent());
+        }
     }
 
     private static void homework5() {
