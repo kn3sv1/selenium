@@ -1,15 +1,96 @@
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.LocalDate;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.TimeZone;
 
 public class Main {
     public static void main(String[] args) throws ParseException {
         //angieBirthDay();
         //angieBirthDayModern();
         //homework1();
-        homework2();
+        //homework2();
+        homework3();
+        //homework4();
+        //homework5();
+    }
+
+    private static void homework5() {
+        Instant instant = Instant.now();
+        System.out.println(ZoneId.systemDefault());
+
+        DateTimeFormatter formatter = DateTimeFormatter
+                .ofPattern("yyyy-MM-dd HH:mm:ss")
+                .withZone(ZoneId.systemDefault());
+        String formatted = formatter.format(instant);
+        System.out.println(formatted);
+    }
+
+//    public LocalDateTime getStartTimeLocal(Instant startTime) {
+//        return LocalDateTime.ofInstant(startTime, ZoneId.systemDefault());
+//    }
+
+    /**
+     * user submitted "2026-03-15 14:30" in HTML form without time zone info
+     * we need to convert it to Instant to store in database
+     * and then retrieve it from database and convert back to local time zone to show in HTML form
+     */
+    private static void homework4() {
+        // Suppose we submit a form with date and time in local time zone
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        // we parsed string to LocalDateTime without time zone info
+        LocalDateTime doctorAppointment = LocalDateTime.parse("2026-03-15 14:30", formatter);
+        Instant instant = doctorAppointment.atZone(ZoneId.systemDefault()).toInstant();
+        // in UTC - London time zone it will be 14:30 - 2 hours = 12:30
+        System.out.println("Converted back to Instant (UTC): " + instant); // 2026-03-15T12:30:00Z
+        // now we can store instant in database
+
+        // part 2 - retrieve from database and convert to local time zone to show in HTML form
+        Instant retrievedFromDb = instant; // suppose we retrieved the same instant from database
+        LocalDateTime localDateTime = LocalDateTime.ofInstant(retrievedFromDb, ZoneId.systemDefault());
+        System.out.println("Converted back to LocalDateTime in local time zone: " + localDateTime); // 2026-03-15T14:30
+    }
+
+    private static void homework3() {
+//        Instant now = Instant.now();
+//        //Instant addedSeconds = now.plusSeconds(60*60);
+//        Instant addedSeconds = now.minusSeconds(60*60);
+//        System.out.println(now);
+//        System.out.println(addedSeconds);
+
+        System.out.println(ZoneId.getAvailableZoneIds());
+        System.setProperty("user.timezone", "Europe/Athens");
+        TimeZone.setDefault(TimeZone.getTimeZone("Europe/Athens"));
+        System.out.println(ZoneId.systemDefault()); // should print Europe/Athens
+
+        // why we used Instant?
+        // because Instant is always in UTC time zone and not affected by local time zone
+        // and we can easily add seconds to it without worrying about time zones and daylight saving time
+        // its very convenient for calculations and in databases we store timestamps in UTC time zone
+        Instant now = Instant.now();
+        System.out.println("UTC now is " + now);
+        long timestampSeconds = now.getEpochSecond();
+        System.out.println("timestampSeconds since epoch: " + timestampSeconds); // timestampSeconds since epoch: 1767718799
+
+        // add 10 days: 10 days * 24 hours * 60 minutes * 60 seconds
+        // we calculate like this because 30 or 31 days can be in a month so we just add 10 days in seconds
+        // and after will convert to ZonedDateTime to see the result in local time zone
+        Instant addedDays = Instant.ofEpochSecond(timestampSeconds + 30L * 24 * 60 * 60);
+
+
+        // show in HTML form in Cyprus time zone. Time zone is important only for displaying to user, but not for calculations
+        ZonedDateTime cyprusTime = addedDays.atZone(ZoneId.systemDefault()); // uses Europe/Athens
+        System.out.println(cyprusTime);
+
+        ZonedDateTime time = addedDays.atZone(TimeZone.getTimeZone("Europe/Berlin").toZoneId()); // uses Europe/Athens
+        System.out.println("berlin time: " + time);
+
+        time = addedDays.atZone(TimeZone.getTimeZone("Europe/Moscow").toZoneId()); // uses Europe/Athens
+        System.out.println("Moscow time: " + time);
+
+        time = addedDays.atZone(TimeZone.getTimeZone("America/New_York").toZoneId()); // uses Europe/Athens
+        System.out.println("America/New_York time: " + time);
     }
 
     private static void homework2() {
