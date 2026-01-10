@@ -16,33 +16,35 @@ public class DoctorScheduleRepository {
     }
 
     private void populate() {
-        this.entities.add(new DoctorSchedule(
-            DoctorSchedule.UUID_1,
-            Doctor.UUID_1,
-            DayOfWeek.MONDAY,
-            java.time.LocalTime.of(8, 0),
-            java.time.LocalTime.of(20, 0),
-            java.time.LocalTime.of(13, 0),
-            java.time.LocalTime.of(14, 0)
-        ));
-        this.entities.add(new DoctorSchedule(
-                DoctorSchedule.UUID_1,
-                Doctor.UUID_1,
-                DayOfWeek.TUESDAY,
-                java.time.LocalTime.of(9, 0),
-                java.time.LocalTime.of(20, 0),
-                java.time.LocalTime.of(13, 0),
-                java.time.LocalTime.of(14, 0)
-        ));
-        this.entities.add(new DoctorSchedule(
-                DoctorSchedule.UUID_2,
-                Doctor.UUID_2,
-                DayOfWeek.MONDAY,
-                java.time.LocalTime.of(8, 0),
-                java.time.LocalTime.of(20, 0),
-                java.time.LocalTime.of(13, 0),
-                java.time.LocalTime.of(14, 0)
-        ));
+        this.populateAndreasPantazis();
+        this.populateAndrosCharalambous();
+//        this.entities.add(new DoctorSchedule(
+//            DoctorSchedule.UUID_1,
+//            Doctor.UUID_1,
+//            DayOfWeek.MONDAY,
+//            java.time.LocalTime.of(8, 0),
+//            java.time.LocalTime.of(20, 0),
+//            java.time.LocalTime.of(13, 0),
+//            java.time.LocalTime.of(14, 0)
+//        ));
+//        this.entities.add(new DoctorSchedule(
+//                DoctorSchedule.UUID_1,
+//                Doctor.UUID_1,
+//                DayOfWeek.TUESDAY,
+//                java.time.LocalTime.of(9, 0),
+//                java.time.LocalTime.of(20, 0),
+//                java.time.LocalTime.of(13, 0),
+//                java.time.LocalTime.of(14, 0)
+//        ));
+//        this.entities.add(new DoctorSchedule(
+//                DoctorSchedule.UUID_2,
+//                Doctor.UUID_2,
+//                DayOfWeek.MONDAY,
+//                java.time.LocalTime.of(8, 0),
+//                java.time.LocalTime.of(20, 0),
+//                java.time.LocalTime.of(13, 0),
+//                java.time.LocalTime.of(14, 0)
+//        ));
     }
 
     public DoctorSchedule findById(UUID id) {
@@ -73,5 +75,40 @@ public class DoctorScheduleRepository {
             }
         }
         return result;
+    }
+
+    private void populateAndreasPantazis() {
+        // for all days of the week
+        this.entities.add(new DoctorSchedule(
+                DoctorSchedule.UUID_1,
+                Doctor.UUID_1,
+                DayOfWeek.MONDAY,
+                java.time.LocalTime.of(8, 0),
+                java.time.LocalTime.of(20, 0),
+                java.time.LocalTime.of(13, 0),
+                java.time.LocalTime.of(14, 0)
+        ));
+        this.entities.add(new DoctorSchedule(
+                DoctorSchedule.UUID_1,
+                Doctor.UUID_1,
+                DayOfWeek.TUESDAY,
+                java.time.LocalTime.of(9, 0),
+                java.time.LocalTime.of(20, 0),
+                java.time.LocalTime.of(13, 0),
+                java.time.LocalTime.of(14, 0)
+        ));
+    }
+
+    private void populateAndrosCharalambous() {
+        // for all days of the week
+        this.entities.add(new DoctorSchedule(
+                DoctorSchedule.UUID_2,
+                Doctor.UUID_2,
+                DayOfWeek.MONDAY,
+                java.time.LocalTime.of(8, 0),
+                java.time.LocalTime.of(20, 0),
+                java.time.LocalTime.of(13, 0),
+                java.time.LocalTime.of(14, 0)
+        ));
     }
 }

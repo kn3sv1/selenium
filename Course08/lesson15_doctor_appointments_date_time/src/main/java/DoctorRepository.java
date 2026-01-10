@@ -138,6 +138,7 @@ public class DoctorRepository {
                 this.doctorAppointmentRepository.findByDoctorId(Doctor.UUID_4)
             )
         );
+        // fix
         this.entities.add(new Doctor(Doctor.UUID_5, "George", "Pashas", 22));
         this.entities.add(new Doctor(Doctor.UUID_6, "Tatiana", "Florenzou", 27));
         this.entities.add(new Doctor(Doctor.UUID_7, "Andreas", "Ioannou", 33));

@@ -98,5 +98,5 @@ public class DoctorSchedule {
 
         // Implementation to generate schedule based on startTime, endTime, break times
         throw new UnsupportedOperationException("Not implemented yet");
-    }}
+    }
 }
