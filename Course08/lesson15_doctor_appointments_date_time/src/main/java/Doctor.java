@@ -18,6 +18,7 @@ public class Doctor {
     private String lastName;
     private Integer age;
     private Map<DayOfWeek, DoctorSchedule> schedule;
+    private List<AbsentDate> absentDates;
     private List<DoctorAppointment> appointments;
 
     // For Maven/Json parsing - Object Mapper, without this it will throw an error
@@ -25,13 +26,14 @@ public class Doctor {
 
     }
 
-    public Doctor(UUID id, String firstName, String lastName, Integer age, Map<DayOfWeek, DoctorSchedule> schedule, List<DoctorAppointment> appointments) {
+    public Doctor(UUID id, String firstName, String lastName, Integer age, Map<DayOfWeek, DoctorSchedule> schedule, List<DoctorAppointment> appointments, List<AbsentDate> absentDates) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
         this.schedule = schedule;
         this.appointments = appointments;
+        this.absentDates = absentDates;
     }
 
     public UUID getId() {
@@ -80,6 +82,14 @@ public class Doctor {
 
     public void setAppointments(List<DoctorAppointment> appointments) {
         this.appointments = appointments;
+    }
+
+    public List<AbsentDate> getAbsentDates() {
+        return absentDates;
+    }
+
+    public void setAbsentDates(List<AbsentDate> absentDates) {
+        this.absentDates = absentDates;
     }
 
     @Override
