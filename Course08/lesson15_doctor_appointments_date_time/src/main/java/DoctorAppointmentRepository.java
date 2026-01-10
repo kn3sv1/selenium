@@ -20,6 +20,10 @@ public class DoctorAppointmentRepository {
         this.entities.add(new DoctorAppointment(DoctorAppointment.UUID_2, Doctor.UUID_2, User.UUID_2, LocalDateTime.parse("2026-01-05T10:00:00")));
     }
 
+    public void create(DoctorAppointment appointment) {
+        this.entities.add(appointment);
+    }
+
     public DoctorAppointment findById(UUID id) {
         for(DoctorAppointment e : this.entities) {
             if(e.getId().equals(id)) {

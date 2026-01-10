@@ -1,5 +1,6 @@
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -55,6 +56,25 @@ public class DoctorAppointmentService {
 
     public void bookAppointment(UUID doctorId, UUID userId, LocalDate date, LocalTime time) {
         //if impossible throw exception
+        List<AppointmentDateTime> getAvailableDates = this.getAvailableDatesByDoctorId(doctorId);
+        for(AppointmentDateTime appointmentDateTime : getAvailableDates) {
+            if(appointmentDateTime.getDate().equals(date)) {
+                if(!appointmentDateTime.getTimes().contains(time)) {
+                    throw new IllegalArgumentException("The selected time is not available for booking.");
+                } else {
+                    // proceed to book the appointment
+                    DoctorAppointment newAppointment = new DoctorAppointment(
+                            UUID.randomUUID(),
+                            doctorId,
+                            userId,
+                            LocalDateTime.of(date, time)
+                    );
+                    this.doctorAppointmentRepository.create(newAppointment);
+                    System.out.println("Appointment booked successfully: " + newAppointment);
+                    return;
+                }
+            }
+        }
     }
 
     public void cancelAppointment(UUID doctorId, UUID userId, LocalDate date, LocalTime time) {

@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 public class Main {
@@ -20,7 +22,11 @@ public class Main {
         List<AppointmentDateTime> getAvailableDates = appointmentService.getAvailableDatesByDoctorId(Doctor.UUID_1);
         System.out.println("Available dates for Dr. " + pantazis.getLastName() + ": " + getAvailableDates);
 
-
+        try {
+            appointmentService.bookAppointment(Doctor.UUID_1, User.UUID_10, LocalDate.parse("2026-01-12"), LocalTime.parse("10:00:00"));
+        } catch (IllegalArgumentException e) {
+            System.out.println("Booking failed: " + e.getMessage());
+        }
 
     }
 }
