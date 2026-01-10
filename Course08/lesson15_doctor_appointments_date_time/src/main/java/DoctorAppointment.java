@@ -1,4 +1,5 @@
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.UUID;
 
 public class DoctorAppointment {
@@ -52,6 +53,10 @@ public class DoctorAppointment {
     public void setUserId(UUID userId) {
         this.userId = userId;
     }
+    public LocalTime getTime() {
+        // Extract and return only the time part
+        return appointmentDateTime.toLocalTime();
+    }
 
     public LocalDateTime getAppointmentDateTime() {
         return appointmentDateTime;
@@ -59,5 +64,12 @@ public class DoctorAppointment {
 
     public void setAppointmentDateTime(LocalDateTime appointmentDateTime) {
         this.appointmentDateTime = appointmentDateTime;
+    }
+
+    @Override
+    public String toString() {
+        return "Doctor{" +
+                "appointmentDateTime='" + appointmentDateTime + '\'' +
+                '}';
     }
 }

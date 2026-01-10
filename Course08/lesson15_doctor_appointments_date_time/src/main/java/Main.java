@@ -1,6 +1,4 @@
-import java.time.LocalDate;
 import java.util.List;
-import java.util.UUID;
 
 public class Main {
     public static void main(String[] args) {
@@ -9,7 +7,8 @@ public class Main {
         DoctorService doctorService = new DoctorService();
         DoctorAppointmentService appointmentService = new DoctorAppointmentService(
                 new DoctorAppointmentRepository(),
-                new AbsentDateRepository()
+                new AbsentDateRepository(),
+                new DoctorScheduleRepository()
         );
 
         // for now we don't work with null exceptions
@@ -18,7 +17,7 @@ public class Main {
         Doctor pantazis = doctorService.getDoctorById(Doctor.UUID_1);
         //System.out.println(pantazis);
 
-        List<DoctorLocalDate> getAvailableDates = appointmentService.getAvailableDatesByDoctorId(Doctor.UUID_1);
+        List<AppointmentDateTime> getAvailableDates = appointmentService.getAvailableDatesByDoctorId(Doctor.UUID_1);
         System.out.println("Available dates for Dr. " + pantazis.getLastName() + ": " + getAvailableDates);
 
 

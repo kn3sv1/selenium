@@ -1,4 +1,5 @@
 import java.time.DayOfWeek;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -83,32 +84,41 @@ public class DoctorScheduleRepository {
                 DoctorSchedule.UUID_1,
                 Doctor.UUID_1,
                 DayOfWeek.MONDAY,
-                java.time.LocalTime.of(8, 0),
-                java.time.LocalTime.of(20, 0),
-                java.time.LocalTime.of(13, 0),
-                java.time.LocalTime.of(14, 0)
+                LocalTime.of(8, 0),
+                LocalTime.of(21, 0),
+                LocalTime.of(13, 0),
+                LocalTime.of(14, 0)
         ));
         this.entities.add(new DoctorSchedule(
-                DoctorSchedule.UUID_1,
+                DoctorSchedule.UUID_2,
                 Doctor.UUID_1,
                 DayOfWeek.TUESDAY,
-                java.time.LocalTime.of(9, 0),
-                java.time.LocalTime.of(20, 0),
-                java.time.LocalTime.of(13, 0),
-                java.time.LocalTime.of(14, 0)
+                LocalTime.of(9, 0),
+                LocalTime.of(20, 0),
+                LocalTime.of(13, 0),
+                LocalTime.of(14, 0)
+        ));
+        this.entities.add(new DoctorSchedule(
+                DoctorSchedule.UUID_3,
+                Doctor.UUID_1,
+                DayOfWeek.WEDNESDAY,
+                LocalTime.of(10, 0),
+                LocalTime.of(19, 0),
+                LocalTime.of(13, 0),
+                LocalTime.of(14, 0)
         ));
     }
 
     private void populateAndrosCharalambous() {
         // for all days of the week
         this.entities.add(new DoctorSchedule(
-                DoctorSchedule.UUID_2,
+                DoctorSchedule.UUID_4,
                 Doctor.UUID_2,
                 DayOfWeek.MONDAY,
-                java.time.LocalTime.of(8, 0),
-                java.time.LocalTime.of(20, 0),
-                java.time.LocalTime.of(13, 0),
-                java.time.LocalTime.of(14, 0)
+                LocalTime.of(8, 0),
+                LocalTime.of(20, 0),
+                LocalTime.of(13, 0),
+                LocalTime.of(14, 0)
         ));
     }
 }

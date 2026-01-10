@@ -1,22 +1,27 @@
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
 public class DoctorAppointmentService {
     private DoctorAppointmentRepository doctorAppointmentRepository;
     private AbsentDateRepository absentDateRepository;
+    private DoctorScheduleRepository doctorScheduleRepository;
 
     public DoctorAppointmentService(
         DoctorAppointmentRepository doctorAppointmentRepository,
-        AbsentDateRepository absentDateRepository
+        AbsentDateRepository absentDateRepository,
+        DoctorScheduleRepository doctorScheduleRepository
     ) {
         this.doctorAppointmentRepository = doctorAppointmentRepository;
         this.absentDateRepository = absentDateRepository;
+        this.doctorScheduleRepository = doctorScheduleRepository;
     }
 
-    public List<DoctorLocalDate> getAvailableDatesByDoctorId(UUID doctorId) {
+    public List<AppointmentDateTime> getAvailableDatesByDoctorId(UUID doctorId) {
         //throw new  UnsupportedOperationException("Not implemented yet");
         // dates should be from today to next 30 days.
         // check doctor's schedule and absent dates to find available dates.
@@ -32,7 +37,7 @@ public class DoctorAppointmentService {
         System.out.println("Doctor's absent dates: " + absentDates);
 
         // step 3: filter out absent dates from dateRange
-        List<DoctorLocalDate> resultRangeDates = getDoctorLocalDate(dateRange, absentDates);
+        List<AppointmentDateTime> resultRangeDates = getDoctorLocalDate(dateRange, absentDates);
 
         // step 4: check doctor's schedule to mark available dates
         // For simplicity, we assume that if a date is not absent, it is available.
@@ -64,8 +69,8 @@ public class DoctorAppointmentService {
         return startDate.datesUntil(endDate.plusDays(1)).toList();
     }
 
-    private List<DoctorLocalDate> getDoctorLocalDate(List<LocalDate> dateRange, List<AbsentDate> absentDates) {
-        List<DoctorLocalDate> resultRangeDates = new ArrayList<>();
+    private List<AppointmentDateTime> getDoctorLocalDate(List<LocalDate> dateRange, List<AbsentDate> absentDates) {
+        List<AppointmentDateTime> resultRangeDates = new ArrayList<>();
         for(LocalDate date : dateRange) {
             // flag to check if date is absent
             AbsentDate absent = null;
@@ -78,15 +83,69 @@ public class DoctorAppointmentService {
             Boolean isAvailable = absent == null;
             // reason = null better but more work to check needed.
             String reason = absent != null ? absent.getReason() : "";
-            resultRangeDates.add(new DoctorLocalDate(date, isAvailable, reason));
+            resultRangeDates.add(new AppointmentDateTime(date, isAvailable, reason));
         }
         return resultRangeDates;
     }
 
-    private List<DoctorLocalDate> markAvailableDatesBasedOnSchedule(UUID doctorId, List<DoctorLocalDate> dateList) {
+    /**
+     * Mark available dates based on doctor's schedule and fill times property in AppointmentDateTime object.
+     * because we need this property to show available times for a date.
+     * mark available dates means to take into account existing appointments for specific date and time.
+     */
+    private List<AppointmentDateTime> markAvailableDatesBasedOnSchedule(UUID doctorId, List<AppointmentDateTime> dateList) {
         // For simplicity, we assume that if a date is not absent, it is available.
         // In a real-world scenario, we would check the doctor's working hours and existing appointments.
 
+        // step 1: get doctor's schedule(available time Arraylist for particular date) from DoctorScheduleRepository.
+        // and fill the times in AppointmentDateTime object.
+
+        // get doctor's schedule for the day of week
+        HashMap<DayOfWeek, DoctorSchedule> schedule = this.doctorScheduleRepository.findScheduleByDoctorId(doctorId);
+
+        // we have 30 days already inside dateList.
+        for(AppointmentDateTime appointmentDateTime : dateList) {
+            // get day of week
+            DayOfWeek dayOfWeek = appointmentDateTime.getDate().getDayOfWeek();
+            // get doctor's schedule for current date - appointmentDateTime. can be null - DoctorSchedule, be careful!
+            DoctorSchedule doctorSchedule = schedule.get(dayOfWeek);
+            if (doctorSchedule != null) {
+                List<LocalTime> workingHours = doctorSchedule.getSchedule();
+                System.out.println("Doctor's working hours for " + dayOfWeek + ": " + workingHours);
+                //System.exit(0); // temporary exit to check working hours
+
+                // from these working hours we need to exclude already booked appointments for that date.
+                List<DoctorAppointment> existingAppointments = this.doctorAppointmentRepository.findByDateAndDoctorId(doctorId, appointmentDateTime.getDate());
+                System.out.println("Existing appointments for " + appointmentDateTime.getDate() + ": " + existingAppointments);
+                for(DoctorAppointment appointment : existingAppointments) {
+                    for (LocalTime time : workingHours) {
+                        if (time.equals(appointment.getTime())) {
+                            System.out.println("Removing booked time: " + time);
+                            workingHours.remove(time);
+                            break; // break inner loop to avoid ConcurrentModificationException
+                        }
+                    }
+                }
+                System.out.println("Available working hours after excluding existing appointments for " + appointmentDateTime.getDate() + ": " + workingHours);
+
+
+                //System.exit(0);
+
+                // fill times property in AppointmentDateTime object
+                appointmentDateTime.setTimes(workingHours);
+                // if no working hours left, mark as not available
+                if (workingHours.isEmpty()) {
+                    appointmentDateTime.setAvailable(false);
+                    appointmentDateTime.setReason(FailedAppointmentType.REASON_TYPE_FULLY_BOOKED);
+                }
+            } else {
+                // no schedule for this day, so no available times
+                appointmentDateTime.setTimes(new ArrayList<>());
+                appointmentDateTime.setAvailable(false);
+                appointmentDateTime.setReason(FailedAppointmentType.REASON_TYPE_NOT_WORKING_HOURS);
+            }
+
+        }
 
 
         return dateList;

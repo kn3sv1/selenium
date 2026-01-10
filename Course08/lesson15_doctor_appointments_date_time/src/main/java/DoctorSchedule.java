@@ -1,6 +1,7 @@
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -93,10 +94,19 @@ public class DoctorSchedule {
     public void setBreakEndTime(LocalTime breakEndTime) {
         this.breakEndTime = breakEndTime;
     }
-    public List<LocalDateTime> getSchedule() {
-        // calculate ArrayList of LocalDateTime based on startTime, endTime, excluding break times
+    public List<LocalTime> getSchedule() {
+        // calculate ArrayList of LocalTime based on startTime, endTime, excluding break times
+        List<LocalTime> result = new ArrayList<>();
+        LocalTime time = startTime;
+        while (time.isBefore(endTime)) {
+            if (time.isBefore(breakStartTime) || time.isAfter(breakEndTime)) {
+                result.add(time);
+            }
+            time = time.plusHours(1); // assuming 1 hour appointment slots
+        }
+        return result;
 
         // Implementation to generate schedule based on startTime, endTime, break times
-        throw new UnsupportedOperationException("Not implemented yet");
+        //throw new UnsupportedOperationException("Not implemented yet");
     }
 }
