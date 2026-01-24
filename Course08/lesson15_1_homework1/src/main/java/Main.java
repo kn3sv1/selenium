@@ -41,14 +41,14 @@ public class Main {
         System.out.println();
         System.out.println("Employees and their salary:");
 
-        var employee1 = new Person("Jack", 2000);
-        var employee2 = new Person("Jane", 1500);
-        var employee3 = new Person("Maria", 1300);
+        // creating individual employee objects and their payment objects
+        var employee1 = new Person(Person.UUID_1,"Jack", 2000);
+        var employee2 = new Person(Person.UUID_2, "Jane", 1500);
+        var employee3 = new Person(Person.UUID_3, "Maria", 1300);
 
         var paymentEmployee1 = new Payment(employee1);
         var paymentEmployee2 = new Payment(employee2);
         var paymentEmployee3 = new Payment(employee3);
-
 
         employee1.setThirteenSalary(2000);
         paymentEmployee1.pay();
@@ -69,5 +69,37 @@ public class Main {
         System.out.println("Payment information:");
         paymentEmployee3.showInfo();
         PaymentMessagePrinter.printMessage(paymentEmployee3.getStatus());
+
+        // fetching a list of employees from a repository and creating individual payment objects for each of them
+        var listOfEmployees = new PersonRepository();
+
+        for (Person person : listOfEmployees.findAll()) {
+            if (person.getName().equals("Sofia")) {
+                person.setThirteenSalary(person.getSalary());
+                var PaymentSofia = new Payment(person);
+                PaymentSofia.pay();
+                person.shoInfo();
+                System.out.println("Payment information:");
+                PaymentSofia.showInfo();
+                PaymentMessagePrinter.printMessage(PaymentSofia.getStatus());
+                System.out.println("------------------");
+            } else if (person.getName().equals("Mia")) {
+                var PaymentMia = new Payment(person);
+                PaymentMia.fail();
+                person.shoInfo();
+                System.out.println("Payment information:");
+                PaymentMia.showInfo();
+                PaymentMessagePrinter.printMessage(PaymentMia.getStatus());
+                System.out.println("------------------");
+            } else if (person.getName().equals("Harper")) {
+                var PaymentHarper = new Payment(person);
+                PaymentHarper.cancel();
+                person.shoInfo();
+                System.out.println("Payment information:");
+                PaymentHarper.showInfo();
+                PaymentMessagePrinter.printMessage(PaymentHarper.getStatus());
+                System.out.println("------------------");
+            }
+        }
     }
 }

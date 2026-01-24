@@ -1,4 +1,18 @@
+import java.util.UUID;
+
 public class Person {
+    public static final UUID UUID_1 = UUID.randomUUID();
+    public static final UUID UUID_2 = UUID.randomUUID();
+    public static final UUID UUID_3 = UUID.randomUUID();
+    public static final UUID UUID_4 = UUID.randomUUID();
+    public static final UUID UUID_5 = UUID.randomUUID();
+    public static final UUID UUID_6 = UUID.randomUUID();
+    public static final UUID UUID_7 = UUID.randomUUID();
+    public static final UUID UUID_8 = UUID.randomUUID();
+    public static final UUID UUID_9 = UUID.randomUUID();
+    public static final UUID UUID_10 = UUID.randomUUID();
+
+    private UUID id;
     private String name;
 
     // mandatory (cannot be null)
@@ -7,13 +21,18 @@ public class Person {
     // optional (can be null)
     private Integer thirteenSalary;
 
-    public Person(String name, int salary) {
+    public Person(UUID id, String name, int salary) {
+        this.id = id;
         this.name = name;
         this.salary = salary;
     }
 
     public String getName() {
         return name;
+    }
+
+    public int getSalary() {
+        return salary;
     }
 
     public int getTotalAmount() {
