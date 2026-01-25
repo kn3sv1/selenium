@@ -7,6 +7,9 @@ public class Payment {
         this.status = PaymentStatus.CREATED;
         this.person = person;
     }
+    public Person getPerson() {
+        return person;
+    }
 
     public PaymentStatus getStatus() {
         return status;

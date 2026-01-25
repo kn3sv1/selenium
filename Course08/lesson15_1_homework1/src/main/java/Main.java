@@ -1,6 +1,8 @@
 import java.time.DayOfWeek;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.function.Consumer;
 
 public class Main {
     public static void main(String[] args) {
@@ -73,7 +75,23 @@ public class Main {
         // fetching a list of employees from a repository and creating individual payment objects for each of them
         var listOfEmployees = new PersonRepository();
 
+        Map<String, Consumer<Payment>> paymentActions = Map.of(
+                "Sofia", payment -> {
+                    payment.getPerson().setThirteenSalary(
+                            payment.getPerson().getSalary());
+                    payment.pay();
+                },
+                "Mia", Payment::fail,
+                "Harper", Payment::cancel
+        );
+
         for (Person person : listOfEmployees.findAll()) {
+            Consumer<Payment> action = paymentActions.get(person.getName());
+            if (action == null) continue;
+
+            processPayment(person, action);
+
+            /*
             if (person.getName().equals("Sofia")) {
                 person.setThirteenSalary(person.getSalary());
                 var PaymentSofia = new Payment(person);
@@ -100,6 +118,18 @@ public class Main {
                 PaymentMessagePrinter.printMessage(PaymentHarper.getStatus());
                 System.out.println("------------------");
             }
+            */
         }
+    }
+    private static void processPayment(Person person, Consumer<Payment> action) {
+        Payment payment = new Payment(person);
+
+        action.accept(payment);
+
+        person.shoInfo();
+        System.out.println("Payment information:");
+        payment.showInfo();
+        PaymentMessagePrinter.printMessage(payment.getStatus());
+        System.out.println("------------------");
     }
 }
