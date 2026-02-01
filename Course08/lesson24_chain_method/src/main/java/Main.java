@@ -4,7 +4,20 @@ public class Main {
     public static void main(String[] args) {
         //builderExample01();
         //findCatsExample();
-        findCatsLambdaExample();
+        //findCatsLambdaExample();
+        findCatsStreamsExample();
+    }
+
+    public static void findCatsStreamsExample() {
+        // advantage of Streams is that we don't need to create any filter classes: CatFilterLambda
+        // also we don't need to create extra methods in repository for filtering: CatRepository.findCatsLambda()
+        CatRepository repository = new CatRepository();
+        var cats = repository.getCats().stream()
+                .filter(cat -> cat.getName().startsWith("G"))
+                .filter(cat -> cat.getAge() >= 2 && cat.getAge() <= 4)
+                .filter(cat -> cat.getWeight() <= 4)
+                .toList();
+        cats.forEach(System.out::println);
     }
 
     public static void findCatsLambdaExample() {
