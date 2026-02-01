@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 public class Main {
 
@@ -5,7 +8,69 @@ public class Main {
         //builderExample01();
         //findCatsExample();
         //findCatsLambdaExample();
-        findCatsStreamsExample();
+        //findCatsStreamsExample();
+        //mapExample();
+        //mapExampleGeneric();
+        //collectExample();
+        //collectExampleConsumer();
+        //collectExampleConsumer02();
+        collectExampleConsumer03();
+    }
+
+    public static void collectExampleConsumer03() {
+        CatRepository repository = new CatRepository();
+        var collected = new ArrayList<String>();
+        Consumer<Cat> consumer = cat ->  {
+            collected.add("name: " + cat.getName() + ", age:" + cat.getAge());
+        };
+        repository.collectConsumer(consumer);
+        collected.forEach(System.out::println);
+    }
+
+    public static void collectExampleConsumer02() {
+        CatRepository repository = new CatRepository();
+        var collected = new ArrayList<Integer>();
+        Consumer<Cat> consumer = cat ->  {
+            collected.add(cat.getAge());
+        };
+        repository.collectConsumer(consumer);
+        collected.forEach(System.out::println);
+    }
+
+    public static void collectExampleConsumer() {
+        CatRepository repository = new CatRepository();
+        var catNames = new ArrayList<String>();
+        Consumer<Cat> consumer = cat ->  {
+            catNames.add(cat.getName());
+        };
+        repository.collectConsumer(consumer);
+        catNames.forEach(System.out::println);
+    }
+
+    public static void collectExample() {
+        CatRepository repository = new CatRepository();
+        var cats = new ArrayList<Cat>();
+        // this is how streams work. We create a collection, and then we pass it to the collect method
+        // because we can use ArrayList, LinkedList, HashSet, etc.
+        // we control what data structure stream should fill.
+        repository.collect(cats);
+        cats.forEach(System.out::println);
+    }
+
+    public static void mapExample() {
+        CatRepository repository = new CatRepository();
+        Function<Cat, String> mapper = Cat::getName;
+        var cats = repository.mapNames(mapper);
+        cats.forEach(System.out::println);
+    }
+
+
+    public static void mapExampleGeneric() {
+        CatRepository repository = new CatRepository();
+        Function<Cat, String> mapper = Cat::getName;
+        //Function<Cat, Integer> mapper = Cat::getAge;
+        var cats = repository.mapNamesGeneric(mapper);
+        cats.forEach(System.out::println);
     }
 
     public static void findCatsStreamsExample() {

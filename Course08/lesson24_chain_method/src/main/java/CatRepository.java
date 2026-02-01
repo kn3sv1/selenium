@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 public class CatRepository {
     private List<Cat> cats = new ArrayList<>();
@@ -43,5 +45,32 @@ public class CatRepository {
             }
         }
         return result;
+    }
+    public List<String> mapNames(Function<Cat, String> mapper) {
+        List<String> names = new ArrayList<>();
+        for (Cat cat : cats) {
+            names.add(mapper.apply(cat));
+        }
+        return names;
+    }
+
+    public <R> List<R> mapNamesGeneric(Function<Cat, R> mapper) {
+        List<R> names = new ArrayList<>();
+        for (Cat cat : cats) {
+            names.add(mapper.apply(cat));
+        }
+        return names;
+    }
+
+    public void collect(List<Cat> list) {
+        for (Cat cat : cats) {
+            list.add(cat);
+        }
+    }
+
+    public void collectConsumer(Consumer<Cat> consumer) {
+        for (Cat cat : cats) {
+            consumer.accept(cat);
+        }
     }
 }
