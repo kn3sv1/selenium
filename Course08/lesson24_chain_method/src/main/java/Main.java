@@ -14,7 +14,20 @@ public class Main {
         //collectExample();
         //collectExampleConsumer();
         //collectExampleConsumer02();
-        collectExampleConsumer03();
+        //collectExampleConsumer03();
+        realStreamExample();
+    }
+
+    public static void realStreamExample() {
+        CatRepository repository = new CatRepository();
+        var catFiltered = repository.getCats().stream()
+                .filter(cat -> cat.getAge() >= 2)
+                //.map(Cat::getName)
+                .map(cat -> {
+                    return "name: " + cat.getName() + ", age:" + cat.getAge() + ", weight: " + cat.getWeight();
+                })
+                .toList();
+        catFiltered.forEach(System.out::println);
     }
 
     public static void collectExampleConsumer03() {
