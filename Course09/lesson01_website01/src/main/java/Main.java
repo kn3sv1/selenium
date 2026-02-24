@@ -18,7 +18,24 @@ public class Main {
             // never create container here. Always create it once and reuse it for all requests.
             //Container container = new Container();
             Car car = container.getCar();
+            StringBuilder sb = new StringBuilder();
+            sb.append("""
+                <style>
+                    body { font-family: Arial, sans-serif; background-color: #72EDDC; }
+                    .menu-item { color: blue; }
+                    .menu-item:hover {  color: red; }
+                    .menu-item-active { color: green; }
+                </style>
+            """);
+            sb.append("""
+                <div>
+                    <a href="/" class="menu-item">Home</a>
+                    <a href="/about-us" class="menu-item menu-item-active">About</a>
+                    <a href="/contact" class="menu-item">Contact</a>
+                </div>
+            """);
             String response = "<b style='color:red'>Hello! </b> Car: " + car.toHtml();
+            response = response + sb;
             exchange.getResponseHeaders().set("Content-Type", "text/html; charset=UTF-8");
             exchange.sendResponseHeaders(200, response.length());
             exchange.getResponseBody().write(response.getBytes());
