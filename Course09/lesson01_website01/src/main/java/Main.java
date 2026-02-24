@@ -18,7 +18,7 @@ public class Main {
             // never create container here. Always create it once and reuse it for all requests.
             //Container container = new Container();
             Car car = container.getCar();
-            String response = "</b>Hello! </b> Car: " + car.toHtml();
+            String response = "<b style='color:red'>Hello! </b> Car: " + car.toHtml();
             exchange.getResponseHeaders().set("Content-Type", "text/html; charset=UTF-8");
             exchange.sendResponseHeaders(200, response.length());
             exchange.getResponseBody().write(response.getBytes());
