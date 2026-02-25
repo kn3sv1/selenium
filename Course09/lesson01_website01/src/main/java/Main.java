@@ -2,6 +2,8 @@ import com.sun.net.httpserver.HttpServer;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Executors;
 
 public class Main {
@@ -17,25 +19,71 @@ public class Main {
         server.createContext("/", exchange -> {
             // never create container here. Always create it once and reuse it for all requests.
             //Container container = new Container();
+            String requestedPath = exchange.getRequestURI().getPath();
             Car car = container.getCar();
             StringBuilder sb = new StringBuilder();
             sb.append("""
                 <style>
                     body { font-family: Arial, sans-serif; background-color: #72EDDC; }
-                    .menu-item { color: blue; }
+                    .menu-item { color: blue; margin-right: 20px; text-decoration: none; }
                     .menu-item:hover {  color: red; }
                     .menu-item-active { color: green; }
                 </style>
             """);
-            sb.append("""
-                <div>
-                    <a href="/" class="menu-item">Home</a>
-                    <a href="/about-us" class="menu-item menu-item-active">About</a>
-                    <a href="/contact" class="menu-item">Contact</a>
-                </div>
-            """);
-            String response = "<b style='color:red'>Hello! </b> Car: " + car.toHtml();
-            response = response + sb;
+            List<MenuItem> mainMenu = List.of(
+                    new MenuItem("Home", "/", requestedPath.endsWith("/")),
+                    new MenuItem("About", "/about-us", requestedPath.endsWith("/about-us")),
+                    new MenuItem("Cars", "/cars", requestedPath.startsWith("/cars")),
+                    new MenuItem("Contact", "/contact", requestedPath.endsWith("/contact"))
+            );
+            sb.append("<div>");
+            // we use lambda - because shorter code and more readable. We can also use for loop, but it is more verbose.
+            mainMenu.forEach((MenuItem item) -> {
+                sb.append(item.toHtml());
+            });
+            sb.append("</div>");
+//            sb.append("""
+//                <div>
+//                    <a href="/" class="menu-item">Home</a>
+//                    <a href="/about-us" class="menu-item menu-item-active">About</a>
+//                    <a href="/cars" class="menu-item">cars</a>
+//                    <a href="/contact" class="menu-item">Contact</a>
+//                </div>
+//            """);
+
+
+
+            String response = "<b style='color:red'>Hello! </b> Car: " + car.toHtml() + "</br></br>";
+            if (requestedPath.endsWith("/")) {
+                response = response + sb + "<h1>Welcome to the home page!</h1>";
+            } else if (requestedPath.endsWith("/about-us")) {
+                response = response + sb + "<h1>About us page</h1>";
+            } else if (requestedPath.endsWith("/contact")) {
+                response = response + sb + "<h1>Contact us page</h1>";
+            } else if (requestedPath.startsWith("/cars")) {
+                StringBuilder sb2 = new StringBuilder();
+
+                List<MenuItem> subMenu = List.of(
+                        new MenuItem("Toyota", "/cars/1", requestedPath.endsWith("/cars/1")),
+                        new MenuItem("BMW", "/cars/2", requestedPath.endsWith("/cars/2")),
+                        new MenuItem("Mercedes", "/cars/3", requestedPath.endsWith("/cars/3"))
+                );
+                sb2.append("<h1>Cars page</h1>");
+                sb2.append("<ul style='list-style: none;'>");
+//                sb2.append("""
+//                     <li><a href="/cars/1">Toyota</a></li><br>
+//                     <li><a href="/cars/2">BMW</a></li><br>
+//                     <li><a href="/cars/3">Mercedes</a></li><br>
+//                """);
+                subMenu.forEach((MenuItem item) -> {
+                    sb2.append("<li>" + item.toHtml() + "</li><br>");
+                });
+                sb2.append("</ul>");
+
+
+                response = response + sb + sb2;
+            } else response = response + sb;
+
             exchange.getResponseHeaders().set("Content-Type", "text/html; charset=UTF-8");
             exchange.sendResponseHeaders(200, response.length());
             exchange.getResponseBody().write(response.getBytes());
