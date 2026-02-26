@@ -39,6 +39,7 @@ public class Main {
                 }
 
                 if (pageApi != null) {
+                    // http://localhost:8080/api/news78787
                     httpResponse.sendJSON(exchange, 200, pageApi.toJson());
                     return;
                 }
