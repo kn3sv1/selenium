@@ -28,8 +28,30 @@ public class Main {
                 return;
             }
 
+            if (requestedPath.startsWith("/api")) {
+                PageApi pageApi = null;
+                if (requestedPath.endsWith("/api/cars")) {
+                    // http://localhost:8080/api/cars
+                    pageApi = new CarListApi();
+                } else if (requestedPath.endsWith("/api/news")) {
+                    // http://localhost:8080/api/news
+                    pageApi = new NewsListApi();
+                }
+
+                if (pageApi != null) {
+                    httpResponse.sendJSON(exchange, 200, pageApi.toJson());
+                    return;
+                }
+
+                httpResponse.sendJSON(exchange, 404, "{\"message\": \"API not found\"}");
+                return;
+            }
+
+
             Page page;
             // Page is like Controller in MVC pattern.
+            // We work with objects and not with strings. Not like bellow with string concatenation. It is more structured and easier to maintain.
+            // response = response + sb + "<h1>About us page</h1>";
             if (requestedPath.endsWith("/")) {
                 page = new HomePage();
             } else if (requestedPath.endsWith("/about-us")) {

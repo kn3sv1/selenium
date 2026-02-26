@@ -9,4 +9,11 @@ public class HttpResponse {
         exchange.getResponseBody().write(html.getBytes());
         exchange.getResponseBody().close();
     }
+
+    public void sendJSON(HttpExchange exchange, int statusCode, String json) throws IOException {
+        exchange.getResponseHeaders().add("Content-Type", "application/json; charset=UTF-8");
+        exchange.sendResponseHeaders(statusCode, json.getBytes().length);
+        exchange.getResponseBody().write(json.getBytes());
+        exchange.getResponseBody().close();
+    }
 }

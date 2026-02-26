@@ -15,4 +15,10 @@ public class Car {
                 "engine=" + engine +
                 '}';
     }
+
+    public String toJson() {
+        return "{" +
+                "\"engine\": \"" + engine + "\"" +
+                "}";
+    }
 }
