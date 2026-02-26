@@ -32,6 +32,8 @@ public abstract class Page {
                     .menu-item:hover {  color: red; }
                     .menu-item-active { color: green; }
                 </style>
+                <link rel="stylesheet" href="/css/styles.css">
+                <script src="/js/scripts.js"></script>
             """);
         response.append("<title>" + this.getTitle() + "</title>");
         response.append("</head>");

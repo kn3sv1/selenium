@@ -1,28 +1,28 @@
-document.getElementById("fetchWeather").addEventListener("click", () => {
-    fetch("/api/weather/list")
-        .then(response => response.json())
-        .then(data => {
-
-
-            let weatherRows = [];
-            data.forEach(function (weather) {
-                let row = `
-                    <div class="weather-card">
-                        <p>City: <a href="/weather/city/${weather.city}">${weather.city}</a></p>
-                        <p>Temperature today: ${weather.temperature}</p>
-                        <p>Windy: ${weather.isWindy}</p>
-                        <img src= "${weather.cityPhoto}" />
-                        <img src= "${weather.weatherPhoto}" />
-                    </div>
-                `;
-                weatherRows.push(row);
-            });
-            //array convert to string
-            document.getElementById("result").innerHTML = weatherRows.join('') + '<div style="clear:both"></div>';
-
-
-    }); // end of fetch
-}); // click event
+//document.getElementById("fetchWeather").addEventListener("click", () => {
+//    fetch("/api/weather/list")
+//        .then(response => response.json())
+//        .then(data => {
+//
+//
+//            let weatherRows = [];
+//            data.forEach(function (weather) {
+//                let row = `
+//                    <div class="weather-card">
+//                        <p>City: <a href="/weather/city/${weather.city}">${weather.city}</a></p>
+//                        <p>Temperature today: ${weather.temperature}</p>
+//                        <p>Windy: ${weather.isWindy}</p>
+//                        <img src= "${weather.cityPhoto}" />
+//                        <img src= "${weather.weatherPhoto}" />
+//                    </div>
+//                `;
+//                weatherRows.push(row);
+//            });
+//            //array convert to string
+//            document.getElementById("result").innerHTML = weatherRows.join('') + '<div style="clear:both"></div>';
+//
+//
+//    }); // end of fetch
+//}); // click event
 
 
 let fetchNews = () => {
@@ -52,9 +52,10 @@ let fetchNews = () => {
             document.getElementById("news").innerHTML = newsRows.join('<br /><br />') + '<div style="clear:both"></div>';
     });
 };
-document.getElementById("fetchNews").addEventListener("click", fetchNews);
+//document.getElementById("fetchNews").addEventListener("click", fetchNews);
 
 // without pressing any button - as soon as page is loaded we call function
 window.onload = () => {
-  fetchNews();
+  //fetchNews();
+  console.log("hello world from onload");
 };

@@ -25,6 +25,7 @@ public class Main {
             // first we check if file exists in public folder we serve it.
             // If not, we check if it is dynamic route and serve it. If not, we serve 404 page.
             // http://localhost:8080/index.html
+            // http://localhost:8080/css/cats.css
 
             Path filePath = Paths.get("public", requestedPath);
             if (Files.exists(filePath) && !Files.isDirectory(filePath)) {
