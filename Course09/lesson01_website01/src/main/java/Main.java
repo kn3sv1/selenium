@@ -3,6 +3,7 @@ import com.sun.net.httpserver.HttpServer;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.List;
+import java.util.Scanner;
 import java.util.concurrent.Executors;
 
 public class Main {
@@ -14,10 +15,13 @@ public class Main {
     public static void simpleWebsite02() throws IOException {
         HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
         HttpResponse httpResponse = new HttpResponse();
+        Container container = new Container();
 
         server.createContext("/", exchange -> {
             StringBuilder response = new StringBuilder();
             String requestedPath = exchange.getRequestURI().getPath();
+            String method = exchange.getRequestMethod();
+
             // first we check if file exists in public folder we serve it.
             // If not, we check if it is dynamic route and serve it. If not, we serve 404 page.
             // http://localhost:8080/index.html
@@ -32,10 +36,30 @@ public class Main {
                 PageApi pageApi = null;
                 if (requestedPath.endsWith("/api/cars")) {
                     // http://localhost:8080/api/cars
-                    pageApi = new CarListApi();
+                    // TODO::: should be created outside of request handler and reused for all requests.
+                    //  Because it is expensive to create it for each request. It is like service layer in MVC pattern.
+                    //pageApi = new CarListApi();
+                    pageApi = container.getCarListApi();
                 } else if (requestedPath.endsWith("/api/news")) {
                     // http://localhost:8080/api/news
-                    pageApi = new NewsListApi();
+                    //pageApi = new NewsListApi();
+                    pageApi = container.getNewsListApi();
+                }
+                // TODO::: add new car api. We will not accept JSON body, we accept raw string and split by separator "::" and append to our list of cars. It is like POST request in MVC pattern.
+                 if (method.equals("POST") && requestedPath.endsWith("/api/cars/add")) {
+                     Scanner sc = new Scanner(exchange.getRequestBody());
+                     String name = sc.nextLine();
+                     sc.close();
+                     System.out.println(name);
+//
+//                    // http://localhost:8080/api/cars/add?car=Toyota::Camry::2020
+//                    String query = exchange.getRequestURI().getQuery();
+//                    String carData = query.split("=")[1];
+//                    String[] carDataParts = carData.split("::");
+//                    String make = carDataParts[0];
+//                    String model = carDataParts[1];
+//                    int year = Integer.parseInt(carDataParts[2]);
+//                    CarModel newCar = new CarModel(make, model, year);
                 }
 
                 if (pageApi != null) {
