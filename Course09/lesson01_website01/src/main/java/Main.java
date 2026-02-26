@@ -8,7 +8,43 @@ import java.util.concurrent.Executors;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        simpleWebsite01();
+        //simpleWebsite01();
+        simpleWebsite02();
+    }
+
+    public static void simpleWebsite02() throws IOException {
+        HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
+        HttpResponse httpResponse = new HttpResponse();
+
+        server.createContext("/", exchange -> {
+            StringBuilder response = new StringBuilder();
+            String requestedPath = exchange.getRequestURI().getPath();
+            Page page;
+            if (requestedPath.endsWith("/")) {
+                page = new HomePage();
+            } else if (requestedPath.endsWith("/about-us")) {
+                page = new AboutUs();
+            } else if (requestedPath.endsWith("/contact")) {
+                page = new Contact();
+            } else if (requestedPath.endsWith("/cars")) {
+                page = new CarList();
+            } else if (requestedPath.endsWith("/cars/1")) {
+                page = new CarToyota();
+            } else if (requestedPath.endsWith("/cars/2")) {
+                page = new CarBMW();
+            } else if (requestedPath.endsWith("/cars/3")) {
+                page = new CarMercedes();
+            } else {
+                page = new NotFound();
+            }
+            page.buildPage(response, requestedPath);
+
+            httpResponse.sendHtmlResponse(exchange, 200, response.toString());
+        });
+
+        // Thread pool handles multiple requests
+        server.setExecutor(Executors.newFixedThreadPool(10));
+        server.start();
     }
 
     public static void simpleWebsite01() throws IOException {
