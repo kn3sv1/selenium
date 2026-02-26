@@ -5,6 +5,7 @@ public class HomePage extends Page {
                 <div class="home-page">
                     <h1>Welcome to our website!</h1>
                     <p>We are glad to have you here. Explore our services and products.</p>
+                    <img src="/images/doctors/doctor_pantazis.png" />
                 </div>
                 """;
     }

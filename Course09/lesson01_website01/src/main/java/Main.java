@@ -2,6 +2,9 @@ import com.sun.net.httpserver.HttpServer;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -19,7 +22,31 @@ public class Main {
         server.createContext("/", exchange -> {
             StringBuilder response = new StringBuilder();
             String requestedPath = exchange.getRequestURI().getPath();
+            // first we check if file exists in public folder we serve it.
+            // If not, we check if it is dynamic route and serve it. If not, we serve 404 page.
+            // http://localhost:8080/index.html
+
+            Path filePath = Paths.get("public", requestedPath);
+            if (Files.exists(filePath) && !Files.isDirectory(filePath)) {
+
+                byte[] data = Files.readAllBytes(filePath);
+
+                // Detect content type based on file extension
+                String contentType = getContentType(filePath.toString());
+                exchange.getResponseHeaders().set("Content-Type", contentType);
+
+                exchange.sendResponseHeaders(200, data.length);
+                exchange.getResponseBody().write(data);
+                exchange.close();
+
+                // because we already served file, we don't need to check dynamic routes. We can just return from handler.
+                return;
+            }
+
+
+
             Page page;
+            // Page is like Controller in MVC pattern.
             if (requestedPath.endsWith("/")) {
                 page = new HomePage();
             } else if (requestedPath.endsWith("/about-us")) {
@@ -46,6 +73,20 @@ public class Main {
         server.setExecutor(Executors.newFixedThreadPool(10));
         server.start();
     }
+
+    // VERY SIMPLE MIME detection
+    static String getContentType(String path) {
+
+        if (path.endsWith(".html")) return "text/html";
+        if (path.endsWith(".css")) return "text/css";
+        if (path.endsWith(".js")) return "application/javascript";
+        if (path.endsWith(".png")) return "image/png";
+        if (path.endsWith(".jpg") || path.endsWith(".jpeg")) return "image/jpeg";
+        if (path.endsWith(".gif")) return "image/gif";
+
+        return "application/octet-stream";
+    }
+
 
     public static void simpleWebsite01() throws IOException {
         Container container = new Container();
