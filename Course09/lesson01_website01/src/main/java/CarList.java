@@ -5,8 +5,14 @@ public class CarList extends Page {
     public String getBody() {
         return """
                 <div class="car-list">
-                    <h1>Car List</h1>
-                    <p>Here is a list of our available cars.</p>
+                    <h1>Here is a list of our available cars</h1>
+                    <ul>
+                      <li class="image-row">
+                        <a href="/cars/1"><img src="/images/cars/toyota.png"></a>
+                        <a href="/cars/2"><img src="/images/cars/bmw.png"></a>
+                        <a href="/cars/3"><img src="/images/cars/mercedes.png"></a>
+                      </li>
+                    </ul>
                 </div>
                 """;
     }

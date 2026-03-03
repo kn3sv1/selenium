@@ -11,7 +11,8 @@ public abstract class Page {
                new MenuItem("Home", "/", requestedPath.endsWith("/")),
                new MenuItem("About", "/about-us", requestedPath.endsWith("/about-us")),
                new MenuItem("Cars", "/cars", requestedPath.startsWith("/cars")),
-               new MenuItem("Contact", "/contact", requestedPath.endsWith("/contact"))
+               new MenuItem("Contact", "/contact", requestedPath.endsWith("/contact")),
+               new MenuItem("News", "/news", requestedPath.endsWith("/contact"))
        );
 
         response.append("<div>");
@@ -26,14 +27,8 @@ public abstract class Page {
 
         response.append("<head>");
         response.append("""
-                <style>
-                    body { font-family: Arial, sans-serif; background-color: #72EDDC; }
-                    .menu-item { color: blue; margin-right: 20px; text-decoration: none; }
-                    .menu-item:hover {  color: red; }
-                    .menu-item-active { color: green; }
-                </style>
                 <link rel="stylesheet" href="/css/styles.css">
-                <script src="/js/scripts.js"></script>
+                <script src="/js/scripts.js" defer ></script>
             """);
         response.append("<title>" + this.getTitle() + "</title>");
         response.append("</head>");

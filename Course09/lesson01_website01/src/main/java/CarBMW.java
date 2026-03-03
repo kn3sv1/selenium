@@ -1,12 +1,33 @@
+import java.util.List;
+
 public class CarBMW extends CarList {
+    private CarListApi carListApi;
+
+    public CarBMW(CarListApi carListApi) {
+        this.carListApi = carListApi;
+    }
+
     @Override
     public String getBody() {
+        List<CarModel> bmwCars = carListApi.getCarsByMake("BMW");
+        StringBuilder sb = new StringBuilder();
+
+        bmwCars.forEach((CarModel car) -> {
+            sb.append("""
+                    <div class="car-bmw">
+                        <h2>%s %s (%d)</h2>
+                        <img src="%s" alt="%s %s">
+                    </div>
+                    """.formatted(car.getName(), car.getModel(), car.getYear(), car.getPhoto(), car.getName(), car.getModel()));
+        });
+
         return """
                 <div class="car-bmw">
                     <h1>BMW Cars</h1>
                     <p>Here is a list of our available BMW cars.</p>
+                    %s
                 </div>
-                """;
+                """.formatted(sb);
     }
 
     @Override

@@ -5,10 +5,15 @@ public class CarListApi extends PageApi {
 
     public CarListApi() {
         this.cars = List.of(
-                new CarModel("Toyota", "Camry", 2020),
-                new CarModel("BMW", "X5", 2021),
-                new CarModel("Mercedes", "C-Class", 2019)
+                new CarModel("Toyota", "Camry", 2020, "/images/cars/toyota.png"),
+                new CarModel("BMW", "X5", 2021, "/images/cars/bmw.png"),
+                new CarModel("Mercedes", "C-Class", 2019, "/images/cars/mercedes.png"),
+                new CarModel("Toyota", "vitz", 2008, "/images/cars/toyota_vitz.png")
         );
+    }
+    // it's like repository.
+    public List<CarModel> getCarsByMake(String make) {
+        return this.cars.stream().filter((CarModel car) -> make.equalsIgnoreCase(car.getName())).toList();
     }
 
     @Override

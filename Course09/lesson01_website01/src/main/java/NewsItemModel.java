@@ -1,11 +1,13 @@
 public class NewsItemModel extends BaseModel {
     private String title;
     private String description;
+    private String photo;
     private String publishedAt;
 
-    public NewsItemModel(String title, String description, String publishedAt) {
+    public NewsItemModel(String title, String description, String photo, String publishedAt) {
         this.title = title;
         this.description = description;
+        this.photo = photo;
         this.publishedAt = publishedAt;
     }
 
@@ -19,6 +21,10 @@ public class NewsItemModel extends BaseModel {
 
     public String getPublishedAt() {
         return publishedAt;
+    }
+
+    public String getPhoto() {
+        return photo;
     }
 
     public String toJson() {

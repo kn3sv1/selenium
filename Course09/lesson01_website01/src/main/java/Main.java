@@ -18,6 +18,7 @@ public class Main {
         Container container = new Container();
 
         server.createContext("/", exchange -> {
+            try {
             StringBuilder response = new StringBuilder();
             String requestedPath = exchange.getRequestURI().getPath();
             String method = exchange.getRequestMethod();
@@ -83,12 +84,14 @@ public class Main {
                 page = new AboutUs();
             } else if (requestedPath.endsWith("/contact")) {
                 page = new Contact();
+            } else if (requestedPath.endsWith("/news")) {
+                page = new NewsList(container.getNewsListApi());
             } else if (requestedPath.endsWith("/cars")) {
                 page = new CarList();
             } else if (requestedPath.endsWith("/cars/1")) {
-                page = new CarToyota();
+                page = new CarToyota(container.getCarListApi());
             } else if (requestedPath.endsWith("/cars/2")) {
-                page = new CarBMW();
+                page = new CarBMW(container.getCarListApi());
             } else if (requestedPath.endsWith("/cars/3")) {
                 page = new CarMercedes();
             } else {
@@ -97,6 +100,10 @@ public class Main {
             page.buildPage(response, requestedPath);
 
             httpResponse.sendHtmlResponse(exchange, 200, response.toString());
+            } catch (Exception e) {
+                e.printStackTrace();
+                httpResponse.sendHtmlResponse(exchange, 500, "<h1>Internal Server Error. Look in console terminal IntelliJ</h1>");
+            }
         });
 
         // Thread pool handles multiple requests

@@ -4,8 +4,8 @@ public class HomePage extends Page {
         return """
                 <div class="home-page">
                     <h1>Welcome to our website!</h1>
-                    <p>We are glad to have you here. Explore our services and products.</p>
-                    <img src="/images/doctors/doctor_pantazis.png" />
+                    <h2>We are glad to have you here. Explore our services and products.</h2>
+                    <img src="/images/home_page/cars.png" />
                 </div>
                 """;
     }
