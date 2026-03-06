@@ -22,6 +22,9 @@ public class Main {
             StringBuilder response = new StringBuilder();
             String requestedPath = exchange.getRequestURI().getPath();
             String method = exchange.getRequestMethod();
+            // only once allowed to read request body.
+            // If we read it here, we cannot read it in page object. So we read it here and pass it to page object if needed.
+            String body = new String(exchange.getRequestBody().readAllBytes());
 
             // first we check if file exists in public folder we serve it.
             // If not, we check if it is dynamic route and serve it. If not, we serve 404 page.
@@ -82,10 +85,16 @@ public class Main {
                 page = new HomePage();
             } else if (requestedPath.endsWith("/about-us")) {
                 page = new AboutUs();
-            } else if (requestedPath.endsWith("/contact")) {
-                page = new Contact();
+            // both routes should check the method if the path of the request ends with "/contact" otherwise
+            // the order should change - the second route should be first that checks the request method "POST".
+            } else if (requestedPath.endsWith("/contact") && method.equalsIgnoreCase("GET")) {
+                page = new GetContact();
+            } else if (requestedPath.endsWith("/contact") && method.equalsIgnoreCase("POST")) {
+                page = new PostContact(body);
             } else if (requestedPath.endsWith("/news")) {
                 page = new NewsList(container.getNewsListApi());
+            } else if (requestedPath.endsWith("/news/1")) {
+                page = new Technology(container.getNewsListApi());
             } else if (requestedPath.endsWith("/cars")) {
                 page = new CarList();
             } else if (requestedPath.endsWith("/cars/1")) {

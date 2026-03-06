@@ -1,8 +1,18 @@
-body { font-family: Arial, sans-serif; background-color: #A0FAA4; }
+body {
+    font-family: Arial, sans-serif;
+    background-color: #A0FAA4;
+    margin: 20px;
+}
+
+body  h1, h2 {
+    color: #2B2624;
+}
+
 .home-page { text-align: center; }
 .home-page h1 { margin-top: 50px; }
 .home-page h2 { margin-top: 20px; color: #2B2624; }
 .home-page img { margin-top: 30px;}
+
 .car-list h1 { color: #333; margin-top: 50px; text-align: center; }
 
 .image-row {
@@ -36,6 +46,10 @@ body { font-family: Arial, sans-serif; background-color: #A0FAA4; }
         height: auto;
 }
 
+.news h2 {
+        text-align: center;
+}
+
 .news-list ul {
         display: flex;
         gap: 40px;
@@ -63,6 +77,69 @@ body { font-family: Arial, sans-serif; background-color: #A0FAA4; }
         height: auto;
         border-radius: 4px;
         margin-bottom: 10px;
+}
+
+.contact-form {
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+}
+
+.contact-form {
+    width: 400px;
+    margin: 60px auto;
+    padding: 30px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.contact-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.contact-form label {
+    font-weight: bold;
+    display: block;
+    margin-top: 15px;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 6px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    outline: none;
+    border-color: #2b7cff;
+}
+
+.contact-form button {
+    width: 100%;
+    margin-top: 20px;
+    padding: 12px;
+    border: none;
+    background: #2b7cff;
+    color: white;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.contact-form button:hover {
+    background: #1f5fd1;
+}
+
+.contact-confirmation {
+    text-align: center;
+    margin-top: 50px;
+    color: #2B2624;
 }
 
 .menu-item { color: blue; margin-right: 20px; text-decoration: none; }

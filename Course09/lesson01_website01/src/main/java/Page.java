@@ -12,7 +12,7 @@ public abstract class Page {
                new MenuItem("About", "/about-us", requestedPath.endsWith("/about-us")),
                new MenuItem("Cars", "/cars", requestedPath.startsWith("/cars")),
                new MenuItem("Contact", "/contact", requestedPath.endsWith("/contact")),
-               new MenuItem("News", "/news", requestedPath.endsWith("/contact"))
+               new MenuItem("News", "/news", requestedPath.endsWith("/news"))
        );
 
         response.append("<div>");
