@@ -24,7 +24,9 @@ public class Main {
             String method = exchange.getRequestMethod();
             // only once allowed to read request body.
             // If we read it here, we cannot read it in page object. So we read it here and pass it to page object if needed.
-            String body = new String(exchange.getRequestBody().readAllBytes());
+            byte[] bodyBytes = exchange.getRequestBody().readAllBytes();
+            String body = new String(bodyBytes);
+            String contentType = exchange.getRequestHeaders().getFirst("Content-Type");
 
             // first we check if file exists in public folder we serve it.
             // If not, we check if it is dynamic route and serve it. If not, we serve 404 page.
@@ -103,6 +105,11 @@ public class Main {
                 page = new CarBMW(container.getCarListApi());
             } else if (requestedPath.endsWith("/cars/3")) {
                 page = new CarMercedes();
+            } else if (requestedPath.endsWith("/manage-photo") && method.equalsIgnoreCase("GET")) {
+                System.out.println("Photo management page requested");
+                page = new ManagePhoto();
+            } else if (requestedPath.endsWith("/manage-photo") && method.equalsIgnoreCase("POST")) {
+                page = new ManagePhotoPost(contentType, bodyBytes);
             } else {
                 page = new NotFound();
             }

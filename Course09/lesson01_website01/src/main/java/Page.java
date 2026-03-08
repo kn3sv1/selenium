@@ -12,7 +12,8 @@ public abstract class Page {
                new MenuItem("About", "/about-us", requestedPath.endsWith("/about-us")),
                new MenuItem("Cars", "/cars", requestedPath.startsWith("/cars")),
                new MenuItem("Contact", "/contact", requestedPath.endsWith("/contact")),
-               new MenuItem("News", "/news", requestedPath.endsWith("/news"))
+               new MenuItem("News", "/news", requestedPath.endsWith("/news")),
+               new MenuItem("Photo manager", "/manage-photo", requestedPath.endsWith("/manage-photo"))
        );
 
         response.append("<div>");

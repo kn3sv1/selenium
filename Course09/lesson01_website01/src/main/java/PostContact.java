@@ -8,7 +8,9 @@ public class PostContact extends Page {
     private List<ContactModel> contacts = new ArrayList<>();
 
     public PostContact(String body) {
-
+        // if you extend base class, you must call super() in the constructor
+        // without it you created hidden issue that can be hard to debug
+        super();
         this.form = parseForm(body);
         this.contacts = saveContact();
     }
