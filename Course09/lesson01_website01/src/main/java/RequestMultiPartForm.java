@@ -44,8 +44,11 @@ public class RequestMultiPartForm {
                 // so System.out is the most reliable way to see the problem together with debugger
                 // System.out.println(part);
 
+                // 1. convert back from string to byte array - because we need to read binary data of file
                 InputStream stream = new ByteArrayInputStream(part.getBytes(StandardCharsets.ISO_8859_1));
                 //byte[] fileBytes = stream.readAllBytes();
+
+                // 2. we use BufferedReader to read headers line by line - because headers are text data and we can read them as string
                 BufferedReader reader = new BufferedReader(new InputStreamReader(stream, StandardCharsets.ISO_8859_1));
 
                 String line;
