@@ -34,6 +34,8 @@ public class Main {
             // http://localhost:8080/css/cats.css
             StaticFileServer staticFileServer = new StaticFileServer(exchange);
             if (staticFileServer.isFileExists()) {
+                // inside serveFile you can check for security and send 404 but not in router.
+                // because router should be only responsible for routing and not for security. It is like middleware in MVC pattern.
                 staticFileServer.serveFile();
                 return;
             }
