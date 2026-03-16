@@ -53,6 +53,10 @@ public class Router implements HttpHandler {
             }
 
             // If we do not find file or route, we can send 404 response
+            // only here you are allowed to send 404 response because no static file no dynamic route was found before.
+            // Don't terminate everything because no static file was found. Maybe it is dynamic route and you can serve it.
+
+            // So only here you are allowed to send 404 response because no static file no dynamic route was found before.
             response.send404(exchange);
         } catch (Exception e) {
             e.printStackTrace();
