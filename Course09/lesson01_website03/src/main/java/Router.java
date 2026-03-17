@@ -41,10 +41,18 @@ public class Router implements HttpHandler {
                 return;
             }
 
-            // http://localhost:8080/car-list
-            if (requestPath.startsWith("/car-list")) {
-                CarController carController = new CarController();
-                carController.showCars(exchange, response);
+            // http://localhost:8080/cars
+            if (requestPath.startsWith("/cars")) {
+                CarController controller = new CarController();
+                controller.showCars(exchange, response);
+                return; // never forget otherwise it will go to 404 in the end of file
+            }
+
+
+            // http://localhost:8080/news
+            if (requestPath.startsWith("/news")) {
+                NewsController controller = new NewsController();
+                controller.showNews(exchange, response);
                 return; // never forget otherwise it will go to 404 in the end of file
             }
 
