@@ -41,6 +41,13 @@ public class Router implements HttpHandler {
                 return;
             }
 
+            // http://localhost:8080/car-list
+            if (requestPath.startsWith("/car-list")) {
+                CarController carController = new CarController();
+                carController.showCars(exchange, response);
+                return; // never forget otherwise it will go to 404 in the end of file
+            }
+
             // http://localhost:8080/multipart-form.html
             if (requestPath.endsWith("/manage-photo") && method.equalsIgnoreCase("POST")) {
                 // Handle photo upload logic here
