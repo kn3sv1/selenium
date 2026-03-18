@@ -2,6 +2,8 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Router implements HttpHandler {
 
@@ -13,6 +15,9 @@ public class Router implements HttpHandler {
             String method = exchange.getRequestMethod();
             byte[] bodyBytes = exchange.getRequestBody().readAllBytes();
             String contentType = exchange.getRequestHeaders().getFirst("Content-Type");
+
+            Pattern pattern;
+            Matcher matcher;
 
             if (exchange.getRequestURI().getPath().equals("/")) {
                 exchange.getResponseHeaders().add("Location", "/index.html");
@@ -48,6 +53,18 @@ public class Router implements HttpHandler {
                 return; // never forget otherwise it will go to 404 in the end of file
             }
 
+
+            pattern = Pattern.compile("^/news/item/(\\d+)$");
+            matcher = pattern.matcher(requestPath);
+            if (matcher.find()) {
+                String id = matcher.group(1); // ()- 1st group, () - 2nd group
+                System.out.println("ID: " + Integer.parseInt(id));
+                System.out.println(requestPath);
+
+                NewsController controller = new NewsController();
+                controller.showNewsItem(exchange, response, id);
+                return;
+            }
 
             // http://localhost:8080/news
             if (requestPath.startsWith("/news")) {

@@ -23,6 +23,7 @@ public class CarController {
         // Each MenuItem has title, href and isActive.
         // We can easily change menu structure by changing Menu class and MenuItem class.
         // We can also reuse Menu class in other pages.
+        // Menu is tightly coupled with MenuRepository, because MenuRepository is responsible for creating Menu. It is like service in MVC pattern.
         Menu menu = new MenuRepository().getMenu();
         menu.setActiveByHref("/cars");
         response.sendHtmlResponse(exchange, 200, new CarListPage("Cars list", menu.toHtml()).toHtml());

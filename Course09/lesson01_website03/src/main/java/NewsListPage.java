@@ -1,10 +1,31 @@
+import java.util.List;
+
 public class NewsListPage {
     private String title;
     private String menu;
+    private List<NewsItem> newsList;
 
-    public NewsListPage(String title, String menu) {
+    public NewsListPage(String title, String menu, List<NewsItem> newsList) {
         this.title = title;
         this.menu = menu;
+        this.newsList = newsList;
+    }
+
+    public String newsListToHtml() {
+        StringBuilder html = new StringBuilder("<div class=\"news-list\"><ul>");
+        for (NewsItem newsItem : this.newsList) {
+            html.append("""
+                    <li>
+                        <h2>%s</h2>
+                        <a href="%s"><img src="%s" alt="%s"></a>
+                        <p>%s</p>
+                        <a href="%s">Detail page</a>
+                    </li>
+                    """.formatted(newsItem.getTitle(), newsItem.getLink(), newsItem.getPhoto(), newsItem.getTitle(), newsItem.getPublishedAt(), newsItem.getLink()));
+        }
+        html.append("</div></ul>");
+
+        return html.toString();
     }
 
     public String toHtml() {
@@ -19,22 +40,9 @@ public class NewsListPage {
                         %s
                         <h1>%s</h1>
                         <p>List of news will be here...</p>
-                        <div class="news-list">
-                            <div class="news-item">
-                                <h2>News title 1</h2>
-                                <p>News description 1. Refactor me to repository of news like menu</p>
-                            </div>
-                            <div class="news-item">
-                                <h2>News title 2</h2>
-                                <p>News description 2</p>
-                            </div>
-                            <div class="news-item">
-                                <h2>News title 3</h2>
-                                <p>News description 3</p>
-                            </div>
-                        </div>
+                            %s
                     </body>
                 </html>
-                """.formatted(this.title, this.menu, this.title);
+                """.formatted(this.title, this.menu, this.title, this.newsListToHtml());
     }
 }
