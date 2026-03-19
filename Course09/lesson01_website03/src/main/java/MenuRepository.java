@@ -9,7 +9,8 @@ public class MenuRepository {
                 new MenuItem("News", "/news", false),
                 new MenuItem("About us", "/about-us", false),
                 new MenuItem("Contact", "/contact", false),
-                new MenuItem("Photo manager", "/manage-photo", false)
+                new MenuItem("Photo manager", "/manage-photo", false),
+                new MenuItem("Cyprus cats", "/cats", false)
             )
         );
     }
