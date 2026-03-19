@@ -1,7 +1,6 @@
 import com.sun.net.httpserver.HttpExchange;
 
 import java.io.IOException;
-import java.util.List;
 
 public class CarController {
     public void showCars(HttpExchange exchange, HttpResponse response) throws IOException {
@@ -25,7 +24,21 @@ public class CarController {
         // We can also reuse Menu class in other pages.
         // Menu is tightly coupled with MenuRepository, because MenuRepository is responsible for creating Menu. It is like service in MVC pattern.
         Menu menu = new MenuRepository().getMenu();
+        CarRepository carRepository = new CarRepository();
         menu.setActiveByHref("/cars");
-        response.sendHtmlResponse(exchange, 200, new CarListPage("Cars list", menu.toHtml()).toHtml());
+        response.sendHtmlResponse(exchange, 200, new CarsListPage("Cars list", menu.toHtml(), carRepository.getAllCars()).toHtml());
+    }
+
+    public void showCarItem(HttpExchange exchange, HttpResponse response, String id) throws IOException {
+        Menu menu = new MenuRepository().getMenu();
+        CarRepository carRepository = new CarRepository();
+        menu.setActiveByHref("/cars");
+        int carId = Integer.parseInt(id);
+        CarModel car = carRepository.getCarById(carId);
+        response.sendHtmlResponse(
+                exchange,
+                200,
+                new CarsItemPage("Car item", menu.toHtml(), car).toHtml()
+        );
     }
 }

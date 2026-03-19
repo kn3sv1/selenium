@@ -34,7 +34,7 @@ public class NewsListPage {
                 <html>
                     <head>
                         <title>%s</title>
-                        <link rel="stylesheet" href="basic.css">
+                        <link rel="stylesheet" href="/basic.css">
                     </head>
                     <body>
                         %s

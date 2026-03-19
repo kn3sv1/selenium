@@ -14,7 +14,7 @@ public class NewsItemPage {
     public String newsItemToHtml() {
         StringBuilder html = new StringBuilder("<div class=\"news-list\"><ul>");
         html.append("""
-                <li>
+                <li style="margin: auto; text-align: center;">
                     <h2>%s</h2>
                     <p>%s</p>
                     <img src="%s" alt="%s">
@@ -39,12 +39,11 @@ public class NewsItemPage {
                 <html>
                     <head>
                         <title>%s</title>
-                        <link rel="stylesheet" href="basic.css">
+                        <link rel="stylesheet" href="/basic.css">
                     </head>
                     <body>
                         %s
-                        <h1>%s</h1>
-                        <p>List of news will be here...</p>
+                        <h1 style="margin-bottom: 40px;">%s</h1>
                             %s
                     </body>
                 </html>

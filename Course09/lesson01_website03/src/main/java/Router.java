@@ -46,6 +46,18 @@ public class Router implements HttpHandler {
                 return;
             }
 
+            pattern = Pattern.compile("^/cars/item/(\\d+)$");
+            matcher = pattern.matcher(requestPath);
+            if (matcher.find()) {
+                String id = matcher.group(1); // ()- 1st group, () - 2nd group
+                System.out.println("ID: " + Integer.parseInt(id));
+                System.out.println(requestPath);
+
+                CarController carController = new CarController();
+                carController.showCarItem(exchange, response, id);
+                return;
+            }
+
             // http://localhost:8080/cars
             if (requestPath.startsWith("/cars")) {
                 CarController controller = new CarController();
