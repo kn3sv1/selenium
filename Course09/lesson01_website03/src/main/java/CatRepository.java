@@ -5,10 +5,10 @@ public class CatRepository {
 
     public CatRepository() {
         this.cats = List.of(
-                new CatModel(1, "Ginger", 6, true, "/images/cats/ginger.png"),
-                new CatModel(2, "Fluffy", 6, false, "/images/cats/fluffy.png"),
-                new CatModel(3, "Gucci", 14, true, "/images/cats/gucci.png"),
-                new CatModel(4, "Teady", 10, false, "/images/cats/teady.png")
+                new CatModel(1, "Ginger", 6, true, "/images/cats/ginger.png", "/cats/id/1"),
+                new CatModel(2, "Fluffy", 6, false, "/images/cats/fluffy.png", "/cats/id/2"),
+                new CatModel(3, "Gucci", 14, true, "/images/cats/gucci.png", "/cats/id/3"),
+                new CatModel(4, "Teady", 10, true, "/images/cats/teady.png", "/cats/id/4")
         );
     }
 
@@ -26,4 +26,15 @@ public class CatRepository {
                         .findFirst()
                         .orElse(null);
     }
+
+//    public CatModel findObjectById(int id) {
+//        CatModel cat = null;
+//        for (CatModel c : this.cats) {
+//            if(c.getId() == id) {
+//                cat = c;
+//                break;
+//            }
+//        }
+//        return cat;
+//    }
 }

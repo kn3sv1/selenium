@@ -10,7 +10,7 @@ public class MenuRepository {
                 new MenuItem("About us", "/about-us", false),
                 new MenuItem("Contact", "/contact", false),
                 new MenuItem("Photo manager", "/manage-photo", false),
-                new MenuItem("Cyprus cats", "/cats", false)
+                new MenuItem("cats", "/cats", false)
             )
         );
     }

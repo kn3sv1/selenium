@@ -16,11 +16,11 @@ public class CatsListPage {
         for (CatModel cat : catModelList) {
             html.append("""
                     <li>
-                        <h2>%s</h2>
-                        <h3>%s</h3>
-                        <img src="%s" alt="%s">
+                        <h2>Name: %s </h2>
+                        <h3>Age: %s </h3>
+                        <a href="%s"><img src="%s" alt="%s"></a>
                     </li>
-                    """.formatted(cat.getName(), cat.getAge(), cat.getPhoto(), cat.getName()));
+                    """.formatted(cat.getName(), cat.getAge(), cat.getLink(), cat.getPhoto(), cat.getName()));
         }
         html.append("</ul></div>");
 

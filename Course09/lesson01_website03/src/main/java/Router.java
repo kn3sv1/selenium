@@ -96,6 +96,18 @@ public class Router implements HttpHandler {
                 return;
             }
 
+            pattern = Pattern.compile("^/cats/id/(\\d+)$");
+            matcher = pattern.matcher(requestPath);
+            if (matcher.find()) {
+                String id = matcher.group(1);
+                System.out.println("ID: " + Integer.parseInt(id));
+                System.out.println(requestPath);
+
+                CatController controller = new CatController();
+                controller.showCat(exchange, response, id);
+                return;
+            }
+
             if (requestPath.startsWith("/cats")) {
                 CatController controller = new CatController();
                 controller.showCats(exchange, response);
