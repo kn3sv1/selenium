@@ -14,6 +14,7 @@ public class Router implements HttpHandler {
             String requestPath = exchange.getRequestURI().getPath();
             String method = exchange.getRequestMethod();
             byte[] bodyBytes = exchange.getRequestBody().readAllBytes();
+            String body = exchange.getRequestBody().toString();
             String contentType = exchange.getRequestHeaders().getFirst("Content-Type");
 
             Pattern pattern;
@@ -46,9 +47,15 @@ public class Router implements HttpHandler {
                 return;
             }
 
-            if (requestPath.startsWith("/contact")) {
+            if (requestPath.startsWith("/contact") && method.equalsIgnoreCase("GET")) {
                 FormController controller = new FormController();
                 controller.getForm(exchange, response);
+                return;
+            }
+
+            if (requestPath.startsWith("/contact") && method.equalsIgnoreCase("POST")) {
+                FormController controller = new FormController();
+                controller.postForm(exchange, response, body);
                 return;
             }
 
