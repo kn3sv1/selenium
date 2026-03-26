@@ -46,6 +46,12 @@ public class Router implements HttpHandler {
                 return;
             }
 
+            if (requestPath.startsWith("/contact")) {
+                FormController controller = new FormController();
+                controller.getForm(exchange, response);
+                return;
+            }
+
             pattern = Pattern.compile("^/cars/item/(\\d+)$");
             matcher = pattern.matcher(requestPath);
             if (matcher.find()) {
