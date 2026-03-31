@@ -27,6 +27,10 @@ public class ContactFormPost {
                 String key = java.net.URLDecoder.decode(keyValue[0], java.nio.charset.StandardCharsets.UTF_8);
                 String value = java.net.URLDecoder.decode(keyValue[1], java.nio.charset.StandardCharsets.UTF_8);
 
+                if (value.length() < 3) {
+                    System.out.println("length of name should be more than 3 characters.");
+                    break;
+                }
                 map.put(key, value);
             }
 
@@ -35,13 +39,14 @@ public class ContactFormPost {
     }
 
     public String confirmation() {
+        String name = form.get("name");
         return """
                 <div class="contact-confirmation">
-                    <h1>Thank you!</h1>
-                    <p>Your message was received.</p>
+                    <h1>Thank you %s!</h1>
+                    <h2>Your message was received.</h2>
                     <a href='/'>Back</a>
                 </div>
-                """;
+                """.formatted(name);
     }
 
     public String bodyToHtml() {

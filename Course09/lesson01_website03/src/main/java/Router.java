@@ -14,7 +14,7 @@ public class Router implements HttpHandler {
             String requestPath = exchange.getRequestURI().getPath();
             String method = exchange.getRequestMethod();
             byte[] bodyBytes = exchange.getRequestBody().readAllBytes();
-            String body = exchange.getRequestBody().toString();
+            String body = new String(bodyBytes);
             String contentType = exchange.getRequestHeaders().getFirst("Content-Type");
 
             Pattern pattern;
