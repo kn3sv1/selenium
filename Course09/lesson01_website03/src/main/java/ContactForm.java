@@ -17,7 +17,7 @@ public class ContactForm {
                     <input type="text" id="name" name="name" required><br><br>
                 
                     <label for="email">Email Address:</label><br>
-                    <input type="email" id="email" name="email" required><br><br>
+                    <input type="text" id="email" name="email"><br><br>
                 
                     <label for="phone">Phone Number:</label><br>
                     <input type="tel" id="phone" name="phone"><br><br>
