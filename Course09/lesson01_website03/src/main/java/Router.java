@@ -59,6 +59,18 @@ public class Router implements HttpHandler {
                 return;
             }
 
+            if (requestPath.startsWith("/appointment") && method.equalsIgnoreCase("GET")) {
+                AppointmentFormController controller = new AppointmentFormController();
+                controller.getForm(exchange, response);
+                return;
+            }
+
+            if (requestPath.startsWith("/appointment") && method.equalsIgnoreCase("POST")) {
+                AppointmentFormController controller = new AppointmentFormController();
+                controller.postForm(exchange, response, body);
+                return;
+            }
+
             pattern = Pattern.compile("^/cars/item/(\\d+)$");
             matcher = pattern.matcher(requestPath);
             if (matcher.find()) {
