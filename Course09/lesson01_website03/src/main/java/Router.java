@@ -71,6 +71,18 @@ public class Router implements HttpHandler {
                 return;
             }
 
+            if (requestPath.startsWith("/surrogate") && method.equalsIgnoreCase("GET")) {
+                SurrogateFormController controller = new SurrogateFormController();
+                controller.getForm(exchange, response);
+                return;
+            }
+
+            if (requestPath.startsWith("/surrogate") && method.equalsIgnoreCase("POST")) {
+                SurrogateFormController controller = new SurrogateFormController();
+                controller.postForm(exchange, response, body);
+                return;
+            }
+
             pattern = Pattern.compile("^/cars/item/(\\d+)$");
             matcher = pattern.matcher(requestPath);
             if (matcher.find()) {

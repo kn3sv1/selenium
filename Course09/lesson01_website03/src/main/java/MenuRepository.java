@@ -11,6 +11,7 @@ public class MenuRepository {
                 new MenuItem("Contact", "/contact", false),
                 new MenuItem("Photo manager", "/manage-photo", false),
                 new MenuItem("Appointments", "/appointment", false),
+                new MenuItem("Surrogate", "/surrogate", false),
                 new MenuItem("cats", "/cats", false)
             )
         );
