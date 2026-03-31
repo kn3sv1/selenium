@@ -23,6 +23,8 @@ public class SurrogateFormController {
 //                ))
 //        );
 
+        // we always pass empty value because from this action we don't submit anything. But page can work with empty or not empty hashmaps so we
+        // don't need to duplicate code.
         var form = new SurrogateFormPage(
                 "Surrogate",
                 menu.toHtml(),
@@ -45,6 +47,8 @@ public class SurrogateFormController {
         if (errors.isEmpty()) {
             response.sendHtmlResponse(exchange, 200, new SurrogateFormResultPage("success", menu.toHtml(), form).bodyToHtml());
         } else {
+            // we again show the same form that we show for get request but with error messages and form values that user submitted.
+            // that is why this page has forms and errors hashmap always.
             response.sendHtmlResponse(exchange, 400, new SurrogateFormPage("validation error", menu.toHtml(), form, errors).bodyToHtml());
         }
     }
