@@ -2,6 +2,7 @@ package main;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+import controller.ContactController;
 import utils.HttpResponse;
 import utils.StaticFileServer;
 
@@ -11,7 +12,10 @@ public class Router implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
         String path = exchange.getRequestURI().getPath();
+        String method = exchange.getRequestMethod();
         HttpResponse response = new HttpResponse();
+        byte[] bodyBytes = exchange.getRequestBody().readAllBytes();
+        String body = new String(bodyBytes);
 
         // first we check if file exists in public folder we serve it.
         // If not, we check if it is dynamic route and serve it. If not, we serve 404 page.
@@ -25,16 +29,16 @@ public class Router implements HttpHandler {
             return;
         }
 
-        // http://localhost:8080/nested/page
-        if (path.equals("/nested/page")) {
-            String responseText = "index! <img src=\"/images/cars/bmw.png\" alt=\"\"> ";
-            response.sendHtmlResponse(exchange, 200, responseText);
+        if (path.startsWith("/contact") && method.equalsIgnoreCase("GET")) {
+            ContactController controller = new ContactController();
+            controller.getForm(exchange, response);
             return;
         }
 
-
-        if (path.equals("/")) {
-            response.sendHtmlResponse(exchange, 200, "<h1>Welcome to the Home Page</h1>");
+        if (path.startsWith("/contact") && method.equalsIgnoreCase("POST")) {
+            ContactController controller = new ContactController();
+            controller.postForm(exchange, response, body);
+            return;
         }
 
         // If we do not find file or route, we can send 404 response
