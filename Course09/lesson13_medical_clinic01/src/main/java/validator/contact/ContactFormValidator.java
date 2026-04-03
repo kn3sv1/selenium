@@ -32,6 +32,9 @@ import java.util.Map;
             if (message == null || message.trim().isEmpty()) {
                 this.errors.put("message", "Message cannot be empty");
                 //throw new IllegalArgumentException("Message cannot be empty");
+            } else if (name.length() < 3) {
+                this.errors.put("message", "Message is too short");
+                //throw new IllegalArgumentException("Name must be at least 3 characters long");
             }
 
             return this.errors;

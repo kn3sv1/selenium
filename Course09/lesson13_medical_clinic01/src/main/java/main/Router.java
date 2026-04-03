@@ -3,6 +3,7 @@ package main;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import controller.ContactController;
+import controller.DoctorController;
 import utils.HttpResponse;
 import utils.StaticFileServer;
 
@@ -38,6 +39,12 @@ public class Router implements HttpHandler {
         if (path.startsWith("/contact") && method.equalsIgnoreCase("POST")) {
             ContactController controller = new ContactController();
             controller.postForm(exchange, response, body);
+            return;
+        }
+
+        if (path.startsWith("/doctors") && method.equalsIgnoreCase("GET")) {
+            DoctorController controller = new DoctorController();
+            controller.showDoctorPage(exchange, response);
             return;
         }
 

@@ -20,14 +20,14 @@ h1, h2 {
     background-color: #83fce4;
 }
 
-.news-list ul, .car-list ul {
+.news-list ul, .car-list ul, .doctor-list ul {
         display: flex;
         gap: 40px;
         list-style: none;
         padding: 0;
 }
 
-.news-list li, .car-list li {
+.news-list li, .car-list li, .doctor-list li {
         margin: 20px 20px;
         background-color: #f5f0f0;
         padding: 20px;
@@ -43,7 +43,7 @@ h1, h2 {
         text-align: center;
 }
 
-.news-list img, .car-list img {
+.news-list img, .car-list img, .doctor-list img {
         width: 100%;
         height: auto;
         border-radius: 4px;
