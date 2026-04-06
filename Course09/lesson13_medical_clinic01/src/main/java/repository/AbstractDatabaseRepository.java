@@ -2,6 +2,7 @@ package repository;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -13,6 +14,8 @@ public abstract class AbstractDatabaseRepository {
 
     public AbstractDatabaseRepository() {
         this.mapper = new ObjectMapper();
+        // will write to file nicelly formatted JSON, not in one line
+        mapper.enable(SerializationFeature.INDENT_OUTPUT);
     }
 
     abstract protected Path getFile();

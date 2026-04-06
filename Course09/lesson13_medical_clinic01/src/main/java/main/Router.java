@@ -4,6 +4,7 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import controller.ContactController;
 import controller.DoctorController;
+import controller.MenuItemsController;
 import utils.HttpResponse;
 import utils.StaticFileServer;
 
@@ -27,6 +28,42 @@ public class Router implements HttpHandler {
             // inside serveFile you can check for security and send 404 but not in router.
             // because router should be only responsible for routing and not for security. It is like middleware in MVC pattern.
             staticFileServer.serveFile();
+            return;
+        }
+
+        if (path.startsWith("/menu") && method.equalsIgnoreCase("GET")) {
+            MenuItemsController controller = new MenuItemsController();
+            controller.getFormCreate(exchange, response);
+            return;
+        }
+
+        if (path.startsWith("/menu") && method.equalsIgnoreCase("POST")) {
+            MenuItemsController controller = new MenuItemsController();
+            controller.create(exchange, response, body);
+            return;
+        }
+
+        if (path.startsWith("/update-menu") && method.equalsIgnoreCase("GET")) {
+            MenuItemsController controller = new MenuItemsController();
+            controller.getFormUpdate(exchange, response);
+            return;
+        }
+
+        if (path.startsWith("/update-menu") && method.equalsIgnoreCase("POST")) {
+            MenuItemsController controller = new MenuItemsController();
+            controller.update(exchange, response, body);
+            return;
+        }
+
+        if (path.startsWith("/delete-menu") && method.equalsIgnoreCase("GET")) {
+            MenuItemsController controller = new MenuItemsController();
+            controller.getFormDelete(exchange, response);
+            return;
+        }
+
+        if (path.startsWith("/delete-menu") && method.equalsIgnoreCase("POST")) {
+            MenuItemsController controller = new MenuItemsController();
+            controller.delete(exchange, response, body);
             return;
         }
 
