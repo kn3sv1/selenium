@@ -9,7 +9,7 @@ public class MenuItemsFormCreate {
 
     private String formToHtml() {
         return """
-                <form action="/menu" method="POST" class="contact-form">
+                <form action="/menu-create" method="POST" class="contact-form">
                 
                     <h2>Create menu items</h2>
                 

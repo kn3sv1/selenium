@@ -1,21 +1,16 @@
 [ {
-  "id" : "7d1240f5-5ebe-4803-934a-3cd9129b27e1",
-  "title" : "Home page",
-  "href" : "/home",
-  "isActive" : false
-}, {
   "id" : "7d1240f5-5ebe-4803-934a-3cd9129b27e2",
-  "title" : "About us",
+  "title" : "Home",
+  "href" : "/home",
+  "isActive" : true
+}, {
+  "id" : "c1bd0b23-fa99-4b91-baf0-abf0b3df88f9",
+  "title" : "About-us",
   "href" : "/about-us",
   "isActive" : true
 }, {
-  "id" : "c0760548-19a5-4775-a6a3-da9625e3cf4a",
-  "title" : "products",
-  "href" : "/products",
-  "isActive" : false
-}, {
-  "id" : "78e23fb4-d359-4418-be5e-bf0d9b748406",
-  "title" : "Contacts",
+  "id" : "9f00c8e4-0fa0-44b6-b7b5-fb04b2b32b2f",
+  "title" : "Contact-us",
   "href" : "/contacts",
   "isActive" : true
 } ]

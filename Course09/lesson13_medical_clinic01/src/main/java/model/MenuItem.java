@@ -56,4 +56,14 @@ public class MenuItem {
                 <a class="%s" href="%s">%s</a>
                 """, cssClass, this.href, this.title);
     }
+
+    @Override
+    public String toString() {
+        return "MenuItem{" +
+                "id='" + id + '\'' +
+                ", title='" + title + '\'' +
+                ", href='" + href + '\'' +
+                ", isActive=" + isActive +
+                '}';
+    }
 }

@@ -2,9 +2,11 @@ package view.menu;
 
 public class MenuItemsFormDelete {
    private String title;
+   private String id;
 
-    public MenuItemsFormDelete(String title) {
+    public MenuItemsFormDelete(String title, String id) {
         this.title = title;
+        this.id = id;
     }
 
     private String formToHtml() {
@@ -12,11 +14,12 @@ public class MenuItemsFormDelete {
                 <form action="/delete-menu" method="POST" class="contact-form">
                 
                     <h2>Delete menu items</h2>
-                
-                    <input type="hidden" name="id" value="c948ac1e-bf1a-4ab6-9cc7-5b94b04ba72f">
+                    <p>Are you sure you want to delete this menu item?</p>
+                    <label for="id">Menu ID:</label><br>
+                    <input type="text" id="id" name="id" value="%s" readonly><br><br>
                     <button type="submit">Delete</button>
                 </form>
-                """;
+                """.formatted(this.id);
     }
 
     public String bodyToHtml() {

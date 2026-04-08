@@ -2,16 +2,22 @@ package view.menu;
 
 public class MenuItemsFormUpdate {
    private String title;
+   private String id;
 
-    public MenuItemsFormUpdate(String title) {
+    public MenuItemsFormUpdate(String title, String id) {
         this.title = title;
+        this.id = id;
     }
 
     private String formToHtml() {
+        System.out.println(this.id);
         return """
                 <form action="/update-menu" method="POST" class="contact-form">
                 
                     <h2>Update menu items</h2>
+                
+                    <label for="id">Menu ID:</label><br>
+                    <input type="text" id="id" name="id" value="%s"><br><br>
                 
                     <label for="title">Menu title:</label><br>
                     <input type="text" id="title" name="title"><br><br>
@@ -22,7 +28,7 @@ public class MenuItemsFormUpdate {
                     <button type="submit">Update</button>
                 
                 </form>
-                """;
+                """.formatted(this.id);
     }
 
     public String bodyToHtml() {

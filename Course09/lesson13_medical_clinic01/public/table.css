@@ -1,0 +1,76 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f7fa;
+    padding: 20px;
+}
+
+h2 {
+    text-align: center;
+}
+
+.menu-table {
+    width: 80%;
+    margin: 0 auto;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.menu-table th,
+.menu-table td {
+    padding: 12px 15px;
+    text-align: left;
+}
+
+.menu-table thead {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.menu-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.menu-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.menu-table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.active {
+    color: green;
+    font-weight: bold;
+}
+
+.inactive {
+    color: red;
+    font-weight: bold;
+}
+
+.btn {
+    display: inline-block;
+    padding: 6px 12px;
+    margin: 2px;
+    text-decoration: none;
+    color: white;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.update-btn {
+    background-color: #2196F3;
+}
+
+.update-btn:hover {
+    background-color: #1976D2;
+}
+
+.delete-btn {
+    background-color: #f44336;
+}
+
+.delete-btn:hover {
+    background-color: #d32f2f;
+}

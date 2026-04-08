@@ -8,22 +8,30 @@ import utils.HttpResponse;
 import view.menu.MenuItemsFormCreate;
 import view.menu.MenuItemsFormDelete;
 import view.menu.MenuItemsFormUpdate;
+import view.menu.MenuItemsTable;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.UUID;
 
 public class MenuItemsController {
+    public void getTable(HttpExchange exchange, HttpResponse response) throws IOException {
+        MenuRepository repository = new MenuRepository();
+        ArrayList<MenuItem> menuItems = repository.getMenuItems();
+        response.sendHtmlResponse(exchange, 200, new MenuItemsTable("Menu Items", menuItems).bodyToHtml());
+    }
+
     public void getFormCreate(HttpExchange exchange, HttpResponse response) throws IOException {
         response.sendHtmlResponse(exchange, 200, new MenuItemsFormCreate("Menu Items").bodyToHtml());
     }
 
-    public void getFormUpdate(HttpExchange exchange, HttpResponse response) throws IOException {
-        response.sendHtmlResponse(exchange, 200, new MenuItemsFormUpdate("Update menu items").bodyToHtml());
+    public void getFormUpdate(HttpExchange exchange, HttpResponse response, String id) throws IOException {
+        response.sendHtmlResponse(exchange, 200, new MenuItemsFormUpdate("Update menu items", id).bodyToHtml());
     }
 
-    public void getFormDelete(HttpExchange exchange, HttpResponse response) throws IOException {
-        response.sendHtmlResponse(exchange, 200, new MenuItemsFormDelete("Delete menu items").bodyToHtml());
+    public void getFormDelete(HttpExchange exchange, HttpResponse response, String id) throws IOException {
+        response.sendHtmlResponse(exchange, 200, new MenuItemsFormDelete("Delete menu items", id).bodyToHtml());
     }
 
     public void create(HttpExchange exchange, HttpResponse response, String body) throws IOException {
@@ -50,7 +58,7 @@ public class MenuItemsController {
 
         Map<String, String> form = parser.parse(body);
 
-        String id1 = "c948ac1e-bf1a-4ab6-9cc7-5b94b04ba72f";
+        String id1 = form.get("id");
 
         String title = form.get("title");
         String href = form.get("href");
