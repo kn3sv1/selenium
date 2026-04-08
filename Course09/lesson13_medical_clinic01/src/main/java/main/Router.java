@@ -110,6 +110,12 @@ public class Router implements HttpHandler {
             return;
         }
 
+        if (path.startsWith("/doctor-create") && method.equalsIgnoreCase("GET")) {
+            DoctorController controller = new DoctorController();
+            controller.getFormCreate(exchange, response);
+            return;
+        }
+
         // If we do not find file or route, we can send 404 response
         // only here you are allowed to send 404 response because no static file no dynamic route was found before.
         // Don't terminate everything because no static file was found. Maybe it is dynamic route and you can serve it.
