@@ -13,6 +13,6 @@ public class DoctorService {
     }
 
     public List<DoctorModel> getAllDoctors() {
-        return repository.getAllDoctors();
+        return repository.getDoctors();
     }
 }

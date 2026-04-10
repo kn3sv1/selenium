@@ -21,6 +21,7 @@ public class Router implements HttpHandler {
         HttpResponse response = new HttpResponse();
         byte[] bodyBytes = exchange.getRequestBody().readAllBytes();
         String body = new String(bodyBytes);
+        String contentType = exchange.getRequestHeaders().getFirst("Content-Type");
 
         // first we check if file exists in public folder we serve it.
         // If not, we check if it is dynamic route and serve it. If not, we serve 404 page.
@@ -113,6 +114,12 @@ public class Router implements HttpHandler {
         if (path.startsWith("/doctor-create") && method.equalsIgnoreCase("GET")) {
             DoctorController controller = new DoctorController();
             controller.getFormCreate(exchange, response);
+            return;
+        }
+
+        if (path.startsWith("/doctor-create") && method.equalsIgnoreCase("POST")) {
+            DoctorController controller = new DoctorController();
+            controller.create(exchange, response, contentType, bodyBytes);
             return;
         }
 

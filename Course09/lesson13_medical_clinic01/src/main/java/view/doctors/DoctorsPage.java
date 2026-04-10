@@ -2,13 +2,14 @@ package view.doctors;
 
 import model.DoctorModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DoctorsPage {
     private String title;
-    private List<DoctorModel> doctorModels;
+    private ArrayList<DoctorModel> doctorModels;
 
-    public DoctorsPage(String title, List<DoctorModel> doctorModels) {
+    public DoctorsPage(String title, ArrayList<DoctorModel> doctorModels) {
         this.title = title;
         this.doctorModels = doctorModels;
     }
@@ -20,9 +21,9 @@ public class DoctorsPage {
                     <li>
                         <h2>Name: %s %s</h2>
                         <h3>Specialization: %s </h3>
-                        <a href=" "><img src="%s" alt="%s"></a>
+                        <a href="%s"><img src="%s" alt="%s"></a>
                     </li>
-                    """.formatted(doctor.getFirstName(), doctor.getLastName(), doctor.getProfession(), doctor.getPhoto(), doctor.getFirstName()));
+                    """.formatted(doctor.getFirstName(), doctor.getLastName(), doctor.getProfession(), doctor.getPhoto(), doctor.getPhoto(), doctor.getFirstName()));
         }
         html.append("</ul></div>");
 
