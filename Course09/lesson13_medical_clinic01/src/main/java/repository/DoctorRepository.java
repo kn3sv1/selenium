@@ -27,6 +27,16 @@ public class DoctorRepository extends AbstractDatabaseRepository {
         return this.entities;
     }
 
+    public ArrayList<DoctorModel> getDoctorsByProfession(String profession) {
+        ArrayList<DoctorModel> result = new ArrayList<>();
+        for (DoctorModel doctor : this.entities) {
+            if (doctor.getProfession().startsWith(profession)) {
+                result.add(doctor);
+            }
+        }
+        return result;
+    }
+
     //instead of adding to an ArrayList we will add to file. So we refactored this method.
 
     //    private void populate() {

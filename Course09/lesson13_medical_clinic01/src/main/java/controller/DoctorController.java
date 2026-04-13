@@ -6,6 +6,7 @@ import repository.DoctorRepository;
 import service.DoctorService;
 import utils.HttpResponse;
 import utils.ParseMultipartForm;
+import utils.QueryParser;
 import view.doctors.DoctorsFormCreate;
 import view.doctors.DoctorsPage;
 
@@ -26,8 +27,15 @@ public class DoctorController {
         }
 
     public void showDoctorPage(HttpExchange exchange, HttpResponse response) throws IOException {
+        QueryParser parser = new QueryParser();
+        Map<String, String> query = parser.parse(exchange);
         DoctorRepository repository =  new DoctorRepository();
-        ArrayList<DoctorModel> doctors = repository.getDoctors();
+        ArrayList<DoctorModel> doctors;
+        if (query.get("profession") != null) {
+            doctors = repository.getDoctorsByProfession(query.get("profession"));
+        } else {
+            doctors = repository.getDoctors();
+        }
         response.sendHtmlResponse(exchange, 200, new DoctorsPage("Greys Anatomy - Doctors", doctors).toHtml());
     }
 

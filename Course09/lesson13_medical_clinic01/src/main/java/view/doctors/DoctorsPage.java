@@ -40,9 +40,19 @@ public class DoctorsPage {
                     </head>
                     <body>
                         <h1>%s</h1>
-                        %s
+                        <div>%s</div>
+                        <div>%s</div>
                     </body>
                 </html>
-                """.formatted(this.title, this.title, this.doctorsListToHtml());
+                """.formatted(this.title, this.title, this.getCategories(), this.doctorsListToHtml());
+    }
+
+    public String getCategories() {
+        return """
+                <a href="/doctors?profession=General">General</a>&nbsp;
+                <a href="/doctors?profession=Neurosurgery">Neurosurgery</a>&nbsp;
+                <a href="/doctors?profession=Pediatric">Pediatric</a>&nbsp;
+                <a href="/doctors?profession=Cardiothoracic">Cardiothoracic</a>&nbsp;
+                """;
     }
 }

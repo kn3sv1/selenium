@@ -30,7 +30,10 @@ public class DoctorsFormCreate {
                     <input id="filename" name="filename" required>
                 
                     <label for="file">File</label>
-                    <input type="file" id="file" name="file" accept="image/*" required>
+                    <input type="file" id="file" name="file" accept="image/*" required><br><br>
+                
+                    <img id="preview" src="" style="max-width:200px; display:none; margin-top:10px;" />
+                    <br><br>
                 
                     <button type="submit">Create doctor</button>
                 
@@ -45,13 +48,15 @@ public class DoctorsFormCreate {
                         <title>%s</title>
                         <link rel="stylesheet" href="/basic.css">
                         <link rel="stylesheet" href="/forms.css">
+                        <script src="/image_preview.js" defer></script>
                     </head>
                     <body>
                         <h1 style="margin-bottom: 40px;">%s</h1>
-                            %s
+                        <div>%s</div>
                     </body>
                 </html>
                 """.formatted(this.title, this.title, this.formToHtml());
 
-        }
+    }
+
 }
