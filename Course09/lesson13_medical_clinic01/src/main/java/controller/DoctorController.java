@@ -36,7 +36,7 @@ public class DoctorController {
         } else {
             doctors = repository.getDoctors();
         }
-        response.sendHtmlResponse(exchange, 200, new DoctorsPage("Greys Anatomy - Doctors", doctors).toHtml());
+        response.sendHtmlResponse(exchange, 200, new DoctorsPage(repository, "Greys Anatomy - Doctors", doctors).toHtml());
     }
 
     public void getFormCreate(HttpExchange exchange, HttpResponse response) throws IOException {
