@@ -54,6 +54,19 @@
             <version>5.11.0</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>net.bytebuddy</groupId>
+            <artifactId>byte-buddy</artifactId>
+            <version>1.18.8</version> <!-- or newer -->
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>net.bytebuddy</groupId>
+            <artifactId>byte-buddy-agent</artifactId>
+            <version>1.18.8</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -76,9 +89,6 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.2.5</version>
                 <configuration>
-                    <argLine>
-                        -javaagent:"C:/Users/Envy/.m2/repository/org/mockito/mockito-core/5.11.0/mockito-core-5.11.0.jar"
-                    </argLine>
                     <!-- Runs *Test.java -->
                     <includes>
                         <include>**/*Test.java</include>
