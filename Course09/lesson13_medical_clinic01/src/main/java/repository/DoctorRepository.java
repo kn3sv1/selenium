@@ -7,14 +7,15 @@ import model.MenuItem;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class DoctorRepository extends AbstractDatabaseRepository {
     private final ArrayList<DoctorModel> entities;
     private final Path file;
 
-    public DoctorRepository() {
+    public DoctorRepository(String dataBase) {
         super();
-        this.file = Path.of("./database/doctors.json");
+        this.file = Path.of("./database/" + dataBase + ".json");
         this.entities = this.load(new TypeReference<>() {}, "array");
     }
 
@@ -106,4 +107,29 @@ public class DoctorRepository extends AbstractDatabaseRepository {
         this.save(this.entities);
     }
 
+    public void update(DoctorModel doctor) {
+        // find by ID
+        for (int i = 0; i < this.entities.size(); i++) {
+            if (this.entities.get(i).getId().equals(doctor.getId())) {
+                this.entities.set(i, doctor);
+                this.save(this.entities);
+                return;
+            }
+        }
+    }
+
+    public DoctorModel getByUUID(UUID id) {
+        // find by ID
+        for (int i = 0; i < this.entities.size(); i++) {
+            if (this.entities.get(i).getId().equals(id)) {
+                return this.entities.get(i);
+            }
+        }
+        return null;
+    }
+
+    public void clear() {
+        this.entities.clear();
+        this.save(this.entities);
+    }
 }

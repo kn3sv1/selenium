@@ -9,7 +9,7 @@ public class DoctorService {
     private DoctorRepository repository;
 
     public DoctorService() {
-        this.repository = new DoctorRepository();
+        this.repository = new DoctorRepository("doctors");
     }
 
     public List<DoctorModel> getAllDoctors() {

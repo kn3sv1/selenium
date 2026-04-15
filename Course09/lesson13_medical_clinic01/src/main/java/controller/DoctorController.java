@@ -29,7 +29,7 @@ public class DoctorController {
     public void showDoctorPage(HttpExchange exchange, HttpResponse response) throws IOException {
         QueryParser parser = new QueryParser();
         Map<String, String> query = parser.parse(exchange);
-        DoctorRepository repository =  new DoctorRepository();
+        DoctorRepository repository =  new DoctorRepository("doctors");
         ArrayList<DoctorModel> doctors;
         if (query.get("profession") != null) {
             doctors = repository.getDoctorsByProfession(query.get("profession"));
@@ -61,7 +61,7 @@ public class DoctorController {
         String photo = multipartForm.getBrowserPathForFile("file");
 
         DoctorModel doctor = new DoctorModel(UUID.randomUUID(), name, surname, specialization, photo);
-        DoctorRepository repository = new DoctorRepository();
+        DoctorRepository repository = new DoctorRepository("doctors");
         repository.add(doctor);
         response.sendHtmlResponse(exchange, 200, "<h1 style='text-align: center; background-color: yellow; padding: 0.5rem;'>Doctor created successfully</h1>");
     }
