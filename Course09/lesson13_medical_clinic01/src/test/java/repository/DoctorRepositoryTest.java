@@ -6,8 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class DoctorRepositoryTest {
 
@@ -54,6 +53,20 @@ public class DoctorRepositoryTest {
 
     @Test
     void testDeleteDoctor() {
+        this.repository.clear();
+
+        DoctorModel doctor = new DoctorModel(
+                UUID.randomUUID(),
+                "Angie",
+                "Neophytou",
+                "general surgery",
+                "/images/doctors/derek.png"
+        );
+        this.repository.add(doctor);
+
+        this.repository.deleteByUUID(doctor.getId());
+        // assertEquals(null, this.repository.getByUUID(doctor.getId()));
+        assertNull(this.repository.getByUUID(doctor.getId()));
 
     }
 }

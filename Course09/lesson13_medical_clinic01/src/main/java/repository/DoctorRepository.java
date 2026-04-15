@@ -128,6 +128,17 @@ public class DoctorRepository extends AbstractDatabaseRepository {
         return null;
     }
 
+    public void deleteByUUID(UUID id) {
+        // find by ID
+        for (int i = 0; i < this.entities.size(); i++) {
+            if (this.entities.get(i).getId().equals(id)) {
+                this.entities.remove(i);
+                this.save(this.entities);
+                return;
+            }
+        }
+    }
+
     public void clear() {
         this.entities.clear();
         this.save(this.entities);
