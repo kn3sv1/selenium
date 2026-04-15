@@ -87,6 +87,8 @@ public class DoctorsPage {
     /**
      * because we don't use value from HashMap we can use ArrayList because it has ordered items.
      * But we need unique so we can use LinkedHashSet. It is ordered and unique.
+     * if the doctor has the same profession as the previous one, it will be replaced or overwritten in HashMap,
+     * but in LinkedHashSet it will be just ignored because it is duplicate.
      */
     public String getDynamicOrderedCategories() {
         // we use hashMap to replace duplicates by key (profession).
