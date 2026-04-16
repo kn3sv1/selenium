@@ -96,6 +96,7 @@ class DoctorControllerIT {
         RestAssured.baseURI = "http://localhost";
         RestAssured.port = 8081;
 
+        String html =
         given()
                 .multiPart("file", new File("src/test/resources/images/doctors/test-andreas-integration.png"))
                 .multiPart("name", "AndreasIntegration")
@@ -104,7 +105,22 @@ class DoctorControllerIT {
             .when()
                 .post("/doctor-create")
             .then()
-                .statusCode(200);
+                .statusCode(200)
+            .extract()
+            .asString();
+
+        Document doc = Jsoup.parse(html);
+        String id = doc.select("p#uuid").text();
+        System.out.println("ID: " + id);
     }
 
+    @Test
+    void testUpdateWithoutPhoto() {
+        RestAssured.baseURI = "http://localhost";
+        RestAssured.port = 8081;
+
+        // TODO::: angie will write code
+        // step 1 repeat code from testCreate() and store to variable id
+        // step 2 send update request with that id. But before implement router and logic in controller.
+    }
 }

@@ -54,8 +54,12 @@ public class DoctorController {
                 new DoctorRepository("doctors"),
                 new UploadFileService()
         );
-        doctorService.create(form);
-        response.sendHtmlResponse(exchange, 200, "<h1 style='text-align: center; background-color: yellow; padding: 0.5rem;'>Doctor created successfully</h1>");
+        DoctorModel doctor = doctorService.create(form);
+        String html = """
+                <h1 style='text-align: center; background-color: yellow; padding: 0.5rem;'>Doctor created successfully</h1>
+                <p id="uuid">%s</p>
+                """.formatted(doctor.getId());
+        response.sendHtmlResponse(exchange, 200, html);
     }
 
     public void createOld(HttpExchange exchange, HttpResponse response, String contentType, byte[] bodyBytes) throws IOException {
