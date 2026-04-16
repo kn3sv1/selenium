@@ -52,4 +52,10 @@
   "lastName" : "Carmack",
   "profession" : "Orthopedic Surgery",
   "photo" : "/upload/james.png"
+}, {
+  "id" : "78eb2637-443b-4381-837d-c786a2fe0727",
+  "firstName" : "Natasha",
+  "lastName" : "Charalambous",
+  "profession" : "Anesthesiologist",
+  "photo" : "/upload/izzie.png"
 } ]

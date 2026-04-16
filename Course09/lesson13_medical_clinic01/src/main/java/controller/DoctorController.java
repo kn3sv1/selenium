@@ -49,6 +49,17 @@ public class DoctorController {
 
     public void create(HttpExchange exchange, HttpResponse response, String contentType, byte[] bodyBytes) throws IOException {
         ParseMultipartForm multipartForm = new ParseMultipartForm(contentType, bodyBytes);
+        Map<String, String> form = multipartForm.getForm();
+        DoctorService doctorService = new DoctorService(
+                new DoctorRepository("doctors"),
+                new UploadFileService()
+        );
+        doctorService.create(form);
+        response.sendHtmlResponse(exchange, 200, "<h1 style='text-align: center; background-color: yellow; padding: 0.5rem;'>Doctor created successfully</h1>");
+    }
+
+    public void createOld(HttpExchange exchange, HttpResponse response, String contentType, byte[] bodyBytes) throws IOException {
+        ParseMultipartForm multipartForm = new ParseMultipartForm(contentType, bodyBytes);
         Map<String, String> formData = multipartForm.getForm();
 
         String name = formData.get("name");
