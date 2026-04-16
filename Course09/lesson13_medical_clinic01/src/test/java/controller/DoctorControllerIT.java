@@ -111,7 +111,7 @@ class DoctorControllerIT {
 
         Document doc = Jsoup.parse(html);
         String id = doc.select("p#uuid").text();
-        System.out.println("ID: " + id);
+        System.out.println("CREATED ID: " + id);
     }
 
     @Test
@@ -134,7 +134,7 @@ class DoctorControllerIT {
 
         Document doc = Jsoup.parse(create);
         String id = doc.select("p#uuid").text();
-        System.out.println("ID: " + id);
+        System.out.println("CREATED ID: " + id);
 
         // TODO::: angie will write code
         // step 1 repeat code from testCreate() and store to variable id
@@ -145,14 +145,47 @@ class DoctorControllerIT {
                         .multiPart("name", "AndreasIntegration2")
                         .multiPart("surname", "PantazisIntegration2")
                         .multiPart("spe", "gynecology2")
-                        .when()
+                    .when()
                         .post("/doctor-update/" + id)
-                        .then()
+                    .then()
                         .statusCode(200)
-                        .extract()
-                        .asString();
+                    .extract()
+                    .asString();
 
-        Document docUpdate = Jsoup.parse(update);
-        System.out.println("update: " + update);
+        System.out.println("UPDATED: " + update);
+    }
+
+    @Test
+    void testDelete() {
+        RestAssured.baseURI = "http://localhost";
+        RestAssured.port = 8081;
+
+        String create =
+                given()
+                        .multiPart("file", new File("src/test/resources/images/doctors/test-delete-integration.png"))
+                        .multiPart("name", "AndreasIntegration")
+                        .multiPart("surname", "PantazisIntegration")
+                        .multiPart("spe", "gynecology")
+                    .when()
+                        .post("/doctor-create")
+                    .then()
+                        .statusCode(200)
+                    .extract()
+                    .asString();
+
+        Document doc = Jsoup.parse(create);
+        String id = doc.select("p#uuid").text();
+        System.out.println("ID: " + id);
+
+        String delete =
+                given()
+                    .when()
+                        .post("/doctor-delete/" + id)
+                    .then()
+                        .statusCode(200)
+                    .extract()
+                    .asString();
+
+        System.out.println("DELETED: " + delete);
     }
 }

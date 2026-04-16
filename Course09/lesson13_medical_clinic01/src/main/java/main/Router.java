@@ -123,7 +123,6 @@ public class Router implements HttpHandler {
             return;
         }
 
-
         pattern = Pattern.compile("^/doctor-update/([0-9a-fA-F\\-]{36})$");
         matcher = pattern.matcher(fullPath);
         if (matcher.matches() && method.equalsIgnoreCase("POST")) {
@@ -132,6 +131,17 @@ public class Router implements HttpHandler {
             controller.update(exchange, response, contentType, bodyBytes, id);
             return;
         }
+
+
+        pattern = Pattern.compile("^/doctor-delete/([0-9a-fA-F\\-]{36})$");
+        matcher = pattern.matcher(fullPath);
+        if (matcher.matches() && method.equalsIgnoreCase("POST")) {
+            String id = matcher.group(1);
+            DoctorController controller = new DoctorController();
+            controller.delete(exchange, response, id);
+            return;
+        }
+
 
         // If we do not find file or route, we can send 404 response
         // only here you are allowed to send 404 response because no static file no dynamic route was found before.

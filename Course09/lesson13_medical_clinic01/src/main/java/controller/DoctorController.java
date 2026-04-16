@@ -47,6 +47,17 @@ public class DoctorController {
         response.sendHtmlResponse(exchange, 200, new DoctorsFormCreate("Create doctor").bodyToHtml());
     }
 
+    public void delete(HttpExchange exchange, HttpResponse response, String id) throws IOException {
+        DoctorModel doctor = this.doctorService.getByUUID(UUID.fromString(id));
+        if (doctor == null) {
+            response.sendHtmlResponse(exchange, 404, "Not found");
+            return;
+        }
+        this.doctorService.delete(doctor);
+
+        response.sendHtmlResponse(exchange, 200, "deleted");
+    }
+
     public void update(HttpExchange exchange, HttpResponse response, String contentType, byte[] bodyBytes, String id) throws IOException {
         ParseMultipartForm multipartForm = new ParseMultipartForm(contentType, bodyBytes);
         Map<String, String> form = multipartForm.getForm();
