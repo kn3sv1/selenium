@@ -4,6 +4,7 @@ import com.sun.net.httpserver.HttpExchange;
 import model.DoctorModel;
 import repository.DoctorRepository;
 import service.DoctorService;
+import service.UploadFileService;
 import utils.HttpResponse;
 import utils.ParseMultipartForm;
 import utils.QueryParser;
@@ -23,7 +24,10 @@ public class DoctorController {
     private DoctorService doctorService;
 
         public DoctorController() {
-            this.doctorService = new DoctorService();
+            this.doctorService = new DoctorService(
+                    new DoctorRepository("doctors"),
+                    new UploadFileService()
+            );
         }
 
     public void showDoctorPage(HttpExchange exchange, HttpResponse response) throws IOException {
