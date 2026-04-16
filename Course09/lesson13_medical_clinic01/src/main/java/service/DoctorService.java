@@ -39,8 +39,15 @@ public class DoctorService {
      * here you delete photo and delete model in repository.
      */
     public void delete(DoctorModel doctorModel) {
+        // delete photo if exists because
+        // if i delete doctor first I will not have any link for his photo.
 
+        // after I deleted photo I can delete doctor from repository.
+
+        this.uploadFileService.deleteFile(doctorModel.getPhoto());
+        this.repository.deleteByUUID(doctorModel.getId());
     }
+
 
     /**
      * just for testing purposes, to clear the repository before each test.
@@ -48,5 +55,12 @@ public class DoctorService {
      */
     public void clear() {
         this.repository.clear();
+    }
+    public DoctorRepository getRepository() {
+        return repository;
+    }
+
+    public UploadFileService getUploadFileService() {
+        return uploadFileService;
     }
 }

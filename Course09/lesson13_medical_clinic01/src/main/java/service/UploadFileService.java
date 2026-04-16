@@ -30,7 +30,7 @@ public class UploadFileService {
         return  this.uploadDir + "\\" + path;
     }
 
-    public void deleteFile(String url) throws IOException {
+    public void deleteFile(String url) {
         String path = this.getPath(url);
         if (path == null) {
             return;
