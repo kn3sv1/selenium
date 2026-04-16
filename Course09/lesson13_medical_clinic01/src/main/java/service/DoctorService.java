@@ -39,6 +39,10 @@ public class DoctorService {
         return doctor;
     }
 
+    public DoctorModel getByUUID(UUID id) {
+        return this.repository.getByUUID(id);
+    }
+
     /**
      * here you delete photo and update model in repository.
      */

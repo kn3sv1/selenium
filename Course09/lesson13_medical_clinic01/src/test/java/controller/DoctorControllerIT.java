@@ -119,8 +119,40 @@ class DoctorControllerIT {
         RestAssured.baseURI = "http://localhost";
         RestAssured.port = 8081;
 
+        String create =
+                given()
+                        .multiPart("file", new File("src/test/resources/images/doctors/test-update-integration.png"))
+                        .multiPart("name", "AndreasIntegration")
+                        .multiPart("surname", "PantazisIntegration")
+                        .multiPart("spe", "gynecology")
+                    .when()
+                        .post("/doctor-create")
+                    .then()
+                        .statusCode(200)
+                    .extract()
+                    .asString();
+
+        Document doc = Jsoup.parse(create);
+        String id = doc.select("p#uuid").text();
+        System.out.println("ID: " + id);
+
         // TODO::: angie will write code
         // step 1 repeat code from testCreate() and store to variable id
         // step 2 send update request with that id. But before implement router and logic in controller.
+
+        String update =
+                given()
+                        .multiPart("name", "AndreasIntegration2")
+                        .multiPart("surname", "PantazisIntegration2")
+                        .multiPart("spe", "gynecology2")
+                        .when()
+                        .post("/doctor-update/" + id)
+                        .then()
+                        .statusCode(200)
+                        .extract()
+                        .asString();
+
+        Document docUpdate = Jsoup.parse(update);
+        System.out.println("update: " + update);
     }
 }

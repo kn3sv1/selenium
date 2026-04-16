@@ -58,16 +58,4 @@
   "lastName" : "Charalambous",
   "profession" : "Anesthesiologist",
   "photo" : "/upload/izzie.png"
-}, {
-  "id" : "a4d2774c-5bae-41ad-bfbd-98e835a4169f",
-  "firstName" : "AndreasIntegration",
-  "lastName" : "PantazisIntegration",
-  "profession" : "gynecology",
-  "photo" : "/upload/test-andreas-integration.png"
-}, {
-  "id" : "355fa492-2f70-4eda-9a9c-f6f0a9b38ad0",
-  "firstName" : "AndreasIntegration",
-  "lastName" : "PantazisIntegration",
-  "profession" : "gynecology",
-  "photo" : "/upload/test-andreas-integration.png"
-} ]
+}]

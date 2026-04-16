@@ -47,14 +47,23 @@ public class DoctorController {
         response.sendHtmlResponse(exchange, 200, new DoctorsFormCreate("Create doctor").bodyToHtml());
     }
 
+    public void update(HttpExchange exchange, HttpResponse response, String contentType, byte[] bodyBytes, String id) throws IOException {
+        ParseMultipartForm multipartForm = new ParseMultipartForm(contentType, bodyBytes);
+        Map<String, String> form = multipartForm.getForm();
+        DoctorModel doctor = this.doctorService.getByUUID(UUID.fromString(id));
+        if (doctor == null) {
+            response.sendHtmlResponse(exchange, 404, "Not found");
+            return;
+        }
+        this.doctorService.update(doctor, form);
+
+        response.sendHtmlResponse(exchange, 200, "updated");
+    }
+
     public void create(HttpExchange exchange, HttpResponse response, String contentType, byte[] bodyBytes) throws IOException {
         ParseMultipartForm multipartForm = new ParseMultipartForm(contentType, bodyBytes);
         Map<String, String> form = multipartForm.getForm();
-        DoctorService doctorService = new DoctorService(
-                new DoctorRepository("doctors"),
-                new UploadFileService()
-        );
-        DoctorModel doctor = doctorService.create(form);
+        DoctorModel doctor = this.doctorService.create(form);
         String html = """
                 <h1 style='text-align: center; background-color: yellow; padding: 0.5rem;'>Doctor created successfully</h1>
                 <p id="uuid">%s</p>
