@@ -2,20 +2,26 @@ package repository;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import model.DoctorModel;
-import model.MenuItem;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 public class DoctorRepository extends AbstractDatabaseRepository {
-    private final ArrayList<DoctorModel> entities;
+    private ArrayList<DoctorModel> entities;
     private final Path file;
 
     public DoctorRepository(String dataBase) {
         super();
         this.file = Path.of("./database/" + dataBase + ".json");
+        //this.entities = this.load(new TypeReference<>() {}, "array");
+        this.forceLoadFromDisk();
+    }
+
+    /**
+     * now some method that uses this method always reads from disk.
+     */
+    protected void forceLoadFromDisk() {
         this.entities = this.load(new TypeReference<>() {}, "array");
     }
 
@@ -119,6 +125,8 @@ public class DoctorRepository extends AbstractDatabaseRepository {
     }
 
     public DoctorModel getByUUID(UUID id) {
+        this.forceLoadFromDisk();
+
         // find by ID
         for (int i = 0; i < this.entities.size(); i++) {
             if (this.entities.get(i).getId().equals(id)) {
@@ -129,6 +137,8 @@ public class DoctorRepository extends AbstractDatabaseRepository {
     }
 
     public void deleteByUUID(UUID id) {
+        this.forceLoadFromDisk();
+
         // find by ID
         for (int i = 0; i < this.entities.size(); i++) {
             if (this.entities.get(i).getId().equals(id)) {
