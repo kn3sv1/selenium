@@ -1,9 +1,11 @@
 package utils;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.net.httpserver.HttpExchange;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Map;
 
 public class HttpResponse {
     public void sendHtmlResponse(HttpExchange exchange, int statusCode, String html) throws IOException {
@@ -19,6 +21,13 @@ public class HttpResponse {
         exchange.getResponseBody().write(json.getBytes());
         exchange.getResponseBody().close();
     }
+
+    public <K, V> void sendJSONMap(HttpExchange exchange, int statusCode, Map<K, V> map) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(map);
+        this.sendJSON(exchange, statusCode, json);
+    }
+
 
     public void send404(HttpExchange exchange) throws IOException {
         String response = "<h1>404 Not Found</h1>";

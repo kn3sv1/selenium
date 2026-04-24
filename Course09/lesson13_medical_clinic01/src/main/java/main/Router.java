@@ -2,6 +2,7 @@ package main;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+import controller.CalculatorController;
 import controller.ContactController;
 import controller.DoctorController;
 import controller.MenuItemsController;
@@ -139,6 +140,12 @@ public class Router implements HttpHandler {
             String id = matcher.group(1);
             DoctorController controller = new DoctorController();
             controller.delete(exchange, response, id);
+            return;
+        }
+
+        if (path.equals("/calculator") && method.equalsIgnoreCase("GET")) {
+            CalculatorController controller = new CalculatorController();
+            controller.calculate(exchange, response);
             return;
         }
 
