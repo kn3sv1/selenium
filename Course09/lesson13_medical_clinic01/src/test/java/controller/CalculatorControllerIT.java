@@ -62,5 +62,58 @@ class CalculatorControllerIT {
         assertEquals(result, map.get("result"));
     }
 
+    @Test
+    void testSubtractNumbers() throws JsonProcessingException {
+        RestAssured.baseURI = "http://localhost";
+        RestAssured.port = 8081;
+        int a = 40;
+        int b = 10;
+        int result = a - b;
+        String url = "/calculator?a=" + a + "&b=" + b + "&operation=-";
+
+
+        String body =
+                given()
+                        .when()
+                        .get(url)
+                        .then()
+                        .extract()
+                        .asString();
+        System.out.println(body);
+
+        ObjectMapper mapper = new ObjectMapper();
+        Map<String, Integer> map = mapper.readValue(body, new TypeReference<Map<String, Integer>>() {});
+        System.out.println(map);
+
+        assertEquals(a, map.get("a"));
+        assertEquals(b, map.get("b"));
+        assertEquals(result, map.get("result"));
+    }
+
+    @Test
+    void testWrongOperation() throws JsonProcessingException {
+        RestAssured.baseURI = "http://localhost";
+        RestAssured.port = 8081;
+        int a = 40;
+        int b = 10;
+        String url = "/calculator?a=" + a + "&b=" + b + "&operation=wrong";
+
+
+        String body =
+                given()
+                    .when()
+                        .get(url)
+                    .then()
+                        .statusCode(400)
+                        .extract()
+                        .asString();
+        System.out.println(body);
+
+        ObjectMapper mapper = new ObjectMapper();
+        Map<String, String> map = mapper.readValue(body, new TypeReference<Map<String, String>>() {});
+        System.out.println(map);
+
+        assertEquals("operation doesn't exist.", map.get("error"));
+    }
 
 }

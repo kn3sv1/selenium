@@ -41,7 +41,11 @@ public class CalculatorController {
             //response.sendHtmlResponse(exchange, 200, "<h1>" + num1 + "-" + num2 + "=" + result + "</h1>");
             return;
         }
+        // response.sendHtmlResponse(exchange, 404, "<h1>operation not found</h1>");
 
-       response.sendHtmlResponse(exchange, 404, "<h1>operation not found</h1>");
+        // should be JSON error
+        response.sendJSONMap(exchange, 400, Map.of(
+                "error", "operation doesn't exist."
+        ));
     }
 }
