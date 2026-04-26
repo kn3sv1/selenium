@@ -110,10 +110,14 @@ class CalculatorControllerIT {
         System.out.println(body);
 
         ObjectMapper mapper = new ObjectMapper();
-        Map<String, String> map = mapper.readValue(body, new TypeReference<Map<String, String>>() {});
+        Map<String, Object> map = mapper.readValue(body, new TypeReference<Map<String, Object>>() {});
         System.out.println(map);
 
-        assertEquals("operation doesn't exist.", map.get("error"));
+        // we just take responsibility that the "errors" field is a Map<String, String>, because we know how our controller works.
+        @SuppressWarnings("unchecked")
+        Map<String, String> error = (Map<String, String>)map.get("errors");
+
+        assertEquals("Operation doesn't exist.", error.get("operation"));
     }
 
 }

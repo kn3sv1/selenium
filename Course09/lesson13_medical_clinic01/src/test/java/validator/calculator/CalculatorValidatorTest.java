@@ -1,0 +1,136 @@
+package validator.calculator;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.Map;
+import java.util.stream.Stream;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+public class CalculatorValidatorTest {
+    private CalculatorValidator validator;
+
+    @BeforeEach
+    void setUp() {
+        this.validator = new CalculatorValidator();
+    }
+//   // long version of test cases. We can use parameterized test to make it more concise and readable.
+     // only needed for detailed test cases (specific errors), for example, if we want to check the error messages in negative cases, then we can use long version of test cases.
+//    @Test
+//    void shouldAddNumbers() {
+//        // possitive add numbers
+//        Map<String, String> form = Map.of(
+//                "a", "5",
+//                "b", "10",
+//                "operation", "+"
+//        );
+//        Map<String, String> errors = validator.validate(form);
+//        assertTrue(errors.isEmpty());
+//
+//    }
+//
+//    @Test
+//    void shouldSubtractNumbers() {
+//        // possitive add numbers
+//        Map<String, String> form = Map.of(
+//                "a", "5",
+//                "b", "10",
+//                "operation", "-"
+//        );
+//        Map<String, String> errors = validator.validate(form);
+//        assertTrue(errors.isEmpty());
+//
+//    }
+
+    @ParameterizedTest
+    @MethodSource("providePositiveCasesData")
+    void testPositive(Map<String, String> form) {
+        Map<String, String> errors = validator.validate(form);
+        assertTrue(errors.isEmpty());
+    }
+
+    static Stream<Map<String, String>> providePositiveCasesData() {
+        return Stream.of(
+                Map.of(
+                        "a", "5",
+                        "b", "10",
+                        "operation", "+"
+                ),
+                Map.of(
+                        "a", "5",
+                        "b", "10",
+                        "operation", "-"
+                ),
+                Map.of(
+                        "a", "5",
+                        "b", "10",
+                        "operation", "*"
+                )
+        );
+    }
+
+
+    @ParameterizedTest
+    @MethodSource("provideNegativeCasesData")
+    void testNegative(Map<String, String> form) {
+        Map<String, String> errors = validator.validate(form);
+        assertFalse(errors.isEmpty());
+    }
+
+    static Stream<Map<String, String>> provideNegativeCasesData() {
+        return Stream.of(
+                Map.of(
+                ),
+                Map.of(
+                        "b", "10",
+                        "operation", "+"
+                ),
+                Map.of(
+                        "a", "5",
+                        "operation", "-"
+                ),
+                Map.of(
+                        "a", "5",
+                        "b", "10"
+                ),
+                Map.of(
+                        "a", "5",
+                        "b", "10",
+                        "operation", "not valid"
+                ),
+                Map.of(
+                        "a", "Hello",
+                        "b", "angie",
+                        "operation", "*"
+                )
+        );
+    }
+
+    /**
+     * why it's separate method and not in negative test case method?
+     * answer: because we want to check the specific error message for division
+     * by zero case, and we don't want to check it for other negative cases,
+     * that's why we separate it from other negative test cases.
+     * because we don't have assertEquals for error message in other negative test cases,
+     * we just check that errors are not empty, but in this case we want to check the specific error message,
+     * that's why we separate it from other negative test cases.
+     */
+    @Test
+    void shouldDivideBy0() {
+        // possitive add numbers
+        Map<String, String> form = Map.of(
+                "a", "5",
+                "b", "0",
+                "operation", "/"
+        );
+        Map<String, String> errors = validator.validate(form);
+        assertFalse(errors.isEmpty());
+        // extra validation - that's why this case we don't add to negative test cases.
+        assertEquals(errors.get("b"), "Parameter b cannot be zero for division");
+    }
+}
+
+
