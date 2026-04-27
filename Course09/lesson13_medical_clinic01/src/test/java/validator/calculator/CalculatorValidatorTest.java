@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
@@ -45,6 +47,14 @@ public class CalculatorValidatorTest {
 //
 //    }
 
+    /**
+     * this method will be called for each test case provided by the providePositiveCasesData method,
+     * and we will check that there are no errors for each test case, and we will use parameterized test
+     * to make it more concise and readable, and we will use method source to provide test cases data,
+     * and we will use map to represent form data, and we will check that there are no errors for each test case.
+     * method source is like for each with list of ready maps.
+     * @param form
+     */
     @ParameterizedTest
     @MethodSource("providePositiveCasesData")
     void testPositive(Map<String, String> form) {
@@ -107,6 +117,45 @@ public class CalculatorValidatorTest {
                         "operation", "*"
                 )
         );
+    }
+
+    @Test
+    void testNegativeForEach() {
+        List<Map<String, String>> list = Arrays.asList(
+                Map.of(
+                ),
+                Map.of(
+                        "b", "10",
+                        "operation", "+"
+                ),
+                Map.of(
+                        "a", "5",
+                        "operation", "-"
+                ),
+                Map.of(
+                        "a", "5",
+                        "b", "10"
+                ),
+                Map.of(
+                        "a", "5",
+                        "b", "10",
+                        "operation", "not valid"
+                ),
+                Map.of(
+                        "a", "Hello",
+                        "b", "angie",
+                        "operation", "*"
+                )
+        );
+
+       //for (Map<String, String> form : list) {
+        // To see ERRORS in OUTPUT TERMINAL what was wrong.
+        for (int i = 0; i < list.size(); i++) {
+           Map<String, String> form = list.get(i);
+           Map<String, String> errors = validator.validate(form);
+            System.out.println("Test case #" + i + " should have errors. Form: " + form + " Errors amount:" + errors.size() + " Errors: " + errors);
+           assertFalse(errors.isEmpty(), "Test case #" + i + " should have errors. Form: " + form);
+       }
     }
 
     /**
