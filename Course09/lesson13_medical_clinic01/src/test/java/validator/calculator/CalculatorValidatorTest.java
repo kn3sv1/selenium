@@ -82,6 +82,48 @@ public class CalculatorValidatorTest {
         );
     }
 
+    /**
+     * here we use list of maps instead of stream of maps.
+     * so ParameterizedTest can work with either stream or list,
+     * but we use list here to show that we can use both.
+     * we can use list of maps instead of stream of maps,
+     * but we use stream of maps in the previous test case to show that we can use both,
+     * and to make it more concise and readable,
+     * but we can use list of maps if we want to check the specific error messages for each test case,
+     * because in stream of maps we can't check the specific error messages for each test case,
+     * but in list of maps we can check the specific error messages for each test case,
+     * because we can use index to check the specific error messages for each test case.
+     *
+     * we don't need index in this test case because we just check that there are no errors for each test case,
+     * but we can use index if we want to check the specific error messages for each test.
+     */
+    @ParameterizedTest
+    @MethodSource("providePositiveCasesDataArrayList")
+    void testPositiveArrayList(Map<String, String> form) {
+        Map<String, String> errors = validator.validate(form);
+        assertTrue(errors.isEmpty());
+    }
+
+    static List<Map<String, String>> providePositiveCasesDataArrayList() {
+        return List.of(
+                Map.of(
+                        "a", "5",
+                        "b", "10",
+                        "operation", "+"
+                ),
+                Map.of(
+                        "a", "5",
+                        "b", "10",
+                        "operation", "-"
+                ),
+                Map.of(
+                        "a", "5",
+                        "b", "10",
+                        "operation", "*"
+                )
+        );
+    }
+
 
     @ParameterizedTest
     @MethodSource("provideNegativeCasesData")
