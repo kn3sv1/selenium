@@ -2,10 +2,7 @@ package main;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-import controller.CalculatorController;
-import controller.ContactController;
-import controller.DoctorController;
-import controller.MenuItemsController;
+import controller.*;
 import utils.HttpResponse;
 import utils.StaticFileServer;
 
@@ -133,7 +130,6 @@ public class Router implements HttpHandler {
             return;
         }
 
-
         pattern = Pattern.compile("^/doctor-delete/([0-9a-fA-F\\-]{36})$");
         matcher = pattern.matcher(fullPath);
         if (matcher.matches() && method.equalsIgnoreCase("POST")) {
@@ -148,6 +144,45 @@ public class Router implements HttpHandler {
             controller.calculate(exchange, response);
             return;
         }
+
+        //-----------------BEGIN CatControlleer-----------------
+        // https://www.uuidgenerator.net/
+        // http://localhost:8080/cat-read/78c0c1a1-860b-4476-9967-98c42761d7f5
+        pattern = Pattern.compile("^/cat-read/([0-9a-fA-F\\-]{36})$");
+        matcher = pattern.matcher(fullPath);
+        if (matcher.matches() && method.equalsIgnoreCase("GET")) {
+            String id = matcher.group(1);
+            CatController controller = new CatController();
+            controller.getById(exchange, response, id);
+            return;
+        }
+
+        if (path.startsWith("/cat-create") && method.equalsIgnoreCase("POST")) {
+            CatController controller = new CatController();
+            controller.create(exchange, response);
+            return;
+        }
+
+        pattern = Pattern.compile("^/cat-update/([0-9a-fA-F\\-]{36})$");
+        matcher = pattern.matcher(fullPath);
+        if (matcher.matches() && method.equalsIgnoreCase("POST")) {
+            String id = matcher.group(1);
+            CatController controller = new CatController();
+            controller.update(exchange, response, id);
+            return;
+        }
+
+
+        pattern = Pattern.compile("^/cat-delete/([0-9a-fA-F\\-]{36})$");
+        matcher = pattern.matcher(fullPath);
+        if (matcher.matches() && method.equalsIgnoreCase("POST")) {
+            String id = matcher.group(1);
+            CatController controller = new CatController();
+            controller.delete(exchange, response, id);
+            return;
+        }
+        //-----------------END CatControlleer-----------------
+
 
 
         // If we do not find file or route, we can send 404 response
