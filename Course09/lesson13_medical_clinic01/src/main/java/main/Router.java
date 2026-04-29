@@ -153,13 +153,13 @@ public class Router implements HttpHandler {
         if (matcher.matches() && method.equalsIgnoreCase("GET")) {
             String id = matcher.group(1);
             CatController controller = new CatController();
-            controller.getById(exchange, response, id);
+            controller.getById(exchange, response, contentType, bodyBytes, id);
             return;
         }
 
         if (path.startsWith("/cat-create") && method.equalsIgnoreCase("POST")) {
             CatController controller = new CatController();
-            controller.create(exchange, response);
+            controller.create(exchange, response, contentType, bodyBytes);
             return;
         }
 
@@ -168,7 +168,7 @@ public class Router implements HttpHandler {
         if (matcher.matches() && method.equalsIgnoreCase("POST")) {
             String id = matcher.group(1);
             CatController controller = new CatController();
-            controller.update(exchange, response, id);
+            controller.update(exchange, response, contentType, bodyBytes, id);
             return;
         }
 
@@ -178,7 +178,7 @@ public class Router implements HttpHandler {
         if (matcher.matches() && method.equalsIgnoreCase("POST")) {
             String id = matcher.group(1);
             CatController controller = new CatController();
-            controller.delete(exchange, response, id);
+            controller.delete(exchange, response, contentType, bodyBytes, id);
             return;
         }
         //-----------------END CatControlleer-----------------
