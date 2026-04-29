@@ -3,6 +3,7 @@ package controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.net.httpserver.HttpExchange;
 import dto.CatCreateRequest;
+import model.Cat;
 import repository.CatRepository;
 import utils.HttpResponse;
 
@@ -32,6 +33,17 @@ public class CatController {
             // check if the name is not empty and age is a positive number.
             // Here should be logic of creation of Cat model class and saving it
             // to database or in-memory storage.
+            Cat cat = new Cat(
+                    UUID.randomUUID(),
+                    catCreateRequest.name,
+                    catCreateRequest.age,
+                    catCreateRequest.color,
+                    catCreateRequest.vaccinated,
+                    catCreateRequest.attributes,
+                    catCreateRequest.favoriteFood,
+                    catCreateRequest.mood
+            );
+            this.repository.add(cat);
 
         } catch (Exception e) {
             // we don't print here because we have this logic in Application or Service class.
