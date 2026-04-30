@@ -2,7 +2,6 @@ package dto;
 
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 /**
  * Unit 8. Java http server parse JSON with Jackson. Read Notion.
@@ -12,8 +11,7 @@ import java.util.UUID;
  * and then we will pass this object to service layer,
  * and service layer will create CatModel object from this DTO and add it to repository.
  */
-public class CatCreateRequest {
-    public UUID id;
+public class CatRequest {
     public String name;
     public int age;
     public String color;

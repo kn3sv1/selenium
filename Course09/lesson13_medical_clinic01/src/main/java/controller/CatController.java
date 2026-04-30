@@ -2,7 +2,7 @@ package controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.net.httpserver.HttpExchange;
-import dto.CatCreateRequest;
+import dto.CatRequest;
 import model.Cat;
 import repository.CatRepository;
 import utils.HttpResponse;
@@ -24,10 +24,10 @@ public class CatController {
         try {
             //System.out.println("SUBMITTED RAW DATA: " + new String(bodyBytes));
 
-            CatCreateRequest catCreateRequest = mapper.readValue(bodyBytes, CatCreateRequest.class);
-            //System.out.println("Received cat Name: " + catCreateRequest.name);
+            CatRequest request = mapper.readValue(bodyBytes, CatRequest.class);
+            //System.out.println("Received cat Name: " + request.name);
 
-            // Here we can add validation logic for the catCreateRequest fields,
+            // Here we can add validation logic for the request fields,
             // for example,
 
             // check if the name is not empty and age is a positive number.
@@ -35,13 +35,13 @@ public class CatController {
             // to database or in-memory storage.
             Cat cat = new Cat(
                     UUID.randomUUID(),
-                    catCreateRequest.name,
-                    catCreateRequest.age,
-                    catCreateRequest.color,
-                    catCreateRequest.vaccinated,
-                    catCreateRequest.attributes,
-                    catCreateRequest.favoriteFood,
-                    catCreateRequest.mood
+                    request.name,
+                    request.age,
+                    request.color,
+                    request.vaccinated,
+                    request.attributes,
+                    request.favoriteFood,
+                    request.mood
             );
             this.repository.add(cat);
 
@@ -66,6 +66,30 @@ public class CatController {
 
     public void update(HttpExchange exchange, HttpResponse response, String contentType, byte[] bodyBytes, String id) throws IOException {
         //UUID uuid = UUID.fromString(id);
+        // this code will not break another test case.
+        Cat cat = repository.getById(UUID.fromString(id));
+        if (cat == null) {
+            response.sendHtmlResponse(exchange, 404, "error: Not found");
+            return;
+        }
+
+        //TODO::: we will add validation logic for the catCreateRequest fields, later.
+
+        try {
+            CatRequest request = mapper.readValue(bodyBytes, CatRequest.class);
+            // some properties we don't want to allow to send externally.
+            // we update all what we want from this JSON request object.
+            cat.update(request);
+
+            // save to disk.
+            repository.update(cat);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendJSONMap(exchange, 400, Map.of(
+                    "error", "mapping failed."
+            ));
+        }
 
         response.sendHtmlResponse(exchange, 200, "cat with id: " + id + " updated");
 

@@ -2,6 +2,8 @@ package model;
 
 import java.util.*;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import dto.CatRequest;
+
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.*;
 
 @JsonAutoDetect(
@@ -15,10 +17,10 @@ public class Cat {
     private int age;
     private String color;
     private boolean vaccinated;
-    private final Map<String, String> attributes;
+    private Map<String, String> attributes;
     private List<String> favoriteFood;
     private String mood;
-    private final List<String> feedingTimes;
+    private List<String> feedingTimes;
     private boolean sleeps = false;
 
     public Cat() {
@@ -101,6 +103,20 @@ public class Cat {
     public boolean isIndoorCat() {
         return this.attributes.get("idDoor") != null &&
                 this.attributes.get("idDoor").matches("(?i).*\\b(indoor|apartment|house cat)\\b.*");
+    }
+
+    public void update(CatRequest dto) {
+        // here we validate to allow or not allow whatever we want.
+        this.name = dto.name;
+        this.age = dto.age;
+        this.color = dto.color;
+        this.vaccinated = dto.vaccinated;
+        // we don't want to allow to change attributes and favorite food from outside of class, because it's final and we return unmodifiable map and list.
+        this.attributes = Map.copyOf(dto.attributes);
+        this.feedingTimes = List.copyOf(dto.feedingTimes);
+        this.favoriteFood = List.copyOf(dto.favoriteFood);
+        this.mood = dto.mood;
+
     }
 
     // GETTERS
