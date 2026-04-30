@@ -1,0 +1,177 @@
+{
+  "info": {
+    "_postman_id": "b0ddd4de-302c-4d06-9de9-4c53f07d01de",
+    "name": "Course 9 Lesson 16.1.3",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "6834280"
+  },
+  "item": [
+    {
+      "name": "CatController",
+      "item": [
+        {
+          "name": "getById",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/cat-read/78c0c1a1-860b-4476-9967-98c42761d7f5",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "cat-read",
+                "78c0c1a1-860b-4476-9967-98c42761d7f5"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "create",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\" : \"Ginger\",\r\n  \"age\" : 6,\r\n  \"color\" : \"orange\",\r\n  \"vaccinated\" : true,\r\n  \"attributes\" : {\r\n    \"indoor\" : \"yes\",\r\n    \"favoriteToy\" : \"small ball\",\r\n    \"gender\" : \"female\",\r\n    \"weight\" : \"5kg\"\r\n  },\r\n  \"favoriteFood\" : [ \"tuna\", \"chicken\", \"whiskas\" ],\r\n  \"mood\" : \"bite\",\r\n  \"feedingTimes\" : [ ],\r\n  \"sleeps\" : false\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/cat-create",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "cat-create"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "create half data missing test case",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\" : \"Ginger\",\r\n  \"age\" : 6,\r\n  \"color\" : \"orange\",\r\n  \"vaccinated\" : true\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/cat-create",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "cat-create"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "create wrong value for key test case",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\" : \"Ginger\",\r\n  \"age\" : \"angie\",\r\n  \"color\" : \"orange\",\r\n  \"vaccinated\" : true,\r\n  \"attributes\" : {\r\n    \"indoor\" : \"yes\",\r\n    \"favoriteToy\" : \"small ball\",\r\n    \"gender\" : \"female\",\r\n    \"weight\" : \"5kg\"\r\n  },\r\n  \"favoriteFood\" : [ \"tuna\", \"chicken\", \"whiskas\" ],\r\n  \"mood\" : \"bite\",\r\n  \"feedingTimes\" : [ ],\r\n  \"sleeps\" : false\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/cat-create",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "cat-create"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\" : \"Fluufy\",\r\n  \"age\" : 10,\r\n  \"color\" : \"orange\",\r\n  \"vaccinated\" : false,\r\n  \"attributes\" : {\r\n    \"indoor\" : \"no\",\r\n    \"favoriteToy\" : \"mice\",\r\n    \"gender\" : \"male\",\r\n    \"weight\" : \"7kg\"\r\n  },\r\n  \"favoriteFood\" : [ \"pork\", \"chicken\", \"fish\" ],\r\n  \"mood\" : \"friendly\",\r\n  \"feedingTimes\" : [ ],\r\n  \"sleeps\" : true\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/cat-update/6fec9b02-9bc1-4016-a6ef-09478b49952c",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "cat-update",
+                "6fec9b02-9bc1-4016-a6ef-09478b49952c"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update negative test case ID doesn't exist",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\" : \"Fluufy\",\r\n  \"age\" : 6,\r\n  \"color\" : \"orange\",\r\n  \"vaccinated\" : true,\r\n  \"attributes\" : {\r\n    \"indoor\" : \"yes\",\r\n    \"favoriteToy\" : \"small ball\",\r\n    \"gender\" : \"female\",\r\n    \"weight\" : \"5kg\"\r\n  },\r\n  \"favoriteFood\" : [ \"tuna\", \"chicken\", \"whiskas\" ],\r\n  \"mood\" : \"bite\",\r\n  \"feedingTimes\" : [ ],\r\n  \"sleeps\" : false\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/cat-update/6fec9b02-9bc1-4016-a6ef-09478b499521",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "cat-update",
+                "6fec9b02-9bc1-4016-a6ef-09478b499521"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
