@@ -8,6 +8,8 @@ import java.io.OutputStream;
 import java.util.Map;
 
 public class HttpResponse {
+    private final ObjectMapper mapper = new ObjectMapper();
+
     public void sendHtmlResponse(HttpExchange exchange, int statusCode, String html) throws IOException {
         exchange.getResponseHeaders().add("Content-Type", "text/html; charset=UTF-8");
         exchange.sendResponseHeaders(statusCode, html.getBytes().length);
@@ -28,6 +30,10 @@ public class HttpResponse {
         this.sendJSON(exchange, statusCode, json);
     }
 
+    public <THtml> void sendJSONGeneric(HttpExchange exchange, int statusCode, THtml obj) throws IOException {
+        String json = this.mapper.writeValueAsString(obj);
+        this.sendJSON(exchange, statusCode, json);
+    }
 
     public void send404(HttpExchange exchange) throws IOException {
         String response = "<h1>404 Not Found</h1>";

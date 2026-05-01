@@ -3,6 +3,8 @@ package controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.net.httpserver.HttpExchange;
 import dto.CatRequest;
+import dto.ErrorResponse;
+import dto.SuccessResponse;
 import model.Cat;
 import repository.CatRepository;
 import utils.HttpResponse;
@@ -49,12 +51,21 @@ public class CatController {
         } catch (Exception e) {
             // we don't print here because we have this logic in Application or Service class.
             //e.printStackTrace();
-            response.sendJSONMap(exchange, 400, Map.of(
-                    "error", "mapping failed."
-            ));
-            throw e;
+//            response.sendJSONMap(exchange, 400, Map.of(
+//                    "error", "mapping failed."
+//            ));
+            response.sendJSONGeneric(
+                    exchange,
+                    400,
+                    new ErrorResponse(ErrorResponse.ERROR_MAPPING, Map.of())
+            );
         }
-        response.sendHtmlResponse(exchange, 200, "cat created: UUID: " + cat.getId());
+        //response.sendHtmlResponse(exchange, 200, "cat created: UUID: " + cat.getId());
+        response.sendJSONGeneric(
+                exchange,
+                200,
+                new SuccessResponse(SuccessResponse.SUCCESS_CREATED, Map.of("id", cat.getId().toString()))
+        );
     }
 
     public void getById(HttpExchange exchange, HttpResponse response, String contentType, byte[] bodyBytes, String id) throws IOException {
@@ -63,7 +74,12 @@ public class CatController {
 
         Cat cat = this.repository.getById(UUID.fromString(id));
         if (cat == null) {
-            response.sendJSON(exchange, 404, "{\"error\": \"Not found\"}");
+            //response.sendJSON(exchange, 404, "{\"error\": \"Not found\"}");
+            response.sendJSONGeneric(
+                    exchange,
+                    404,
+                    new ErrorResponse(ErrorResponse.ERROR_NOT_FOUND, Map.of("id", id))
+            );
             return;
         }
 
@@ -77,7 +93,12 @@ public class CatController {
         // this code will not break another test case.
         Cat cat = this.repository.getById(UUID.fromString(id));
         if (cat == null) {
-            response.sendHtmlResponse(exchange, 404, "error: Not found");
+            //response.sendHtmlResponse(exchange, 404, "error: Not found");
+            response.sendJSONGeneric(
+                    exchange,
+                    404,
+                    new ErrorResponse(ErrorResponse.ERROR_NOT_FOUND, Map.of("id", id))
+            );
             return;
         }
 
@@ -94,9 +115,14 @@ public class CatController {
 
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendJSONMap(exchange, 400, Map.of(
-                    "error", "mapping failed."
-            ));
+//            response.sendJSONMap(exchange, 400, Map.of(
+//                    "error", "mapping failed."
+//            ));
+            response.sendJSONGeneric(
+                    exchange,
+                    400,
+                    new ErrorResponse(ErrorResponse.ERROR_MAPPING, Map.of("id", id))
+            );
         }
 
         response.sendHtmlResponse(exchange, 200, "cat with id: " + id + " updated");
@@ -113,11 +139,21 @@ public class CatController {
 
         Cat cat = repository.getById(uuid);
         if (cat == null) {
-            response.sendHtmlResponse(exchange, 404, "error: Not found");
+            //response.sendHtmlResponse(exchange, 404, "error: Not found");
+            response.sendJSONGeneric(
+                    exchange,
+                    404,
+                    new ErrorResponse(ErrorResponse.ERROR_NOT_FOUND, Map.of("id", id))
+            );
             return;
         }
         this.repository.deleteById(uuid);
 
-        response.sendHtmlResponse(exchange, 200, "cat with id: " + id + " deleted");
+        //response.sendHtmlResponse(exchange, 200, "cat with id: " + id + " deleted");
+        response.sendJSONGeneric(
+                exchange,
+                200,
+                new SuccessResponse(SuccessResponse.SUCCESS_DELETED, Map.of("id", id))
+        );
     }
 }
