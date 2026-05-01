@@ -15,7 +15,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/cat-read/78c0c1a1-860b-4476-9967-98c42761d7f5",
+              "raw": "http://localhost:8080/cat-read/821d0588-2270-468d-a003-7af51b7a0905",
               "protocol": "http",
               "host": [
                 "localhost"
@@ -23,7 +23,27 @@
               "port": "8080",
               "path": [
                 "cat-read",
-                "78c0c1a1-860b-4476-9967-98c42761d7f5"
+                "821d0588-2270-468d-a003-7af51b7a0905"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getById not found test case",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/cat-read/821d0588-2270-468d-a003-7af51b7a0906",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "cat-read",
+                "821d0588-2270-468d-a003-7af51b7a0906"
               ]
             }
           },
@@ -137,6 +157,35 @@
               "path": [
                 "cat-update",
                 "6fec9b02-9bc1-4016-a6ef-09478b49952c"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/cat-delete/ff22bae2-8906-4f12-8240-43949a73b807",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "cat-delete",
+                "ff22bae2-8906-4f12-8240-43949a73b807"
               ]
             }
           },
