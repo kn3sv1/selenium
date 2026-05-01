@@ -85,7 +85,12 @@ public class CatController {
 
         //response.sendHtmlResponse(exchange, 200, "cat with id: " + id);
         // we don't need a useless variable just to store the result of mapping, we can do it in one line.
-        response.sendJSON(exchange, 200, mapper.writeValueAsString(cat));
+        //response.sendJSON(exchange, 200, mapper.writeValueAsString(cat));
+        response.sendJSONGeneric(
+                exchange,
+                200,
+                cat
+        );
     }
 
     public void update(HttpExchange exchange, HttpResponse response, String contentType, byte[] bodyBytes, String id) throws IOException {
