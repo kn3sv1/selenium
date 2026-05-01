@@ -21,6 +21,7 @@ public class CatController {
     }
 
     public void create(HttpExchange exchange, HttpResponse response, String contentType, byte[] bodyBytes) throws IOException {
+        Cat cat = null;
         try {
             //System.out.println("SUBMITTED RAW DATA: " + new String(bodyBytes));
 
@@ -33,7 +34,7 @@ public class CatController {
             // check if the name is not empty and age is a positive number.
             // Here should be logic of creation of Cat model class and saving it
             // to database or in-memory storage.
-            Cat cat = new Cat(
+            cat = new Cat(
                     UUID.randomUUID(),
                     request.name,
                     request.age,
@@ -53,21 +54,28 @@ public class CatController {
             ));
             throw e;
         }
-        response.sendHtmlResponse(exchange, 200, "cat created");
+        response.sendHtmlResponse(exchange, 200, "cat created: UUID: " + cat.getId());
     }
 
     public void getById(HttpExchange exchange, HttpResponse response, String contentType, byte[] bodyBytes, String id) throws IOException {
         //UUID uuid = UUID.fromString(id);
-        String json = "{\"id\": \"" + id + "\", \"name\": \"Whiskers\", \"age\": 3}";
+        //String json = "{\"id\": \"" + id + "\", \"name\": \"Whiskers\", \"age\": 3}";
+
+        Cat cat = this.repository.getById(UUID.fromString(id));
+        if (cat == null) {
+            response.sendJSON(exchange, 404, "{\"error\": \"Not found\"}");
+            return;
+        }
 
         //response.sendHtmlResponse(exchange, 200, "cat with id: " + id);
-        response.sendJSON(exchange, 200, json);
+        // we don't need a useless variable just to store the result of mapping, we can do it in one line.
+        response.sendJSON(exchange, 200, mapper.writeValueAsString(cat));
     }
 
     public void update(HttpExchange exchange, HttpResponse response, String contentType, byte[] bodyBytes, String id) throws IOException {
         //UUID uuid = UUID.fromString(id);
         // this code will not break another test case.
-        Cat cat = repository.getById(UUID.fromString(id));
+        Cat cat = this.repository.getById(UUID.fromString(id));
         if (cat == null) {
             response.sendHtmlResponse(exchange, 404, "error: Not found");
             return;
@@ -82,7 +90,7 @@ public class CatController {
             cat.update(request);
 
             // save to disk.
-            repository.update(cat);
+            this.repository.update(cat);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -96,7 +104,19 @@ public class CatController {
     }
 
     public void delete(HttpExchange exchange, HttpResponse response, String contentType, byte[] bodyBytes, String id) throws IOException {
-        //UUID uuid = UUID.fromString(id);
+        UUID uuid = UUID.fromString(id);
+        // first step let's check in repository if delete method exists.
+        // deleteById(UUID id) - we found it.
+
+        // first step what I should think always is to be sure that this cat exists otherwise return error 404 not found,
+        // because if I will try to delete cat that doesn't exist, I will have logical error that cat is deleted but in fact it was not.
+
+        Cat cat = repository.getById(uuid);
+        if (cat == null) {
+            response.sendHtmlResponse(exchange, 404, "error: Not found");
+            return;
+        }
+        this.repository.deleteById(uuid);
 
         response.sendHtmlResponse(exchange, 200, "cat with id: " + id + " deleted");
     }
