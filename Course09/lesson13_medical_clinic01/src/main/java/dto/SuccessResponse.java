@@ -10,6 +10,12 @@ public class SuccessResponse {
     public String message;
     public Map<String, String> data;
 
+    /**
+     * Jackson requires a default constructor to deserialize JSON into this class.
+     */
+    public SuccessResponse() {
+    }
+
     public SuccessResponse(String message, Map<String, String> data) {
         this.message = message;
         this.data = data;
