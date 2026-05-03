@@ -10,6 +10,12 @@ public class ErrorResponse {
     public String message;
     public Map<String, String> errors;
 
+    /**
+     * Jackson requires a default constructor to deserialize JSON into this class.
+     */
+    public ErrorResponse() {
+    }
+
     public ErrorResponse(String message, Map<String, String> errors) {
         this.message = message;
         this.errors = errors;
