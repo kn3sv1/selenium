@@ -96,4 +96,44 @@ class CatControllerIT {
 
         assertNotNull(response.data.get("id"));
     }
+
+    @Test
+    void testUpdate() throws JsonProcessingException {
+        RestAssured.baseURI = "http://localhost";
+        RestAssured.port = 8081;
+
+        CatRequest request = new CatRequest();
+        request.name = "Fluffy";
+        request.age = 10;
+        request.color = "orange";
+        request.vaccinated = false;
+        request.attributes = Map.of(
+                "indoor", "no",
+                "favoriteToy", "mice",
+                "gender", "male",
+                "weight", "7kg"
+        );
+        request.favoriteFood = List.of("pork", "chicken", "fish");
+        request.mood = "friendly";
+        request.feedingTimes = List.of();
+        request.sleeps = true;
+
+        String body =
+                given()
+                        .contentType("application/json")
+                        .body(request)
+                        .when()
+                        .post("/cat-update/6fec9b02-9bc1-4016-a6ef-09478b49952c")
+                        .then()
+                        .extract()
+                        .asString();
+
+        //assertEquals("cat with id: 6fec9b02-9bc1-4016-a6ef-09478b49952c updated", body);
+
+        ObjectMapper mapper = new ObjectMapper();
+        SuccessResponse response = mapper.readValue(body, SuccessResponse.class);
+        System.out.println(response);
+
+        assertEquals("6fec9b02-9bc1-4016-a6ef-09478b49952c", response.data.get("id"));
+    }
 }

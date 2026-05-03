@@ -130,7 +130,13 @@ public class CatController {
             );
         }
 
-        response.sendHtmlResponse(exchange, 200, "cat with id: " + id + " updated");
+        //response.sendHtmlResponse(exchange, 200, "cat with id: " + id + " updated");
+
+        response.sendJSONGeneric(
+                exchange,
+                200,
+                new SuccessResponse(SuccessResponse.SUCCESS_UPDATED, Map.of("id", cat.getId().toString()))
+        );
 
     }
 
