@@ -8,6 +8,7 @@ import dto.SuccessResponse;
 import model.Cat;
 import repository.CatRepository;
 import utils.HttpResponse;
+import validator.cat.CatValidator;
 
 import java.io.IOException;
 import java.util.Map;
@@ -32,8 +33,25 @@ public class CatController {
 
             // Here we can add validation logic for the request fields,
             // for example,
-
             // check if the name is not empty and age is a positive number.
+
+            CatValidator validator = new CatValidator();
+            Map<String, String> errors = validator.validateEmptyFields(request);
+
+            if (!errors.isEmpty()) {
+                //response.sendJSONMap(exchange, 400, Map.of(
+                //        "error", "validation failed.",
+                //        "details", errors
+                //));
+                response.sendJSONGeneric(
+                        exchange,
+                        400,
+                        new ErrorResponse(ErrorResponse.ERROR_VALIDATION, errors)
+                );
+                return;
+            }
+
+
             // Here should be logic of creation of Cat model class and saving it
             // to database or in-memory storage.
             cat = new Cat(
