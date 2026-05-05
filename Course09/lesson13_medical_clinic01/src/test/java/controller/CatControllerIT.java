@@ -49,7 +49,7 @@ class CatControllerIT {
                 given()
                     .contentType("application/json")
                     .when()
-                        .get("/cat-read/" + "821d0588-2270-468d-a003-7af51b7a0905")
+                        .get("/cat-read/" + "c43e5de6-7d1a-4068-960f-88b53f4de76e")
                 .then()
                     .extract()
                     .asString();
@@ -58,6 +58,7 @@ class CatControllerIT {
         ObjectMapper mapper = new ObjectMapper();
         Cat cat = mapper.readValue(body, Cat.class);
         System.out.println(cat);
+        System.out.println("cat with id: " + cat.getId() + " was successfully read, name: " + cat.getName());
 
         assertEquals("Ginger", cat.getName());
     }
@@ -69,13 +70,15 @@ class CatControllerIT {
 
         // copy everything correctly from POSTMAN.
         CatRequest request = new CatRequest();
-        request.name = "Milo";
-        request.age = 3;
-        request.color = "black";
+        request.name = "Ginger";
+        request.age = 6;
+        request.color = "orange";
         request.vaccinated = true;
-        request.attributes = Map.of("breed", "Siamese");
-        request.favoriteFood = List.of("fish", "chicken");
-        request.mood = "happy";
+        request.attributes = Map.of("indoor", "yes",
+                                    "gender", "female",
+                                    "weight", "5kg");
+        request.favoriteFood = List.of("fish", "chicken", "beef");
+        request.mood = "playful";
         request.feedingTimes = List.of("08:00", "18:00");
 
 
@@ -93,6 +96,7 @@ class CatControllerIT {
         ObjectMapper mapper = new ObjectMapper();
         SuccessResponse response = mapper.readValue(body, SuccessResponse.class);
         System.out.println(response);
+        System.out.println("cat with id: " + response.data.get("id") + " was successfully " + response.message);
 
         assertNotNull(response.data.get("id"));
     }
@@ -123,7 +127,7 @@ class CatControllerIT {
                         .contentType("application/json")
                         .body(request)
                         .when()
-                        .post("/cat-update/6fec9b02-9bc1-4016-a6ef-09478b49952c")
+                        .post("/cat-update/5e5e3c17-c5d0-4cf6-802b-6ee60d13629d")
                         .then()
                         .extract()
                         .asString();
@@ -133,7 +137,29 @@ class CatControllerIT {
         ObjectMapper mapper = new ObjectMapper();
         SuccessResponse response = mapper.readValue(body, SuccessResponse.class);
         System.out.println(response);
+        System.out.println("cat with id: " + response.data.get("id") + " was successfully " + response.message);
 
-        assertEquals("6fec9b02-9bc1-4016-a6ef-09478b49952c", response.data.get("id"));
+        assertEquals("5e5e3c17-c5d0-4cf6-802b-6ee60d13629d", response.data.get("id"));
+    }
+
+    @Test
+    void testDelete() throws JsonProcessingException {
+        RestAssured.baseURI = "http://localhost";
+        RestAssured.port = 8081;
+
+        String body =
+                given()
+                        .contentType("application/json")
+                        .when()
+                        .post("/cat-delete/04b9a649-0458-4cb2-872d-08458c7763d9")
+                        .then()
+                        .extract()
+                        .asString();
+
+        ObjectMapper mapper = new ObjectMapper();
+        SuccessResponse response = mapper.readValue(body, SuccessResponse.class);
+        System.out.println("cat with id: " + response.data.get("id") + " was successfully " + response.message);
+
+        assertEquals("04b9a649-0458-4cb2-872d-08458c7763d9", response.data.get("id"));
     }
 }
