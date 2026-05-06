@@ -46,7 +46,7 @@ public class CatController {
                 response.sendJSONGeneric(
                         exchange,
                         400,
-                        new ErrorResponse(ErrorResponse.ERROR_VALIDATION, errors)
+                        new ErrorResponse(ErrorResponse.ERROR_VALIDATION, "validate", errors)
                 );
                 return;
             }
@@ -75,7 +75,7 @@ public class CatController {
             response.sendJSONGeneric(
                     exchange,
                     400,
-                    new ErrorResponse(ErrorResponse.ERROR_MAPPING, Map.of())
+                    new ErrorResponse(ErrorResponse.ERROR_MAPPING, e.getMessage(), Map.of())
             );
         }
         //response.sendHtmlResponse(exchange, 200, "cat created: UUID: " + cat.getId());
@@ -96,7 +96,7 @@ public class CatController {
             response.sendJSONGeneric(
                     exchange,
                     404,
-                    new ErrorResponse(ErrorResponse.ERROR_NOT_FOUND, Map.of("id", id))
+                    new ErrorResponse(ErrorResponse.ERROR_NOT_FOUND, "Cat not found", Map.of("id", id))
             );
             return;
         }
@@ -120,7 +120,7 @@ public class CatController {
             response.sendJSONGeneric(
                     exchange,
                     404,
-                    new ErrorResponse(ErrorResponse.ERROR_NOT_FOUND, Map.of("id", id))
+                    new ErrorResponse(ErrorResponse.ERROR_NOT_FOUND, "Cat not found", Map.of("id", id))
             );
             return;
         }
@@ -144,7 +144,7 @@ public class CatController {
             response.sendJSONGeneric(
                     exchange,
                     400,
-                    new ErrorResponse(ErrorResponse.ERROR_MAPPING, Map.of("id", id))
+                    new ErrorResponse(ErrorResponse.ERROR_MAPPING, e.getMessage(), Map.of("id", id))
             );
         }
 
@@ -172,7 +172,7 @@ public class CatController {
             response.sendJSONGeneric(
                     exchange,
                     404,
-                    new ErrorResponse(ErrorResponse.ERROR_NOT_FOUND, Map.of("id", id))
+                    new ErrorResponse(ErrorResponse.ERROR_NOT_FOUND, "Cat not found", Map.of("id", id))
             );
             return;
         }

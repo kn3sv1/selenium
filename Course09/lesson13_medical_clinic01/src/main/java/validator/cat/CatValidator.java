@@ -13,8 +13,24 @@ public class CatValidator {
             errors.put("name", "Name is required.");
         }
 
+        if (dto.name != null && dto.name.length() < 2) {
+            errors.put("name", "Name must be at least 2 characters long.");
+        }
+
+        if (dto.name != null && dto.name.length() > 50) {
+            errors.put("name", "Name must be less than 50 characters long.");
+        }
+
+        if (dto.name != null && dto.name.matches(".*\\d.*")) {
+            errors.put("name", "Name cannot contain numbers.");
+        }
+
         if (dto.age == 0) {
             errors.put("age", "Age is required.");
+        }
+
+        if (dto.age < 0 || dto.age > 30) {
+            errors.put("age", "Age must be between 0 and 30.");
         }
 
         if (dto.color == null || dto.color.isEmpty()) {
