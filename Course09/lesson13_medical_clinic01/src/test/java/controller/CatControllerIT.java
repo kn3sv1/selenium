@@ -7,6 +7,7 @@ import dto.CatRequest;
 import dto.SuccessResponse;
 import io.restassured.RestAssured;
 import main.Server;
+import model.CatColor;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -72,7 +73,7 @@ class CatControllerIT {
         CatRequest request = new CatRequest();
         request.name = "Ginger";
         request.age = 6;
-        request.color = "orange";
+        request.color = CatColor.ORANGE;
         request.vaccinated = true;
         request.attributes = Map.of("indoor", "yes",
                                     "gender", "female",
@@ -109,7 +110,7 @@ class CatControllerIT {
         CatRequest request = new CatRequest();
         request.name = "Fluffy";
         request.age = 10;
-        request.color = "orange";
+        request.color = CatColor.ORANGE;
         request.vaccinated = false;
         request.attributes = Map.of(
                 "indoor", "no",

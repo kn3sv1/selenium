@@ -36,7 +36,7 @@ public class CatController {
             // check if the name is not empty and age is a positive number.
 
             CatValidator validator = new CatValidator();
-            Map<String, String> errors = validator.validateEmptyFields(request);
+            Map<String, String> errors = validator.validate(request);
 
             if (!errors.isEmpty()) {
                 //response.sendJSONMap(exchange, 400, Map.of(

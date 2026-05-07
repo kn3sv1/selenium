@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CatValidator {
-    public Map<String, String> validateEmptyFields(CatRequest dto) {
+    public Map<String, String> validate(CatRequest dto) {
         Map<String, String> errors = new HashMap<>();
 
         if (dto.name == null || dto.name.isEmpty()) {
@@ -31,10 +31,6 @@ public class CatValidator {
 
         if (dto.age < 0 || dto.age > 30) {
             errors.put("age", "Age must be between 0 and 30.");
-        }
-
-        if (dto.color == null || dto.color.isEmpty()) {
-            errors.put("color", "Color is required.");
         }
 
         if (!dto.vaccinated) {

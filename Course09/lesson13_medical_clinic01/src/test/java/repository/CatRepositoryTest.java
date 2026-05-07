@@ -1,6 +1,7 @@
 package repository;
 
 import model.Cat;
+import model.CatColor;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
@@ -20,7 +21,7 @@ public class CatRepositoryTest {
                 id1,
                 "Ginger",
                 6,
-                "orange",
+                CatColor.ORANGE,
                 true,
                 Map.of(
                     "indoor", "yes",
@@ -68,7 +69,7 @@ public class CatRepositoryTest {
                 id1,
                 "Ginger",
                 6,
-                "orange",
+                CatColor.ORANGE,
                 true,
                 Map.of(
                         "indoor", "yes",
@@ -114,7 +115,7 @@ public class CatRepositoryTest {
                 id1,
                 "Ginger",
                 6,
-                "orange",
+                CatColor.ORANGE,
                 true,
                 Map.of(
                         "indoor", "yes",
@@ -134,7 +135,7 @@ public class CatRepositoryTest {
 
         // update cat's name and color
         cat1.setName("Fluffy");
-        cat1.setColor("black");
+        cat1.setColor(CatColor.BLACK);
         repository.update(cat1);
         Cat dbCat = repository.getById(id1);
         assertNotNull(dbCat);
@@ -153,7 +154,7 @@ public class CatRepositoryTest {
                 id1,
                 "Ginger",
                 6,
-                "orange",
+                CatColor.ORANGE,
                 true,
                 Map.of(
                         "indoor", "yes",

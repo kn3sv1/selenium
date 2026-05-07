@@ -15,7 +15,8 @@ public class Cat {
     private UUID id;
     private String name;
     private int age;
-    private String color;
+    //private String color;
+    private CatColor color;
     private boolean vaccinated;
     private Map<String, String> attributes;
     private List<String> favoriteFood;
@@ -32,7 +33,7 @@ public class Cat {
             UUID id,
             String name,
             int age,
-            String color,
+            CatColor color,
             boolean vaccinated,
             Map<String, String> attributes,
             List<String> favoriteFood,
@@ -133,7 +134,7 @@ public class Cat {
         return age;
     }
 
-    public String getColor() {
+    public CatColor getColor() {
         return color;
     }
 
@@ -171,7 +172,7 @@ public class Cat {
         this.name = name;
     }
 
-    public void setColor(String color) {
+    public void setColor(CatColor color) {
         this.color = color;
     }
 }

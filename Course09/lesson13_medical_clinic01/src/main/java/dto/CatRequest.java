@@ -1,5 +1,7 @@
 package dto;
 
+import model.CatColor;
+
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +16,8 @@ import java.util.Map;
 public class CatRequest {
     public String name;
     public int age;
-    public String color;
+    //public String color;
+    public CatColor color;
     public boolean vaccinated;
     public Map<String, String> attributes;
     public List<String> favoriteFood;

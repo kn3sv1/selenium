@@ -1,6 +1,7 @@
 package repository;
 
 import model.Cat;
+import model.CatColor;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
@@ -27,7 +28,7 @@ public class CatTest {
                 id1,
                 "Ginger",
                 6,
-                "orange",
+                CatColor.ORANGE,
                 true,
                 attributes,
                 favoriteFood,
