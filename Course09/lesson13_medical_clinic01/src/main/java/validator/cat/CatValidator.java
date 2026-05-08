@@ -9,11 +9,15 @@ public class CatValidator {
     public Map<String, String> validate(CatRequest dto) {
         Map<String, String> errors = new HashMap<>();
 
-        if (dto.name == null || dto.name.isEmpty()) {
+        if (dto.name == null) {
             errors.put("name", "Name is required.");
         }
 
-        if (dto.name != null && dto.name.length() < 2) {
+        if (dto.name != null && dto.name.isEmpty()) {
+            errors.put("name", "Name is required.");
+        }
+
+        if (dto.name != null && dto.name.length() == 1) {
             errors.put("name", "Name must be at least 2 characters long.");
         }
 
