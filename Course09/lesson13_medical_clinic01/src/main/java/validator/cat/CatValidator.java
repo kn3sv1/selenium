@@ -42,7 +42,11 @@ public class CatValidator {
         }
 
         if (dto.attributes == null) {
-            errors.put("attributes", "Attributes is required.");
+            errors.put("attributes", "Attributes are required.");
+        }
+
+        if (dto.attributes != null && dto.attributes.isEmpty()) {
+            errors.put("attributes", "Attributes cannot be empty.");
         }
 
         if (dto.favoriteFood == null) {

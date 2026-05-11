@@ -101,4 +101,46 @@ public class CatValidatorTest {
                 Arguments.of("Tom123", "Name cannot contain numbers.")
         );
     }
+
+    @ParameterizedTest
+    @MethodSource("provideInvalidAges")
+    void testInvalidAges(int age, String expectedError) {
+        CatRequest dto = new CatRequest();
+        dto.age = age;
+
+        CatValidator validator = new CatValidator();
+
+        Map<String, String> errors = validator.validate(dto);
+
+        assertEquals(expectedError, errors.get("age"));
+    }
+
+    static Stream<Arguments> provideInvalidAges() {
+        return Stream.of(
+                Arguments.of(0, "Age is required."),
+                Arguments.of(-1, "Age must be between 0 and 30."),
+                Arguments.of(31, "Age must be between 0 and 30.")
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("provideInvalidAttributes")
+    void testInvalidAttributes(Map<String, String> attributes, String expectedError) {
+        CatRequest dto = new CatRequest();
+        dto.attributes = attributes;
+
+        CatValidator validator = new CatValidator();
+
+        Map<String, String> errors = validator.validate(dto);
+
+        assertEquals(expectedError, errors.get("attributes"));
+    }
+
+    static Stream<Arguments> provideInvalidAttributes() {
+        return Stream.of(
+                Arguments.of(null, "Attributes are required."),
+                Arguments.of(Map.of(), "Attributes cannot be empty.")
+        );
+    }
+
 }
