@@ -4,6 +4,7 @@ import dto.CatRequest;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class CatValidator {
     public Map<String, String> validate(CatRequest dto) {
@@ -55,6 +56,45 @@ public class CatValidator {
 
         if (dto.mood == null || dto.mood.isEmpty()) {
             errors.put("mood", "Mood is required.");
+        }
+
+        Set<String> allowedKeys = Set.of(
+                "indoor",
+                "favoriteToy",
+                "gender",
+                "weight"
+        );
+
+        Map<String, Set<String>> allowedValues = Map.of(
+                "gender", Set.of("male", "female"),
+                "indoor", Set.of("yes", "no"),
+                "weight", Set.of("2kg", "5kg", "6kg", "7kg", "8kg", "9kg", "10kg")
+        );
+
+        for (Map.Entry<String, String> entry : dto.attributes.entrySet()) {
+
+            String key = entry.getKey();
+            String value = entry.getValue();
+
+            if (!allowedKeys.contains(key)) {
+                errors.put(
+                        "attributes",
+                        "Invalid attribute key: " + key
+                );
+            }
+
+            if (allowedValues.containsKey(key)) {
+
+                Set<String> validValues = allowedValues.get(key);
+
+                if (!validValues.contains(value)) {
+
+                    errors.put(
+                            "attributes",
+                            "Invalid value for " + key
+                    );
+                }
+            }
         }
 
         return errors;

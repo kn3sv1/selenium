@@ -143,4 +143,66 @@ public class CatValidatorTest {
         );
     }
 
+//    @ParameterizedTest
+//    @MethodSource("provideValidAttributes")
+//    void testValidAttributes(Map<String, String> attributes) {
+//        CatRequest dto = new CatRequest();
+//
+//        dto.name = "Ginger";
+//        dto.age = 5;
+//        dto.color = CatColor.ORANGE;
+//        dto.vaccinated = true;
+//        dto.favoriteFood = List.of("tuna", "chicken");
+//        dto.mood = "playful";
+//
+//        dto.attributes = attributes;
+//
+//        CatValidator validator = new CatValidator();
+//
+//        Map<String, String> errors = validator.validate(dto);
+//
+//        assertTrue(errors.isEmpty());
+//    }
+//
+//    static Stream<Arguments> provideValidAttributes() {
+//        return Stream.of(
+//                Arguments.of(Map.of("indoor", "yes")),
+//                Arguments.of(Map.of("favoriteToy", "small ball"))
+//        );
+//    }
+
+    @ParameterizedTest
+    @MethodSource("provideValidAttributes")
+    void testValidAttributes(Map<String, String> attributes) {
+        CatRequest dto = createValidCatRequest();
+
+        dto.attributes = attributes;
+
+        CatValidator validator = new CatValidator();
+
+        Map<String, String> errors = validator.validate(dto);
+
+        assertTrue(errors.isEmpty());
+    }
+
+    private CatRequest createValidCatRequest() {
+        CatRequest dto = new CatRequest();
+
+        dto.name = "Ginger";
+        dto.age = 5;
+        dto.color = CatColor.ORANGE;
+        dto.vaccinated = true;
+        dto.favoriteFood = List.of("tuna", "chicken");
+        dto.mood = "playful";
+
+        return dto;
+    }
+
+    static Stream<Arguments> provideValidAttributes() {
+        return Stream.of(
+                Arguments.of(Map.of("indoor", "yes")),
+                Arguments.of(Map.of("weight", "5kg")),
+                Arguments.of(Map.of("gender", "female"))
+        );
+    }
 }
