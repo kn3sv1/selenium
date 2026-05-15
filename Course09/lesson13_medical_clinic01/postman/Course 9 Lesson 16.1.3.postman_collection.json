@@ -15,7 +15,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/cat-read/821d0588-2270-468d-a003-7af51b7a0905",
+              "raw": "http://localhost:8080/cat-read/5e5e3c17-c5d0-4cf6-802b-6ee60d13629d",
               "protocol": "http",
               "host": [
                 "localhost"
@@ -23,7 +23,7 @@
               "port": "8080",
               "path": [
                 "cat-read",
-                "821d0588-2270-468d-a003-7af51b7a0905"
+                "5e5e3c17-c5d0-4cf6-802b-6ee60d13629d"
               ]
             }
           },
@@ -56,7 +56,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n  \"name\" : \"Ginger\",\r\n  \"age\" : 6,\r\n  \"color\" : \"orange\",\r\n  \"vaccinated\" : true,\r\n  \"attributes\" : {\r\n    \"indoor\" : \"yes\",\r\n    \"favoriteToy\" : \"small ball\",\r\n    \"gender\" : \"female\",\r\n    \"weight\" : \"5kg\"\r\n  },\r\n  \"favoriteFood\" : [ \"tuna\", \"chicken\", \"whiskas\" ],\r\n  \"mood\" : \"bite\",\r\n  \"feedingTimes\" : [ ],\r\n  \"sleeps\" : false\r\n}",
+              "raw": "{\r\n  \"name\": \"Ginger\",    \r\n  \"age\" : 6,\r\n  \"color\" : \"orange\",\r\n  \"attributes\" : {\r\n    \"indoor\" : \"yes\",\r\n    \"favoriteToy\" : \"small ball\",\r\n    \"gender\" : \"female\",\r\n    \"weight\" : \"5kg\"\r\n  },\r\n  \"vaccinated\" : true,\r\n  \"favoriteFood\" : [ \"tuna\", \"chicken\", \"whiskas\" ],\r\n  \"mood\" : \"bite\",\r\n  \"feedingTimes\" : [ ],\r\n  \"sleeps\" : false,\r\n  \"ownerId\": \"ff7d8ca1-891f-4f45-abbd-05fe1af8807d\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -84,7 +84,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n  \"name\" : \"Ginger\",\r\n  \"age\" : 6,\r\n  \"color\" : \"orange\",\r\n  \"vaccinated\" : true\r\n}",
+              "raw": "{\r\n  \"name\": \"Ginger\",\r\n  \"age\": 6,\r\n  \"color\" : \"orange\",\r\n  \"vaccinated\" : true\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -140,7 +140,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n  \"name\" : \"Fluufy\",\r\n  \"age\" : 10,\r\n  \"color\" : \"orange\",\r\n  \"vaccinated\" : false,\r\n  \"attributes\" : {\r\n    \"indoor\" : \"no\",\r\n    \"favoriteToy\" : \"mice\",\r\n    \"gender\" : \"male\",\r\n    \"weight\" : \"7kg\"\r\n  },\r\n  \"favoriteFood\" : [ \"pork\", \"chicken\", \"fish\" ],\r\n  \"mood\" : \"friendly\",\r\n  \"feedingTimes\" : [ ],\r\n  \"sleeps\" : true\r\n}",
+              "raw": "{\r\n  \"name\" : \"Fluffy\",\r\n  \"age\" : 10,\r\n  \"color\" : \"orange\",\r\n  \"vaccinated\" : false,\r\n  \"attributes\" : {\r\n    \"indoor\" : \"no\",\r\n    \"favoriteToy\" : \"mice\",\r\n    \"gender\" : \"male\",\r\n    \"weight\" : \"7kg\"\r\n  },\r\n  \"favoriteFood\" : [ \"pork\", \"chicken\", \"fish\" ],\r\n  \"mood\" : \"friendly\",\r\n  \"feedingTimes\" : [ ],\r\n  \"sleeps\" : true\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -148,7 +148,7 @@
               }
             },
             "url": {
-              "raw": "http://localhost:8080/cat-update/6fec9b02-9bc1-4016-a6ef-09478b49952c",
+              "raw": "http://localhost:8080/cat-update/8847f5fd-c1b3-4ebf-a36d-466824c2fb05",
               "protocol": "http",
               "host": [
                 "localhost"
@@ -156,7 +156,7 @@
               "port": "8080",
               "path": [
                 "cat-update",
-                "6fec9b02-9bc1-4016-a6ef-09478b49952c"
+                "8847f5fd-c1b3-4ebf-a36d-466824c2fb05"
               ]
             }
           },
@@ -167,17 +167,8 @@
           "request": {
             "method": "POST",
             "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
             "url": {
-              "raw": "http://localhost:8080/cat-delete/ff22bae2-8906-4f12-8240-43949a73b807",
+              "raw": "http://localhost:8080/cat-delete/8847f5fd-c1b3-4ebf-a36d-466824c2fb05",
               "protocol": "http",
               "host": [
                 "localhost"
@@ -185,7 +176,7 @@
               "port": "8080",
               "path": [
                 "cat-delete",
-                "ff22bae2-8906-4f12-8240-43949a73b807"
+                "8847f5fd-c1b3-4ebf-a36d-466824c2fb05"
               ]
             }
           },
