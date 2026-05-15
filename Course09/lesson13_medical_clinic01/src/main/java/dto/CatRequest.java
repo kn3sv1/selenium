@@ -1,9 +1,11 @@
 package dto;
 
 import model.CatColor;
+import model.Person;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * Unit 8. Java http server parse JSON with Jackson. Read Notion.
@@ -24,4 +26,5 @@ public class CatRequest {
     public String mood;
     public List<String> feedingTimes;
     public boolean sleeps = false;
+    public UUID ownerId = null;
 }

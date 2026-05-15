@@ -23,6 +23,8 @@ public class Cat {
     private String mood;
     private List<String> feedingTimes;
     private boolean sleeps = false;
+    private Person owner = null;
+    private UUID ownerId = null;
 
     public Cat() {
         this.attributes = new HashMap<>();
@@ -37,7 +39,8 @@ public class Cat {
             boolean vaccinated,
             Map<String, String> attributes,
             List<String> favoriteFood,
-            String mood
+            String mood,
+            UUID ownerId
     ) {
         this.id = id;
         this.name = name;
@@ -54,6 +57,7 @@ public class Cat {
 
         // initialize feedingTimes as empty list, because we will add feeding times when we feed cat, and we don't want to have null pointer exception.
         this.feedingTimes = new ArrayList<>();
+        this.ownerId = ownerId;
     }
 
     private void addFeedingTime(String time) {

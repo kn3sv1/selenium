@@ -32,7 +32,8 @@ public class CatTest {
                 true,
                 attributes,
                 favoriteFood,
-                "bite"
+                "bite",
+                null
         );
 
         // bypass final constructor and try to modify attributes and favoriteFood, but it should not affect the original object.

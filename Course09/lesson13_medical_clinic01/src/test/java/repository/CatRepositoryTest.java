@@ -34,7 +34,8 @@ public class CatRepositoryTest {
                         "chicken",
                         "whiskas"
                 ),
-                "bite"
+                "bite",
+                null
         );
 
         // add cat to repository and check that it is added correctly.
@@ -82,7 +83,8 @@ public class CatRepositoryTest {
                         "chicken",
                         "whiskas"
                 ),
-                "bite"
+                "bite",
+                null
         );
 
         // test dynamic property.
@@ -128,7 +130,8 @@ public class CatRepositoryTest {
                         "chicken",
                         "whiskas"
                 ),
-                "bite"
+                "bite",
+                null
         );
 
         repository.add(cat1);
@@ -167,7 +170,8 @@ public class CatRepositoryTest {
                         "chicken",
                         "whiskas"
                 ),
-                "bite"
+                "bite",
+                null
         );
 
         repository.add(cat1);

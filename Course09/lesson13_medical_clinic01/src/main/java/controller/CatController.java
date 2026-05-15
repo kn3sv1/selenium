@@ -62,7 +62,8 @@ public class CatController {
                     request.vaccinated,
                     request.attributes,
                     request.favoriteFood,
-                    request.mood
+                    request.mood,
+                    request.ownerId
             );
             this.repository.add(cat);
 
