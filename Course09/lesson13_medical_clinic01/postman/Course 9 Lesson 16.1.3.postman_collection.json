@@ -212,6 +212,108 @@
           "response": []
         }
       ]
+    },
+    {
+      "name": "PersonController",
+      "item": [
+        {
+          "name": "create",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"John Doe\",    \r\n  \"address\" : \"123 Main St\",\r\n  \"phoneNumber\" : 5551234\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/person-create",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "person-create"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getById",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/person-read/dc2e4eb1-dcc9-4f25-a673-7159a5ef2b7b",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "person-read",
+                "dc2e4eb1-dcc9-4f25-a673-7159a5ef2b7b"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\" : \"Michael Jordan\",\r\n  \"address\" : \"456 Elm St\",\r\n  \"phoneNumber\" : 5555678\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/person-update/bababc4e-3856-44a1-bf09-1e98f6167a4b",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "person-update",
+                "bababc4e-3856-44a1-bf09-1e98f6167a4b"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/person-delete/faacad61-272a-4ef3-bde2-ea671fbe6861",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "person-delete",
+                "faacad61-272a-4ef3-bde2-ea671fbe6861"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
     }
   ]
 }
