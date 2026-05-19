@@ -183,6 +183,23 @@ public class Router implements HttpHandler {
         }
         //-----------------END CatControlleer-----------------
 
+        //-----------------BEGIN PersonControlleer-----------------
+
+        pattern = Pattern.compile("^/person-read/([0-9a-fA-F\\-]{36})$");
+        matcher = pattern.matcher(fullPath);
+        if (matcher.matches() && method.equalsIgnoreCase("GET")) {
+           String id = matcher.group(1);
+           PersonController controller = new PersonController();
+           controller.getById(exchange, response, contentType, bodyBytes, id);
+           return;
+        }
+
+        if (path.startsWith("/person-create") && method.equalsIgnoreCase("POST")) {
+            PersonController controller = new PersonController();
+            controller.create(exchange, response, contentType, bodyBytes);
+            return;
+        }
+
 
 
         // If we do not find file or route, we can send 404 response
