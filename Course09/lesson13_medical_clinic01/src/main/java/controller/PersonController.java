@@ -120,7 +120,7 @@ public class PersonController {
             response.sendJSONGeneric(
                     exchange,
                     404,
-                    new ErrorResponse(ErrorResponse.ERROR_NOT_FOUND, "Cat not found", Map.of("id", id))
+                    new ErrorResponse(ErrorResponse.ERROR_NOT_FOUND, "Person not found", Map.of("id", id))
             );
             return;
         }
@@ -128,10 +128,10 @@ public class PersonController {
         //TODO::: we will add validation logic for the catCreateRequest fields, later.
 
         try {
-            CatRequest request = mapper.readValue(bodyBytes, CatRequest.class);
+            PersonRequest request = mapper.readValue(bodyBytes, PersonRequest.class);
             // some properties we don't want to allow to send externally.
             // we update all what we want from this JSON request object.
-            //person.update(request);
+            person.update(request);
 
             // save to disk.
             this.repository.update(person);
@@ -172,7 +172,7 @@ public class PersonController {
             response.sendJSONGeneric(
                     exchange,
                     404,
-                    new ErrorResponse(ErrorResponse.ERROR_NOT_FOUND, "Cat not found", Map.of("id", id))
+                    new ErrorResponse(ErrorResponse.ERROR_NOT_FOUND, "Person not found", Map.of("id", id))
             );
             return;
         }

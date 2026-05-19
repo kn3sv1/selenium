@@ -200,6 +200,24 @@ public class Router implements HttpHandler {
             return;
         }
 
+        pattern = Pattern.compile("^/person-update/([0-9a-fA-F\\-]{36})$");
+        matcher = pattern.matcher(fullPath);
+        if (matcher.matches() && method.equalsIgnoreCase("POST")) {
+            String id = matcher.group(1);
+            PersonController controller = new PersonController();
+            controller.update(exchange, response, contentType, bodyBytes, id);
+            return;
+        }
+
+        pattern = Pattern.compile("^/person-delete/([0-9a-fA-F\\-]{36})$");
+        matcher = pattern.matcher(fullPath);
+        if (matcher.matches() && method.equalsIgnoreCase("POST")) {
+            String id = matcher.group(1);
+            PersonController controller = new PersonController();
+            controller.delete(exchange, response, contentType, bodyBytes, id);
+            return;
+        }
+
 
 
         // If we do not find file or route, we can send 404 response

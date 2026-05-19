@@ -1,6 +1,8 @@
 package model;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import dto.PersonRequest;
+
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.*;
 import java.util.UUID;
 
@@ -52,5 +54,11 @@ public class Person {
 
     public void setPhoneNumber(int phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public void update(PersonRequest dto) {
+        this.name = dto.name;
+        this.address = dto.address;
+        this.phoneNumber = dto.phoneNumber;
     }
 }
