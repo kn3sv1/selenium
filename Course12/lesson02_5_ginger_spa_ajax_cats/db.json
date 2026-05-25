@@ -23,21 +23,25 @@
   ],
   "cats": [
     {
+      "id": "019e6057-90f0-7e02-89c2-23e09ddd6300",
       "name": "Ginger",
       "age": 6,
       "photo": "/images/cats/ginger.png"
     },
     {
+      "id": "019e6057-90f0-7e02-89c2-23e09ddd6301",
       "name": "Fluffy",
       "age": 8,
       "photo": "/images/cats/fluffy.png"
     },
     {
+      "id": "019e6057-90f0-7e02-89c2-23e09ddd6302",
       "name": "Gucci",
       "age": 14,
       "photo": "/images/cats/gucci.png"
     },
     {
+      "id": "019e6057-90f0-7e02-89c2-23e09ddd6303",
       "name": "Teady",
       "age": 13,
       "photo": "/images/cats/teddy.png"
