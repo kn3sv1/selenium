@@ -1,5 +1,5 @@
-
 import { CatController } from "./controller/CatController.js";
+import { WeatherController } from "./controller/WeatherController.js";
 
 export const Router = {
   init(selector) {
@@ -10,10 +10,8 @@ export const Router = {
   },
 
   setListener() {
-    document.addEventListener("click", e => {
-
+    document.addEventListener("click", (e) => {
       if (e.target.matches("[data-link]")) {
-
         e.preventDefault();
 
         this.navigate(e.target.href.replace(location.origin, ""));
@@ -24,7 +22,7 @@ export const Router = {
       this.render(location.pathname);
     });
   },
-  
+
   navigate(url) {
     // change browser URL
     history.pushState({}, "", url);
@@ -35,7 +33,7 @@ export const Router = {
 
   render(path) {
     const app = document.getElementById(this.selector);
-    switch(path) {
+    switch (path) {
       case "/":
         app.innerHTML = "<h1>Home Page</h1>";
         break;
@@ -49,8 +47,13 @@ export const Router = {
         break;
 
       case "/cats":
-        const controller = CatController.init(this.selector);
-        controller.showCats();
+        const controller1 = CatController.init(this.selector);
+        controller1.showCats();
+        break;
+
+      case "/weather":
+        const controller2 = WeatherController.init(this.selector);
+        controller2.showWeather();
         break;
 
       default:

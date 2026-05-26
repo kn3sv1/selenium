@@ -47,5 +47,35 @@
       "photo": "/images/cats/teddy.png"
     }
   ],
+  "weather": [
+    {
+      "id": "68e25218-050d-41ce-9f5c-faab7ff3a48b",
+      "city": "Limassol",
+      "photo": "/images/weather/rain-sun1.png",
+      "temperature": 23,
+      "isWindy": true
+    },
+    {
+      "id": "d71f4fbf-e6e8-4486-ad1f-633a14b74957",
+      "city": "Paphos",
+      "photo": "/images/weather/cloudy1.png",
+      "temperature": 19,
+      "isWindy": true
+    },
+    {
+      "id": "eaac4aed-7f22-4cae-9e03-1685d7263c0d",
+      "city": "Larnaka",
+      "photo": "/images/weather/sunny1.png",
+      "temperature": 24,
+      "isWindy": false
+    },
+    {
+      "id": "e22ec50d-ec39-4f06-870a-841075709bf5",
+      "city": "Nicosia",
+      "photo": "/images/weather/heavy-rain1.png",
+      "temperature": 20,
+      "isWindy": false
+    }
+  ],
   "$schema": "./node_modules/json-server/schema.json"
 }
